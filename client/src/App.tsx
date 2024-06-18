@@ -1,19 +1,19 @@
 function App() {
   return (
-    <section>
-      <nav className="bg-punch-100">
+    <section className="w-screen h-[98vh]">
+      <nav className="bg-white border rounded-md border-punch-500 m-1">
         <ul className="flex py-2 text-xl justify-around">
           <li>
-            <a href="/" className="text-punch-950 font-semibold hover:text-punch-600">Inicio</a>
+            <a href="/" className="text-punch-800 font-semibold hover:text-punch-600">Inicio</a>
           </li>
           <li>
-            <a href="/about" className="text-punch-950 font-semibold hover:text-punch-600">About</a>
-          </li>
-          <li>
-            <a href="/contact" className="text-punch-950 font-semibold hover:text-punch-600">Contact</a>
+            <a href="/about" className="text-punch-800 font-semibold hover:text-punch-600">About</a>
           </li>
         </ul>
       </nav>
+      <main>
+
+      </main>
     </section>
   )
 }
