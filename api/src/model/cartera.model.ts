@@ -35,3 +35,5 @@ Cartera.init({
   tableName: 'CARTERA',
   timestamps: false
 });
+
+export { Cartera }

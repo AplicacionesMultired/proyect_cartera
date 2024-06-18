@@ -1,12 +1,15 @@
+// import { conection } from './connections/cartera';
 import express from 'express';
-import { conection } from './connections/cartera';
+import { getCartera } from './controllers/cartera.controller';
+import cors from 'cors';
 
 const app = express();
 const PORT = 3000;
 
-app.get('/', (req, res) => {
-  res.send('Hello World!');
-});
+app.use(express.json());
+app.use(cors());
+
+app.get('/cartera', getCartera);
 
 app.listen(PORT, () => {
   console.log(`Server is running at http://localhost:${PORT}`);
