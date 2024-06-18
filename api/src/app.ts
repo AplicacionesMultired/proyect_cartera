@@ -12,6 +12,7 @@ app.listen(PORT, () => {
   console.log(`Server is running at http://localhost:${PORT}`);
 });
 
+/*
 async function test(){
   try {
     await conection.authenticate();
@@ -22,3 +23,4 @@ async function test(){
 }
 
 test();
+*/
