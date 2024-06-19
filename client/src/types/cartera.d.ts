@@ -1,3 +1,7 @@
+interface Seller {
+  NOMBRES: string
+}
+
 export interface CarteraI {
   EMPRESA: string
   CUENTA: string
@@ -24,4 +28,5 @@ export interface CarteraI {
   OBSERVACION2: string
   OBSERVACION3: string
   VERSION: string
+  Seller: Seller
 }

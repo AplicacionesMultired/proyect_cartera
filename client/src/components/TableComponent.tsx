@@ -1,35 +1,48 @@
-import {  Badge,  Card,  Table,  TableBody,  TableCell,  TableHead,  TableHeaderCell,  TableRow,} from '@tremor/react';
-import { RiFlag2Line } from '@remixicon/react';
+import {  /*Badge,*/  Card,  Table,  TableBody,  TableCell,  TableHead,  TableHeaderCell,  TableRow,} from '@tremor/react';
+// 
 import { CarteraI } from '../types/cartera';
+
+const formatPesoColombia = (value: number) => {
+  return new Intl.NumberFormat('es-CO', {
+    style: 'currency',
+    currency: 'COP',
+  }).format(value);
+}
 
 export function TableUsageExample({data}:{data: CarteraI[]}) {
   return (
-    <Card>
-      <h3 className="text-tremor-content-strong dark:text-dark-tremor-content-strong font-semibold">List of Swiss Federal Councillours</h3>
-      <Table className="mt-5">
+    <Card>     
+      <Table>
         <TableHead>
           <TableRow>
+            <TableHeaderCell>Empresa</TableHeaderCell>
             <TableHeaderCell>Cedula</TableHeaderCell>
             <TableHeaderCell>Nombre</TableHeaderCell>
-            <TableHeaderCell>Department</TableHeaderCell>
-            <TableHeaderCell>Status</TableHeaderCell>
+            <TableHeaderCell className=''>Saldo Ant</TableHeaderCell>
+            <TableHeaderCell className='text-center'>Débito</TableHeaderCell>
+            <TableHeaderCell className='text-center'>Crédito</TableHeaderCell>
           </TableRow>
         </TableHead>
         <TableBody>
           {data.map((item) => (
             <TableRow key={item.VINCULADO}>
+              <TableCell>{item.EMPRESA === '102' ? 'Multired' : 'Servired'}</TableCell>
               <TableCell>{item.VINCULADO}</TableCell>
-              <TableCell>
-                {item.FECHA}
+              <TableCell>{item.Seller.NOMBRES}</TableCell>
+              <TableCell className={`${item.SALDO_ANT > 0 ? 'bg-punch-200' : 'bg-green-200'}`}>
+                {formatPesoColombia(item.SALDO_ANT)}
               </TableCell>
-              <TableCell>
-                {item.SALDO_ANT}
+              <TableCell className='text-center'>
+                {formatPesoColombia(item.DEBITO)}
               </TableCell>
-              <TableCell>
+              <TableCell className='text-center'>
+                {formatPesoColombia(item.CREDITO)}
+              </TableCell>
+              {/* <TableCell>
                 <Badge color="emerald" icon={RiFlag2Line}>
                   {item.RECHAZADOS}
                 </Badge>
-              </TableCell>
+              </TableCell> */}
             </TableRow>
           ))}
         </TableBody>

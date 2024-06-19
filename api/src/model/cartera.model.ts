@@ -1,4 +1,5 @@
 import { conection } from '../connections/cartera';
+import { Sellers } from './vendedores.model'
 import { DataTypes, Model } from 'sequelize';
 
 class Cartera extends Model { }
@@ -35,5 +36,8 @@ Cartera.init({
   tableName: 'CARTERA',
   timestamps: false
 });
+
+// Definir la relación
+Cartera.belongsTo(Sellers, { foreignKey: 'VINCULADO', targetKey: 'DOCUMENTO' });
 
 export { Cartera }

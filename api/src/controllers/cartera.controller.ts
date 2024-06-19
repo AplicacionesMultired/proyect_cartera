@@ -1,6 +1,7 @@
 import { Cartera } from '../model/cartera.model';
 import { fn, where, col, Op } from 'sequelize';
 import { Request, Response } from 'express';
+import { Sellers } from '../model/vendedores.model';
 
 export const getCartera = async (req: Request, res: Response) => {
   try {
@@ -12,10 +13,15 @@ export const getCartera = async (req: Request, res: Response) => {
         FECHA: fn('CURDATE'),
         EMPRESA: 102,
         [Op.and]: where(fn('ABS', col('SALDO_ANT')), '>', 100)
-      }
+      },
+      include: [{
+        attributes: ['NOMBRES'],
+        model: Sellers,
+        required: true,
+      }]
     })
 
-    console.log(resulst.length);
+    
 
     return res.status(200).json(resulst)
   } catch (error) {
