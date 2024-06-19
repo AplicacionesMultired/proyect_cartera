@@ -11,7 +11,6 @@ export const getCartera = async (req: Request, res: Response) => {
     const resulst = await Cartera.findAll({
       where: {
         FECHA: fn('CURDATE'),
-        EMPRESA: 102,
         [Op.and]: where(fn('ABS', col('SALDO_ANT')), '>', 100)
       },
       include: [{

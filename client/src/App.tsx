@@ -1,7 +1,7 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
 import { CarteraI } from "./types/cartera"
-import { TableUsageExample } from "./components/TableComponent"
+import { TableCartera } from "./components/TableCartera"
 
 function App() {
 
@@ -14,7 +14,7 @@ function App() {
   }, [])
 
   return (
-    <section className="w-screen h-[98vh]">
+    <section className="">
       <nav className="bg-white border rounded-md border-punch-500 m-1">
         <ul className="flex py-2 text-xl justify-around">
           <li>
@@ -27,7 +27,7 @@ function App() {
       </nav>
       <main className="m-1">
         {
-          data && ( <TableUsageExample data={data}/> )
+          data && ( <TableCartera data={data} /> )
         }
       </main>
     </section>
