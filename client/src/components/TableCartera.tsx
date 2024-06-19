@@ -1,9 +1,8 @@
-import {  /*Badge,*/  Card, Select, SelectItem, Switch, Table, TableBody, TableCell, TableHead, TableHeaderCell, TableRow, TextInput } from '@tremor/react';
-// 
-import { CarteraI } from '../types/cartera';
+import { Card, Select, SelectItem, Table, TableBody, TableCell, TableHead, TableHeaderCell, TableRow, TextInput } from '@tremor/react';
 import { BottonExporCartera } from './ExportCartera';
-import { useTheme } from '../context/ThemeContext';
-import { useState } from 'react';
+import { CarteraI } from '../types/cartera';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 
 const formatPesoColombia = (value: number) => {
   return new Intl.NumberFormat('es-CO', {
@@ -12,42 +11,56 @@ const formatPesoColombia = (value: number) => {
   }).format(value);
 }
 
-export function TableCartera({ data, fun }: { data: CarteraI[], fun: (ev: string) => void }) {
-  const { darkMode, toggleTheme } = useTheme();
+export function TableCartera() {
   const [filterText, setFilterText] = useState('');
+  const [originalData, setOriginalData] = useState<CarteraI[]>([])
+  const [data, setData] = useState<CarteraI[]>([])
+
+  useEffect(() => {
+    axios.get('http://172.20.1.110:3000/cartera')
+      .then(res => {
+        // Actualiza ambos estados con los datos de la API
+        setOriginalData(res.data)
+        setData(res.data)
+      })
+      .catch(err => console.log(err))
+  }, [])
+
+  const handleChange = (ev: string) => {
+    if (ev === '0') {
+      setData(originalData)
+      return
+    }
+
+    const dataFiltrada = originalData.filter(item => item.EMPRESA === ev)
+
+    setData(dataFiltrada)
+  }
 
   const handleFilterChange = (ev: string) => {
     setFilterText(ev);
   }
 
-  const filteredData = data.filter(item => item.Seller.NOMBRES.toLowerCase().includes(filterText.toLowerCase()));
+  const filteredData = data.filter(item => {
+    return item.Seller.NOMBRES.toLowerCase().includes(filterText.toLowerCase()) || item.VINCULADO.includes(filterText);
+  });
 
 
   return (
     <>
       <Card className='flex gap-4 mb-1 justify-between' decoration="top" decorationColor="rose">
-        <Select defaultValue="0" className='w-60' onValueChange={ev => fun(ev)}>
+        <Select defaultValue="0" className='w-60' onValueChange={ev => handleChange(ev)}>
           <SelectItem value="0">Multired / Servired</SelectItem>
           <SelectItem value="102">Multired</SelectItem>
           <SelectItem value="101">Servired</SelectItem>
         </Select>
-        <TextInput placeholder='Buscar vendedor...' className='w-60' type='text' onValueChange={handleFilterChange}/>
+        <TextInput placeholder='Buscar vendedor...' className='w-60' type='text' onValueChange={handleFilterChange} />
         <p className='flex text-center items-center text-gray-600 dark:text-white'>N° Datos Mostrados:<span className='font-semibold pl-1'>{filteredData.length}</span></p>
         <BottonExporCartera datos={filteredData} />
-        <div className='flex items-center gap-2'>
-          <label className='dark:text-white'>
-            {
-              darkMode
-                ? 'Cambiar Tema Claro'
-                : 'Cambiar Tema Oscuro'
-            }
-          </label>
-          <Switch className='w-60 pt-2' onChange={toggleTheme} />
-        </div>
       </Card>
 
       <Card decoration="top" decorationColor="rose">
-        <Table className='max-h-[83vh]'>
+        <Table className='max-h-[75vh]'>
           <TableHead className='border-b-2 border-punch-300 sticky top-0 bg-white dark:bg-dark-tremor-brand-muted'>
             <TableRow>
               <TableHeaderCell>Empresa</TableHeaderCell>
