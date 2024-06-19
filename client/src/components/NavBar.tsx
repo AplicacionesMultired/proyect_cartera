@@ -16,11 +16,11 @@ const LinkComponent = ({ link, name }: { link: string, name: string }): JSX.Elem
   )
 }
 
-function NavBar(): JSX.Element {
+function NavBar (): JSX.Element {
   const { darkMode, toggleTheme } = useTheme()
 
   return (
-    <nav className='border-t-4 mb-1 border-rose-600 rounded-lg bg-white dark:bg-dark-tremor-brand-faint'>
+    <nav className='border-t-4 mb-1 border-rose-500 rounded-lg bg-white dark:bg-dark-tremor-brand-faint'>
       <ul className='flex justify-around items-center'>
 
         <figure className=''>
@@ -32,10 +32,9 @@ function NavBar(): JSX.Element {
         </div>
 
         <div className='flex flex-col items-center'>
-            <p className='dark:text-white'>{darkMode ? 'Cambiar Modo Claro' : 'Cambiar Modo Oscuro'}</p>
-            <Switch onChange={toggleTheme} />
-          </div>
-
+          <p className='dark:text-white'>{darkMode ? 'Cambiar Modo Claro' : 'Cambiar Modo Oscuro'}</p>
+          <Switch onChange={toggleTheme} />
+        </div>
 
         <Button>Cerrar Sesión</Button>
       </ul>

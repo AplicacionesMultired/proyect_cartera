@@ -2,7 +2,6 @@ import { utils, ColInfo, writeFile } from 'xlsx'
 import { CarteraI } from '../types/cartera'
 import { Button } from './ui'
 
-
 export const BottonExporCartera = ({ datos }: { datos: CarteraI[] }): JSX.Element => {
   const titulo = [{ A: 'Reporte Cartera ' }]
 
@@ -33,7 +32,7 @@ export const BottonExporCartera = ({ datos }: { datos: CarteraI[] }): JSX.Elemen
           B: it.VINCULADO,
           C: it.Seller.NOMBRES,
           D: it.BASE.toString(),
-          E: it.SALDO_ANT !== undefined ? it.SALDO_ANT.toString() : "0",
+          E: it.SALDO_ANT !== undefined ? it.SALDO_ANT.toString() : '0',
           F: it.DEBITO.toString(),
           G: it.CREDITO.toString(),
           H: (it.SALDO_ANT - it.CREDITO - it.DEBITO).toString(),
@@ -73,5 +72,5 @@ export const BottonExporCartera = ({ datos }: { datos: CarteraI[] }): JSX.Elemen
     <Button onClick={handleDownload} >
       Exportar a Excel
     </Button>
-    )
+  )
 }

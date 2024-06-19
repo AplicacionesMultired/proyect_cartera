@@ -1,18 +1,18 @@
-import { Card, Select, SelectItem, Table, TableBody, TableCell, TableHead, TableHeaderCell, TableRow, TextInput } from '@tremor/react';
-import { BottonExporCartera } from './ExportCartera';
-import { CarteraI } from '../types/cartera';
-import { useEffect, useState } from 'react';
-import axios from 'axios';
+import { Card, Select, SelectItem, Table, TableBody, TableCell, TableHead, TableHeaderCell, TableRow, TextInput } from '@tremor/react'
+import { BottonExporCartera } from './ExportCartera'
+import { CarteraI } from '../types/cartera'
+import { useEffect, useState } from 'react'
+import axios from 'axios'
 
 const formatPesoColombia = (value: number) => {
   return new Intl.NumberFormat('es-CO', {
     style: 'currency',
-    currency: 'COP',
-  }).format(value);
+    currency: 'COP'
+  }).format(value)
 }
 
-export function TableCartera() {
-  const [filterText, setFilterText] = useState('');
+export function TableCartera () {
+  const [filterText, setFilterText] = useState('')
   const [originalData, setOriginalData] = useState<CarteraI[]>([])
   const [data, setData] = useState<CarteraI[]>([])
 
@@ -38,13 +38,12 @@ export function TableCartera() {
   }
 
   const handleFilterChange = (ev: string) => {
-    setFilterText(ev);
+    setFilterText(ev)
   }
 
   const filteredData = data.filter(item => {
-    return item.Seller.NOMBRES.toLowerCase().includes(filterText.toLowerCase()) || item.VINCULADO.includes(filterText);
-  });
-
+    return item.Seller.NOMBRES.toLowerCase().includes(filterText.toLowerCase()) || item.VINCULADO.includes(filterText)
+  })
 
   return (
     <>
@@ -117,5 +116,5 @@ export function TableCartera() {
         </Table>
       </Card>
     </>
-  );
+  )
 }

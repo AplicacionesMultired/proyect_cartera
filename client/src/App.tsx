@@ -1,7 +1,7 @@
-import NavBar from "./components/NavBar"
-import { TableCartera } from "./components/TableCartera"
+import { TableCartera } from './components/TableCartera'
+import NavBar from './components/NavBar'
 
-function App() {
+function App () {
   return (
     <section className="m-1">
       <NavBar />

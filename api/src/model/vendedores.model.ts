@@ -1,5 +1,5 @@
-import { conection } from '../connections/cartera';
-import { DataTypes, Model } from "sequelize";
+import { conection } from '../connections/cartera'
+import { DataTypes, Model } from 'sequelize'
 
 class Sellers extends Model { }
 
@@ -14,6 +14,6 @@ Sellers.init({
     modelName: 'Seller',
     tableName: 'VENDEDORES',
     timestamps: false
-});
+})
 
 export { Sellers }
