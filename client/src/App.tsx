@@ -25,7 +25,7 @@ function App() {
       setData(originalData)
       return
     }
-    
+
     const dataFiltrada = originalData.filter(item => item.EMPRESA === ev)
     // Actualiza el estado de los datos filtrados
     setData(dataFiltrada)
@@ -33,7 +33,7 @@ function App() {
 
   return (
     <section className="">
-      <nav className="bg-white border rounded-md border-punch-500 m-1">
+      {/* <nav className="bg-white border rounded-md border-punch-500 m-1">
         <ul className="flex py-2 text-xl justify-around">
           <li>
             <a href="/" className="text-punch-800 font-semibold hover:text-punch-600">Inicio</a>
@@ -42,7 +42,7 @@ function App() {
             <a href="/about" className="text-punch-800 font-semibold hover:text-punch-600">About</a>
           </li>
         </ul>
-      </nav>
+      </nav> */}
       <main className="m-1">
         {
           data && ( <TableCartera data={data} fun={handleChange}/> )

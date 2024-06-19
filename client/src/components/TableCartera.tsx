@@ -1,6 +1,7 @@
 import {  /*Badge,*/  Card, Select, SelectItem, Table, TableBody, TableCell, TableHead, TableHeaderCell, TableRow, TextInput } from '@tremor/react';
 // 
 import { CarteraI } from '../types/cartera';
+import { BottonExporCartera } from './ExportCartera';
 
 const formatPesoColombia = (value: number) => {
   return new Intl.NumberFormat('es-CO', {
@@ -20,10 +21,11 @@ export function TableCartera({ data, fun }: { data: CarteraI[], fun: (ev: string
         </Select>
         <TextInput placeholder='Buscar vendedor...' className='w-60' />
         <p className='flex text-center items-center text-gray-600'>N° Datos Mostrados: { data.length }</p>
+        <BottonExporCartera datos={data} />
       </Card>
 
       <Card>
-        <Table className='max-h-[75vh]'>
+        <Table className='max-h-[84vh]'>
           <TableHead className='border-b-2 border-punch-300 sticky top-0 bg-white dark:bg-dark-tremor-brand-muted'>
             <TableRow>
               <TableHeaderCell>Empresa</TableHeaderCell>
