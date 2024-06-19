@@ -9,16 +9,17 @@ const formatPesoColombia = (value: number) => {
   }).format(value);
 }
 
-export function TableCartera({ data }: { data: CarteraI[] }) {
+export function TableCartera({ data, fun }: { data: CarteraI[], fun: (ev: string) => void }) {
   return (
     <>
       <Card className='flex gap-4 mb-1'>
-      <Select defaultValue="0" className='w-60' onValueChange={ev => console.log(ev)}>
+        <Select defaultValue="0" className='w-60' onValueChange={ev => fun(ev)}>
           <SelectItem value="0">Multired / Servired</SelectItem>
-          <SelectItem value="101">Multired</SelectItem>
-          <SelectItem value="102">Servired</SelectItem>
+          <SelectItem value="102">Multired</SelectItem>
+          <SelectItem value="101">Servired</SelectItem>
         </Select>
-        <TextInput placeholder='Buscar vendedor...'  className='w-60'/>
+        <TextInput placeholder='Buscar vendedor...' className='w-60' />
+        <p className='flex text-center items-center text-gray-600'>N° Datos Mostrados: { data.length }</p>
       </Card>
 
       <Card>
