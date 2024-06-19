@@ -15,6 +15,8 @@ export const getCartera = async (req: Request, res: Response) => {
       }
     })
 
+    console.log(resulst.length);
+
     return res.status(200).json(resulst)
   } catch (error) {
     console.log(error);

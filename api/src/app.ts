@@ -1,10 +1,11 @@
 // import { conection } from './connections/cartera';
-import express from 'express';
 import { getCartera } from './controllers/cartera.controller';
+import express from 'express';
 import cors from 'cors';
+import 'dotenv/config';
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 4040;
 
 app.use(express.json());
 app.use(cors());
