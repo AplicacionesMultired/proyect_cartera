@@ -1,5 +1,5 @@
-import { CarteraI } from '../types/cartera'
 import { utils, ColInfo, writeFile } from 'xlsx'
+import { CarteraI } from '../types/cartera'
 
 
 export const BottonExporCartera = ({ datos }: { datos: CarteraI[] }): JSX.Element => {
@@ -64,12 +64,13 @@ export const BottonExporCartera = ({ datos }: { datos: CarteraI[] }): JSX.Elemen
     })
 
     hoja['!cols'] = simpiedades
-    utils.book_append_sheet(libro, hoja, 'Items')
-    writeFile(libro, 'ReporteItems.xlsx')
+    utils.book_append_sheet(libro, hoja, 'Cartera')
+    writeFile(libro, 'ReporteCartera.xlsx')
   }
 
   return (
-    <button onClick={handleDownload}>
+    <button onClick={handleDownload} className='text-white rounded-md px-2 bg-gradient-to-b from-punch-700 to-punch-800 hover:bg-gradient-to-b
+      hover:from-punch-500 hover:to-punch-600 transition-all ease-in-out'>
       Exportar a Excel
     </button>)
 }
