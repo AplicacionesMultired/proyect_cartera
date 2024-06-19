@@ -33,19 +33,9 @@ function App() {
 
   return (
     <section className="">
-      {/* <nav className="bg-white border rounded-md border-punch-500 m-1">
-        <ul className="flex py-2 text-xl justify-around">
-          <li>
-            <a href="/" className="text-punch-800 font-semibold hover:text-punch-600">Inicio</a>
-          </li>
-          <li>
-            <a href="/about" className="text-punch-800 font-semibold hover:text-punch-600">About</a>
-          </li>
-        </ul>
-      </nav> */}
       <main className="m-1">
         {
-          data && ( <TableCartera data={data} fun={handleChange}/> )
+          data && ( <TableCartera data={data} fun={handleChange} /> )
         }
       </main>
     </section>

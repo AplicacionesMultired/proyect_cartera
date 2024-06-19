@@ -3,6 +3,7 @@ import {  /*Badge,*/  Card, Select, SelectItem, Switch, Table, TableBody, TableC
 import { CarteraI } from '../types/cartera';
 import { BottonExporCartera } from './ExportCartera';
 import { useTheme } from '../context/ThemeContext';
+import { useState } from 'react';
 
 const formatPesoColombia = (value: number) => {
   return new Intl.NumberFormat('es-CO', {
@@ -13,6 +14,14 @@ const formatPesoColombia = (value: number) => {
 
 export function TableCartera({ data, fun }: { data: CarteraI[], fun: (ev: string) => void }) {
   const { darkMode, toggleTheme } = useTheme();
+  const [filterText, setFilterText] = useState('');
+
+  const handleFilterChange = (ev: string) => {
+    setFilterText(ev);
+  }
+
+  const filteredData = data.filter(item => item.Seller.NOMBRES.toLowerCase().includes(filterText.toLowerCase()));
+
 
   return (
     <>
@@ -22,15 +31,16 @@ export function TableCartera({ data, fun }: { data: CarteraI[], fun: (ev: string
           <SelectItem value="102">Multired</SelectItem>
           <SelectItem value="101">Servired</SelectItem>
         </Select>
-        <TextInput placeholder='Buscar vendedor...' className='w-60'/>
-        <p className='flex text-center items-center text-gray-600 dark:text-white'>N° Datos Mostrados: {data.length}</p>
-        <BottonExporCartera datos={data} />
+        <TextInput placeholder='Buscar vendedor...' className='w-60' type='text' onValueChange={handleFilterChange}/>
+        <p className='flex text-center items-center text-gray-600 dark:text-white'>N° Datos Mostrados:<span className='font-semibold pl-1'>{filteredData.length}</span></p>
+        <BottonExporCartera datos={filteredData} />
         <div className='flex items-center gap-2'>
-          <label className='dark:text-white'>{
-            darkMode
-              ? 'Cambiar Tema Claro'
-              : 'Cambiar Tema Oscuro'
-          }
+          <label className='dark:text-white'>
+            {
+              darkMode
+                ? 'Cambiar Tema Claro'
+                : 'Cambiar Tema Oscuro'
+            }
           </label>
           <Switch className='w-60 pt-2' onChange={toggleTheme} />
         </div>
@@ -41,7 +51,7 @@ export function TableCartera({ data, fun }: { data: CarteraI[], fun: (ev: string
           <TableHead className='border-b-2 border-punch-300 sticky top-0 bg-white dark:bg-dark-tremor-brand-muted'>
             <TableRow>
               <TableHeaderCell>Empresa</TableHeaderCell>
-              <TableHeaderCell>Cedula</TableHeaderCell>
+              <TableHeaderCell>N° Cédula</TableHeaderCell>
               <TableHeaderCell>Nombre</TableHeaderCell>
               <TableHeaderCell>Base</TableHeaderCell>
               <TableHeaderCell className=''>Saldo Ant</TableHeaderCell>
@@ -55,7 +65,7 @@ export function TableCartera({ data, fun }: { data: CarteraI[], fun: (ev: string
             </TableRow>
           </TableHead>
           <TableBody>
-            {data.map((item) => (
+            {filteredData.map((item) => (
               <TableRow key={item.VINCULADO}>
                 <TableCell>{item.EMPRESA === '102' ? 'Multired' : 'Servired'}</TableCell>
                 <TableCell>{item.VINCULADO}</TableCell>
