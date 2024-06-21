@@ -12,7 +12,7 @@ const Links = [
 const LinkComponent = ({ link, name }: { link: string, name: string }): JSX.Element => {
   return (
     <li>
-      <NavLink to={`${link}`} className='text-gray-800 font-medium hover:text-rose-500 lg:text-xl dark:text-white'>{name}</NavLink>
+      <NavLink to={`${link}`} className='text-gray-800 font-medium hover:text-rose-100 lg:text-xl dark:text-white'>{name}</NavLink>
     </li>
   )
 }

@@ -29,7 +29,7 @@ export const AuthProvider = ({ children }: Props): JSX.Element => {
 
   useEffect(() => {
     // TODO: Verifica El token si existe en el local storage
-    const token = localStorage.getItem('token')
+    const token = localStorage.getItem('cartera')
     if (token !== null) {
       void autentificaToken({ token }) // * ESTA FUNCION PIDE LA API VALIDAR EL TOKEN
         .then(res => {
@@ -55,7 +55,7 @@ export const AuthProvider = ({ children }: Props): JSX.Element => {
   const logout = (): void => {
     setIsAuthenticated(false)
     navigate('/') // * Redirige a la ruta '/' al cerrar sesión
-    localStorage.removeItem('token') // * Elimina el token del local storage al cerrar sesión cuando expira el token ó se cierra la sesión
+    localStorage.removeItem('cartera') // * Elimina el token del local storage al cerrar sesión cuando expira el token ó se cierra la sesión
   }
 
   return (

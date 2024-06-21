@@ -28,7 +28,7 @@ export function useLogin (): UseLoginReturn {
           login()
           // TODO: Montamos al local storage el token de la response, tener en cuenta el el nombre 'token'
           const token: string = res.data.token
-          localStorage.setItem('token', token) // * <==============
+          localStorage.setItem('cartera', token) // * <==============
         }
       })
       .catch(error => {
