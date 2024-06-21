@@ -1,4 +1,5 @@
 import { useTheme } from '../context/ThemeContext'
+import { useAuth } from '../auth/AuthProvider'
 import { NavLink } from 'react-router-dom'
 import { Switch } from '@tremor/react'
 import { Button } from './ui'
@@ -18,6 +19,7 @@ const LinkComponent = ({ link, name }: { link: string, name: string }): JSX.Elem
 
 function NavBar (): JSX.Element {
   const { darkMode, toggleTheme } = useTheme()
+  const { logout } = useAuth()
 
   return (
     <>
@@ -35,7 +37,7 @@ function NavBar (): JSX.Element {
           <Switch onChange={toggleTheme} />
         </div>
 
-        <Button>Cerrar Sesión</Button>
+        <Button onClick={logout}>Cerrar Sesión</Button>
       </ul>
     </>
   )
