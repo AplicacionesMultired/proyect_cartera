@@ -29,7 +29,8 @@ Cartera.init({
   OBSERVACION1: { type: DataTypes.STRING, allowNull: true },
   OBSERVACION2: { type: DataTypes.STRING, allowNull: true },
   OBSERVACION3: { type: DataTypes.STRING, allowNull: true },
-  VERSION: { type: DataTypes.STRING, allowNull: true }
+  VERSION: { type: DataTypes.STRING, allowNull: true },
+  PENDIENTES_CONT: { type: DataTypes.INTEGER, allowNull: true }
 }, {
   sequelize: conection,
   modelName: 'Cartera',

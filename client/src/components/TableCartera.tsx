@@ -17,15 +17,23 @@ export function TableCartera () {
   const [data, setData] = useState<CarteraI[]>([])
 
   useEffect(() => {
-    axios.get('http://172.20.1.110:3000/cartera')
-      .then(res => {
-        // Actualiza ambos estados con los datos de la API
-        setOriginalData(res.data)
-        setData(res.data)
-      })
-      .catch(err => console.log(err))
-  }, [])
+    const fetchData = () => {
+      axios.get('http://172.20.1.110:3000/cartera')
+        .then(res => {
+          // Actualiza ambos estados con los datos de la API
+          setOriginalData(res.data)
+          setData(res.data)
+        })
+        .catch(err => console.log(err))
+    }
 
+    // Llama a fetchData inmediatamente y luego cada 15 minutos
+    fetchData()
+    const interval = setInterval(fetchData, 15 * 60 * 1000)
+
+    // Limpieza al desmontar el componente
+    return () => clearInterval(interval)
+  }, [])
   const handleChange = (ev: string) => {
     if (ev === '0') {
       setData(originalData)
@@ -73,6 +81,7 @@ export function TableCartera () {
               <TableHeaderCell className='text-center'>Cartera</TableHeaderCell>
               <TableHeaderCell className='text-center'>Rechazados</TableHeaderCell>
               <TableHeaderCell className='text-center'>Aceptados</TableHeaderCell>
+              <TableHeaderCell className='text-center'>Pendiente Conteo</TableHeaderCell>
               <TableHeaderCell className='text-center'>Digitados</TableHeaderCell>
             </TableRow>
           </TableHead>
@@ -105,6 +114,9 @@ export function TableCartera () {
                 </TableCell>
                 <TableCell className='text-center font-semibold text-black dark:text-gray-300'>
                   {item.ACEPTADOS}
+                </TableCell>
+                <TableCell className='text-center font-semibold text-black dark:text-gray-300'>
+                  {item.PENDIENTES_CONT}
                 </TableCell>
                 <TableCell className='text-center font-semibold text-black dark:text-gray-300'>
                   {item.DIGITADOS}

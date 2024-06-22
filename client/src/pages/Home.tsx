@@ -1,7 +1,7 @@
-import { TableCartera } from "../components/TableCartera"
+import { TableCartera } from '../components/TableCartera'
 
 export const Home = () => {
-  return(
+  return (
     <TableCartera />
   )
 }

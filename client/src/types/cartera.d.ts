@@ -28,5 +28,6 @@ export interface CarteraI {
   OBSERVACION2: string
   OBSERVACION3: string
   VERSION: string
+  PENDIENTES_CONT: number
   Seller: Seller
 }
