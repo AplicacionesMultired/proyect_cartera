@@ -25,7 +25,7 @@ function NavBar (): JSX.Element {
     <>
       <ul className='flex justify-around items-center'>
         <figure className=''>
-          <img src="/gane.webp" alt="logo de gane" className='w-24 py-2 lg:w-20 xl:w-24 2xl:w-28 ' />
+          <img src="/gane.webp" alt="logo de gane" className='w-20 py-2 lg:w-22 ' />
         </figure>
 
         <div className='flex gap-4'>

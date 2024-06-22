@@ -53,9 +53,17 @@ export function TableCartera () {
     return item.Seller.NOMBRES.toLowerCase().includes(filterText.toLowerCase()) || item.VINCULADO.includes(filterText)
   })
 
+  const fecha = new Intl.DateTimeFormat('es-ES', {
+    year: 'numeric', month: 'long', day: 'numeric', weekday: 'long'
+  }).format(new Date())
+
   return (
     <>
-      <Card className='flex gap-4 mb-1 justify-between' decoration="top" decorationColor="rose">
+      <Card className='flex gap-4 mb-1 justify-between text-xs py-2' decoration="top" decorationColor="rose">
+        <div>
+          <p className='text-center'>Fecha:</p>
+          <p className='font-semibold'>{ fecha }</p>
+        </div>
         <Select defaultValue="0" className='w-60' onValueChange={ev => handleChange(ev)}>
           <SelectItem value="0">Multired / Servired</SelectItem>
           <SelectItem value="102">Multired</SelectItem>
@@ -66,10 +74,10 @@ export function TableCartera () {
         <BottonExporCartera datos={filteredData} />
       </Card>
 
-      <Card decoration="top" decorationColor="rose">
-        <Table className='max-h-[75vh]'>
+      <Card decoration="top" decorationColor="rose" className='p-2'>
+        <Table className='max-h-[70vh]'>
           <TableHead className='border-b-2 border-punch-300 sticky top-0 bg-white dark:bg-dark-tremor-brand-muted'>
-            <TableRow>
+            <TableRow className='text-xs'>
               <TableHeaderCell>Empresa</TableHeaderCell>
               <TableHeaderCell>N° Cédula</TableHeaderCell>
               <TableHeaderCell>Nombre</TableHeaderCell>
@@ -83,9 +91,12 @@ export function TableCartera () {
               <TableHeaderCell className='text-center'>Aceptados</TableHeaderCell>
               <TableHeaderCell className='text-center'>Pendiente Conteo</TableHeaderCell>
               <TableHeaderCell className='text-center'>Digitados</TableHeaderCell>
+              <TableHeaderCell className='text-center'>Venta Bnet</TableHeaderCell>
+              <TableHeaderCell className='text-center'>Cuadre Web</TableHeaderCell>
+              <TableHeaderCell className='text-center'>Anulados</TableHeaderCell>
             </TableRow>
           </TableHead>
-          <TableBody>
+          <TableBody className='text-xs'>
             {filteredData.map((item) => (
               <TableRow key={item.VINCULADO}>
                 <TableCell>{item.EMPRESA === '102' ? 'Multired' : 'Servired'}</TableCell>
@@ -121,7 +132,15 @@ export function TableCartera () {
                 <TableCell className='text-center font-semibold text-black dark:text-gray-300'>
                   {item.DIGITADOS}
                 </TableCell>
-
+                <TableCell className='text-center font-semibold text-black dark:text-gray-300'>
+                  {item.VTABNET}
+                </TableCell>
+                <TableCell className='text-center font-semibold text-black dark:text-gray-300'>
+                  {item.VTASIISS}
+                </TableCell>
+                <TableCell className='text-center font-semibold text-black dark:text-gray-300'>
+                  {item.VTA_S1}
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>
