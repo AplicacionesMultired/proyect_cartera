@@ -75,7 +75,7 @@ export function TableCartera () {
       </Card>
 
       <Card decoration="top" decorationColor="rose" className='p-2'>
-        <Table className='max-h-[70vh]'>
+        <Table className='max-h-[84vh]'>
           <TableHead className='border-b-2 border-punch-300 sticky top-0 bg-white dark:bg-dark-tremor-brand-muted'>
             <TableRow className='text-xs'>
               <TableHeaderCell>Empresa</TableHeaderCell>
@@ -121,25 +121,25 @@ export function TableCartera () {
                   {formatPesoColombia(+item.SALDO_ANT - item.BASE - item.DEBITO - item.CREDITO)}
                 </TableCell>
                 <TableCell className='text-center font-semibold text-black dark:text-gray-300'>
-                  {item.RECHAZADOS}
+                  {formatPesoColombia(item.RECHAZADOS)}
                 </TableCell>
                 <TableCell className='text-center font-semibold text-black dark:text-gray-300'>
-                  {item.ACEPTADOS}
+                  {formatPesoColombia(item.ACEPTADOS)}
                 </TableCell>
                 <TableCell className='text-center font-semibold text-black dark:text-gray-300'>
-                  {item.PENDIENTES_CONT}
+                  {formatPesoColombia(item.PENDIENTES_CONT)}
                 </TableCell>
                 <TableCell className='text-center font-semibold text-black dark:text-gray-300'>
-                  {item.DIGITADOS}
+                  {formatPesoColombia(item.DIGITADOS)}
                 </TableCell>
                 <TableCell className='text-center font-semibold text-black dark:text-gray-300'>
-                  {item.VTABNET}
+                  {formatPesoColombia(item.VTABNET)}
                 </TableCell>
                 <TableCell className='text-center font-semibold text-black dark:text-gray-300'>
-                  {item.VTASIISS}
+                  {formatPesoColombia(item.VTASIISS)}
                 </TableCell>
                 <TableCell className='text-center font-semibold text-black dark:text-gray-300'>
-                  {item.VTA_S1}
+                  {formatPesoColombia(item.VTA_S1)}
                 </TableCell>
               </TableRow>
             ))}

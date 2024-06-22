@@ -1,7 +1,7 @@
+import { ProtectedRoute } from './components/ProtectedRoutes'
 import { Route, Routes } from 'react-router-dom'
 import { useAuth } from './auth/AuthProvider'
 import LoginPage from './pages/Login'
-import { ProtectedRoute } from './components/ProtectedRoutes'
 import { Home } from './pages/Home'
 
 export function App (): JSX.Element {
