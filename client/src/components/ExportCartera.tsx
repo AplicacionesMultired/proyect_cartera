@@ -21,7 +21,11 @@ export const BottonExporCartera = ({ datos }: { datos: CarteraI[] }): JSX.Elemen
         I: 'CARTERA',
         J: 'RECHAZADOS',
         K: 'ACEPTADOS',
-        L: 'DIGITADOS'
+        L: 'P CONTEO',
+        M: 'DIGITADOS',
+        N: 'VENTA BNET',
+        O: 'CUADRE WEB',
+        P: 'ANULADOS'
       }
     ]
 
@@ -39,7 +43,12 @@ export const BottonExporCartera = ({ datos }: { datos: CarteraI[] }): JSX.Elemen
           I: (+it.SALDO_ANT - it.BASE - it.DEBITO - it.CREDITO).toString(),
           J: it.RECHAZADOS.toString(),
           K: it.ACEPTADOS.toString(),
-          L: it.DIGITADOS.toString()
+          L: it.PENDIENTES_CONT.toString(),
+          M: it.DIGITADOS.toString(),
+          N: it.VTABNET.toString(),
+          O: it.VTASIISS.toString(),
+          P: it.VTA_S1.toString()
+
         }
       )
     })
