@@ -25,7 +25,7 @@ export function TableCartera () {
 
   useEffect(() => {
     const fetchData = () => {
-      axios.get(`http://172.20.1.110:3000/${active ? 'cartera' : 'carteraSinABS'}`)
+      axios.get(`http://172.20.1.70:3030/${active ? 'cartera' : 'carteraSinABS'}`)
         .then(res => {
           // Actualiza ambos estados con los datos de la API
           setOriginalData(res.data)
