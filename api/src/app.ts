@@ -1,4 +1,4 @@
-import { getCartera } from './controllers/cartera.controller'
+import { getCartera, getCarteraSinABS } from './controllers/cartera.controller'
 import express from 'express'
 import cors from 'cors'
 import 'dotenv/config'
@@ -10,6 +10,8 @@ app.use(express.json())
 app.use(cors())
 
 app.get('/cartera', getCartera)
+
+app.get('/carteraSinABS', getCarteraSinABS)
 
 app.listen(PORT, () => {
   console.log(`Server is running at http://localhost:${PORT}`)
