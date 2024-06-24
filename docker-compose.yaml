@@ -1,0 +1,23 @@
+version: '3.7'
+
+services:
+  web:
+    image: nginx:mainline-alpine3.18-perl
+    ports:
+      - "8081:80"
+    volumes:
+      - ./config:/etc/nginx/conf.d
+      - ./client/dist:/usr/share/nginx/html
+    environment:
+      - TZ=America/Bogota
+
+  api:
+    image: node:latest
+    working_dir: /app
+    volumes:
+      - ./api:/app
+    ports:
+      - "3030:3030"
+    command: yarn start
+    environment:
+      - TZ=America/Bogota
