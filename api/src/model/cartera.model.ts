@@ -1,4 +1,5 @@
 import { conection } from '../connections/cartera'
+import { Bases } from './bases.model';
 import { Sellers } from './vendedores.model'
 import { DataTypes, Model } from 'sequelize'
 
@@ -39,6 +40,11 @@ Cartera.init({
 });
 
 // Definir la relación
+// TODO: Relación entre CARTERA Y VENDEDORES (POWERBI)
 Cartera.belongsTo(Sellers, { foreignKey: 'VINCULADO', targetKey: 'DOCUMENTO' });
+
+// TODO: 
+Cartera.belongsTo(Bases, { foreignKey: 'VINCUALDO', targetKey: 'VINCULADO' })
+
 
 export { Cartera }
