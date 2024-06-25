@@ -7,7 +7,7 @@ import { Bases } from '../model/bases.model'
 import { Aud_Bases } from '../model/aud_bases.model'
 
 
-// TODO: unificar la query y hacer llegar por parametro el fitrl ABS (>100 <0>)
+// !! unificar la query y hacer llegar por parametro el fitrl ABS (>100 <0>)
 export const getCartera = async (_req: Request, res: Response) => {
   try {
     await Cartera.sync() // SINCRONIZA LA TABLE CON EL MODEL VERIFICAR QUE LOS CAMPON EN MODEL EXISTAN 
@@ -69,25 +69,6 @@ export const getCarteraSinABS = async (_req: Request, res: Response) => {
     console.log(resulst.length);
     
     return res.status(200).json({fechaConsulta, datos: resulst})
-  } catch (error) {
-    console.log(error);
-    return res.status(500).json(error)
-  }
-}
-
-export const detailBase = async (req: Request, res: Response) => {
-  const { id } = req.params
-
-  try {
-    await Aud_Bases.sync()
-
-    const result = await Aud_Bases.findAll({
-      where: {
-        VINCULADO: id,
-      }
-    })
-
-    return res.status(200).json(result)
   } catch (error) {
     console.log(error);
     return res.status(500).json(error)

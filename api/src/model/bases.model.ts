@@ -1,5 +1,6 @@
 import { conection } from '../connections/cartera'
 import { DataTypes, Model } from "sequelize";
+import { Sellers } from './vendedores.model';
 
 class Bases extends Model {}
 
@@ -18,5 +19,7 @@ Bases.init({
   tableName: 'BASES',
   timestamps: false
 });
+
+Bases.belongsTo(Sellers, { foreignKey: 'VINCULADO', targetKey: 'DOCUMENTO' });
 
 export { Bases }
