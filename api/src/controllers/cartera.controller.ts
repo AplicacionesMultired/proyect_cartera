@@ -6,9 +6,11 @@ import { Request, Response } from 'express'
 import { Bases } from '../model/bases.model'
 import { Aud_Bases } from '../model/aud_bases.model'
 
+
+// TODO: unificar la query y hacer llegar por parametro el fitrl ABS (>100 <0>)
 export const getCartera = async (_req: Request, res: Response) => {
   try {
-    await Cartera.sync()
+    await Cartera.sync() // SINCRONIZA LA TABLE CON EL MODEL VERIFICAR QUE LOS CAMPON EN MODEL EXISTAN 
 
     const resulst = await Cartera.findAll({
       where: {
@@ -22,11 +24,12 @@ export const getCartera = async (_req: Request, res: Response) => {
           required: true,
         },
         {
-          attributes: ['BASE'],
+          attributes: ['BASE', 'RASPE'],
           model: Bases,
           required: false,
         }
-      ]
+      ],
+      // limit: 5
     })
 
     const fechaConsulta = await conection.query('select curdate() from dual')
@@ -54,11 +57,12 @@ export const getCarteraSinABS = async (_req: Request, res: Response) => {
           required: true,
         },
         {
-          attributes: ['BASE'],
+          attributes: ['BASE', 'RASPE'],
           model: Bases,
           required: false,
         }
       ],
+      // limit: 5
     })
 
     const fechaConsulta = conection.query('select curdate() from dual;')
@@ -77,7 +81,7 @@ export const detailBase = async (req: Request, res: Response) => {
   try {
     await Aud_Bases.sync()
 
-    const result = await Aud_Bases.findOne({
+    const result = await Aud_Bases.findAll({
       where: {
         VINCULADO: id,
       }

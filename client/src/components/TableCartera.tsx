@@ -3,6 +3,7 @@ import { BottonExporCartera } from './ExportCartera'
 import { CarteraI } from '../types/cartera'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
+import { Link } from 'react-router-dom'
 
 const formatPesoColombia = (value: number) => {
   return new Intl.NumberFormat('es-CO', {
@@ -66,6 +67,11 @@ export function TableCartera () {
     year: 'numeric', month: 'long', day: 'numeric', weekday: 'long'
   }).format(new Date())
 
+  function calculateBalance (item: CarteraI) {
+    const base = item.Basis?.BASE || 0
+    return +item.SALDO_ANT - base - item.DEBITO - item.CREDITO
+  }
+
   return (
     filteredData && (
       <>
@@ -95,7 +101,7 @@ export function TableCartera () {
                 <TableHeaderCell>Empresa</TableHeaderCell>
                 <TableHeaderCell>N° Cédula</TableHeaderCell>
                 <TableHeaderCell>Nombre</TableHeaderCell>
-                <TableHeaderCell>Base</TableHeaderCell>
+                <TableHeaderCell className='text-center'>Base</TableHeaderCell>
                 <TableHeaderCell className=''>Saldo Ant</TableHeaderCell>
                 <TableHeaderCell className='text-center'>Débito</TableHeaderCell>
                 <TableHeaderCell className='text-center'>Crédito</TableHeaderCell>
@@ -116,7 +122,17 @@ export function TableCartera () {
                   <TableCell>{item.EMPRESA === '102' ? 'Multired' : 'Servired'}</TableCell>
                   <TableCell>{item.VINCULADO}</TableCell>
                   <TableCell>{item.Seller.NOMBRES}</TableCell>
-                  <TableCell>{item.Basis?.BASE !== undefined ? formatPesoColombia(item.Basis.BASE) : '0'}</TableCell>
+                  {
+                    item.Basis?.BASE !== undefined && item.Basis.BASE > 100
+                      ? (
+                        <Link className='' to={`/baseDetalle/${item.VINCULADO}`}>
+                          <TableCell className='hover:cursor-pointer hover:text-blue-600 hover:font-semibold hover:transition-all hover:bg-yellow-200'>
+                            {item.Basis?.BASE !== undefined ? formatPesoColombia(item.Basis.BASE) : '0'}
+                          </TableCell>
+                        </Link>
+                        )
+                      : <TableCell className='text-center'>0</TableCell>
+                  }
                   <TableCell className={`${item.SALDO_ANT > 0
                     ? 'bg-punch-200 dark:bg-punch-950 font-medium text-gray-800 dark:text-gray-300'
                     : 'bg-green-200 dark:bg-green-950 font-medium text-gray-800 dark:text-gray-300'}`}>
@@ -128,11 +144,11 @@ export function TableCartera () {
                   <TableCell className='text-center'>
                     {formatPesoColombia(item.CREDITO)}
                   </TableCell>
-                  <TableCell className='text-center'>
+                  <TableCell className='text-center' id='nuevo saldo'>
                     {formatPesoColombia(item.SALDO_ANT - item.CREDITO - item.DEBITO)}
                   </TableCell>
-                  <TableCell className='text-center font-semibold text-black dark:text-gray-300'>
-                    {formatPesoColombia(+item.SALDO_ANT - item.BASE - item.DEBITO - item.CREDITO)}
+                  <TableCell className='text-center font-semibold text-black dark:text-gray-300' id='cartera'>
+                    {formatPesoColombia(calculateBalance(item))}
                   </TableCell>
                   <TableCell className='text-center font-semibold text-black dark:text-gray-300'>
                     {formatPesoColombia(item.RECHAZADOS)}
