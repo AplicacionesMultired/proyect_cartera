@@ -2,6 +2,10 @@ interface Seller {
   NOMBRES: string
 }
 
+interface Basis {
+  BASE: number
+}
+
 export interface CarteraI {
   EMPRESA: string
   CUENTA: string
@@ -30,4 +34,5 @@ export interface CarteraI {
   VERSION: string
   PENDIENTES_CONT: number
   Seller: Seller
+  Basis: Basis
 }

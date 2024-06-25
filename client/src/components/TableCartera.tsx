@@ -116,7 +116,7 @@ export function TableCartera () {
                   <TableCell>{item.EMPRESA === '102' ? 'Multired' : 'Servired'}</TableCell>
                   <TableCell>{item.VINCULADO}</TableCell>
                   <TableCell>{item.Seller.NOMBRES}</TableCell>
-                  <TableCell>{item.BASE}</TableCell>
+                  <TableCell>{item.Basis?.BASE !== undefined ? formatPesoColombia(item.Basis.BASE) : '0'}</TableCell>
                   <TableCell className={`${item.SALDO_ANT > 0
                     ? 'bg-punch-200 dark:bg-punch-950 font-medium text-gray-800 dark:text-gray-300'
                     : 'bg-green-200 dark:bg-green-950 font-medium text-gray-800 dark:text-gray-300'}`}>

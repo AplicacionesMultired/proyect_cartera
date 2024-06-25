@@ -25,8 +25,7 @@ export const getCartera = async (_req: Request, res: Response) => {
           model: Bases,
           required: false,
         }
-      ],
-      limit:10
+      ]
     })
 
     const fechaConsulta = await conection.query('select curdate() from dual')
@@ -47,11 +46,18 @@ export const getCarteraSinABS = async (_req: Request, res: Response) => {
         FECHA: fn('CURDATE'),
         [Op.and]: where(fn('ABS', col('SALDO_ANT')), '<>', 0),
       },
-      include: [{
-        attributes: ['NOMBRES'],
-        model: Sellers,
-        required: true,
-      }]
+      include: [
+        {
+          attributes: ['NOMBRES'],
+          model: Sellers,
+          required: true,
+        },
+        {
+          attributes: ['BASE'],
+          model: Bases,
+          required: false,
+        }
+      ],
     })
 
     const fechaConsulta = conection.query('select curdate() from dual;')
