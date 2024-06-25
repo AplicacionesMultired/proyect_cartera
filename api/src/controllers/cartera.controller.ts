@@ -4,6 +4,7 @@ import { Cartera } from '../model/cartera.model'
 import { fn, where, col, Op } from 'sequelize'
 import { Request, Response } from 'express'
 import { Bases } from '../model/bases.model'
+import { Aud_Bases } from '../model/aud_bases.model'
 
 export const getCartera = async (_req: Request, res: Response) => {
   try {
@@ -64,6 +65,25 @@ export const getCarteraSinABS = async (_req: Request, res: Response) => {
     console.log(resulst.length);
     
     return res.status(200).json({fechaConsulta, datos: resulst})
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json(error)
+  }
+}
+
+export const detailBase = async (req: Request, res: Response) => {
+  const { id } = req.params
+
+  try {
+    await Aud_Bases.sync()
+
+    const result = await Aud_Bases.findOne({
+      where: {
+        VINCULADO: id,
+      }
+    })
+
+    return res.status(200).json(result)
   } catch (error) {
     console.log(error);
     return res.status(500).json(error)
