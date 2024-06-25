@@ -24,3 +24,10 @@ export const getBaseDatalle = async (req: Request, res: Response) => {
     return res.status(500).json(error)
   }
 }
+
+export const updateBase = async (req: Request, res: Response) => {
+  const { id } = req.params
+  console.log(req.body);
+  console.log(id);
+
+}

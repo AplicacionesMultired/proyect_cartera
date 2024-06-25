@@ -1,13 +1,18 @@
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { BasesI } from '../types/Bases'
-import { Card, Title } from '@tremor/react'
+import { Card, Switch, Title } from '@tremor/react'
 import axios from 'axios'
 import { Button, Input, Label } from '../components/ui'
 
 export const BasesDetalle = () => {
   const { id } = useParams()
   const [data, setData] = useState<BasesI>()
+  const [disabled, setDisabled] = useState(true)
+
+  function handleChange () {
+    setDisabled(!disabled)
+  }
 
   useEffect(() => {
     // Llamada a la API
@@ -22,6 +27,7 @@ export const BasesDetalle = () => {
       currency: 'COP'
     }).format(value)
   }
+
   return (
     <>
       <section className='flex px-2'>
@@ -33,6 +39,7 @@ export const BasesDetalle = () => {
             <p className='p-2 rounded-md bg-yellow-200'>Valor Base: <span className='font-semibold'>{formatPesoColombia(data?.BASE as number)}</span></p>
             <p className='p-2 rounded-md bg-yellow-200'>Valor Raspe: <span className='font-semibold'>{data?.RASPE}</span> </p>
           </div>
+          <p className='max-h-10'>Observación Actual: <span className='font-semibold'>{data?.OBSERVACION}</span></p>
         </Card>
         <Card className=''>
           <Title className='text-center pb-2'>Actualizar Base</Title>
@@ -42,14 +49,18 @@ export const BasesDetalle = () => {
               <Input type='text' />
             </div>
             <div className='col-span-1'>
-              <Label >Nueva Valor Raspe </Label>
+              <Label >Nuevo Valor Raspe </Label>
               <Input type='text' />
             </div>
             <div className='col-span-2'>
               <Label>Observación</Label>
-              <Input type='text'/>
+              <Input type='text' />
             </div>
-            <Button>Actualizar Base</Button>
+            <div className='text-xs flex items-center justify-around'>
+              <Label>Confirmar Actualización</Label>
+              <Switch onChange={handleChange}/>
+            </div>
+            <Button disabled={disabled}>Actualizar Base</Button>
           </form>
         </Card>
       </section>
