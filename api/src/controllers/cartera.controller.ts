@@ -3,6 +3,7 @@ import { conection } from '../connections/cartera'
 import { Cartera } from '../model/cartera.model'
 import { fn, where, col, Op } from 'sequelize'
 import { Request, Response } from 'express'
+import { Bases } from '../model/bases.model'
 
 export const getCartera = async (_req: Request, res: Response) => {
   try {
@@ -13,11 +14,19 @@ export const getCartera = async (_req: Request, res: Response) => {
         FECHA: fn('CURDATE'),
         [Op.and]: where(fn('ABS', col('SALDO_ANT')), '>', 100),
       },
-      include: [{
-        attributes: ['NOMBRES'],
-        model: Sellers,
-        required: true,
-      }]
+      include: [
+        {
+          attributes: ['NOMBRES'],
+          model: Sellers,
+          required: true,
+        },
+        {
+          attributes: ['BASE'],
+          model: Bases,
+          required: false,
+        }
+      ],
+      limit:10
     })
 
     const fechaConsulta = await conection.query('select curdate() from dual')

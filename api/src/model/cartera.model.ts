@@ -40,11 +40,11 @@ Cartera.init({
 });
 
 // Definir la relación
-// TODO: Relación entre CARTERA Y VENDEDORES (POWERBI)
+// TODO: Relación entre CARTERA Y VENDEDORES
 Cartera.belongsTo(Sellers, { foreignKey: 'VINCULADO', targetKey: 'DOCUMENTO' });
 
-// TODO: 
-Cartera.belongsTo(Bases, { foreignKey: 'VINCUALDO', targetKey: 'VINCULADO' })
+// TODO: Relación entre CARTERA Y BASES 
+Cartera.belongsTo(Bases, { foreignKey: 'VINCULADO', targetKey: 'VINCULADO' })
 
 
 export { Cartera }
