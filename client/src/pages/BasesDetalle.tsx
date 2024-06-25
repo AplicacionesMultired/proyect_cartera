@@ -1,18 +1,23 @@
-import { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
-import { BasesI } from '../types/Bases'
-import { Card, Switch, Title } from '@tremor/react'
-import axios from 'axios'
 import { Button, Input, Label } from '../components/ui'
+import { Card, Switch, Title } from '@tremor/react'
+import { useAuth } from '../auth/AuthProvider'
+import { useParams } from 'react-router-dom'
+import { useEffect, useState } from 'react'
+import { BasesI } from '../types/Bases'
+import axios from 'axios'
 
 export const BasesDetalle = () => {
   const { id } = useParams()
   const [data, setData] = useState<BasesI>()
   const [disabled, setDisabled] = useState(true)
 
-  function handleChange () {
-    setDisabled(!disabled)
-  }
+  const { user } = useAuth()
+
+  const [base, setBase] = useState({
+    NEW_BASE: '',
+    NEW_RASPE: '',
+    NEW_OBSERVACION: ''
+  })
 
   useEffect(() => {
     // Llamada a la API
@@ -26,6 +31,23 @@ export const BasesDetalle = () => {
       style: 'currency',
       currency: 'COP'
     }).format(value)
+  }
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target
+    setBase((prevBase) => ({
+      ...prevBase,
+      [name]: value
+    }))
+  }
+
+  function handleSwichtChange () {
+    setDisabled(!disabled)
+  }
+
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+    axios.post('http://172.20.1.110:3030/updateBase', { ...base, vinculado: id, user: user.username, obs: data?.OBSERVACION, base: data?.BASE, raspe: data?.RASPE })
   }
 
   return (
@@ -43,22 +65,22 @@ export const BasesDetalle = () => {
         </Card>
         <Card className=''>
           <Title className='text-center pb-2'>Actualizar Base</Title>
-          <form className='bg-slate-200 p-2 grid grid-cols-2 gap-2 rounded-md'>
+          <form className='bg-slate-200 p-2 grid grid-cols-2 gap-2 rounded-md' onSubmit={handleSubmit}>
             <div className='col-span-1'>
-              <Label >Nuevo Valor Base </Label>
-              <Input type='text' />
+              <Label>Nuevo Valor Base</Label>
+              <Input type='text' name='NEW_BASE' value={base.NEW_BASE} onChange={handleChange} />
             </div>
             <div className='col-span-1'>
-              <Label >Nuevo Valor Raspe </Label>
-              <Input type='text' />
+              <Label>Nuevo Valor Raspe</Label>
+              <Input type='text' name='NEW_RASPE' value={base.NEW_RASPE} onChange={handleChange} />
             </div>
             <div className='col-span-2'>
               <Label>Observación</Label>
-              <Input type='text' />
+              <Input type='text' name='NEW_OBSERVACION' value={base.NEW_OBSERVACION} onChange={handleChange} required />
             </div>
             <div className='text-xs flex items-center justify-around'>
               <Label>Confirmar Actualización</Label>
-              <Switch onChange={handleChange}/>
+              <Switch onChange={handleSwichtChange} />
             </div>
             <Button disabled={disabled}>Actualizar Base</Button>
           </form>
