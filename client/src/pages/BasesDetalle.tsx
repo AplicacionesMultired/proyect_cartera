@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import { BasesI } from '../types/Bases'
 import axios from 'axios'
+import { HistUpdBases } from '../components/HistUpdBases'
 
 interface BaseIUpdate {
   NEW_BASE: number,
@@ -18,6 +19,8 @@ export const BasesDetalle = () => {
   const [disabled, setDisabled] = useState(true)
   const [error, setError] = useState('' as string | null)
   const [message, setMessage] = useState('' as string | null)
+
+  const [hisUpdates, setHisUpdates] = useState([])
 
   const { user } = useAuth()
 
@@ -34,7 +37,7 @@ export const BasesDetalle = () => {
       .catch(error => { console.log(error) })
 
     axios.get(`http://172.20.1.110:3030/updatesBases/${id}`)
-      .then(response => console.log(response.data))
+      .then(response => setHisUpdates(response.data))
       .catch(error => console.log(error))
   }, [id, message])
 
@@ -123,6 +126,11 @@ export const BasesDetalle = () => {
       <section className='px-2'>
         <Card>
           <Title className='text-center'>Historial Actualización De Base</Title>
+          {
+            hisUpdates && hisUpdates.length > 0
+              ? (<HistUpdBases data={hisUpdates} />)
+              : (<p className='text-center pt-2 text-rose-400 font-semibold'>No existen historial de actualizaciones de bases</p>)
+          }
         </Card>
       </section>
       <section className='p-4 bg-slate-200'>
