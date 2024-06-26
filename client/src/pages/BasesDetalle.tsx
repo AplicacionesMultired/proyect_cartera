@@ -6,16 +6,24 @@ import { useEffect, useState } from 'react'
 import { BasesI } from '../types/Bases'
 import axios from 'axios'
 
+interface BaseIUpdate {
+  NEW_BASE: number,
+  NEW_RASPE: number,
+  NEW_OBSERVACION: string
+}
+
 export const BasesDetalle = () => {
   const { id } = useParams()
   const [data, setData] = useState<BasesI>()
   const [disabled, setDisabled] = useState(true)
+  const [error, setError] = useState('' as string | null)
+  const [message, setMessage] = useState('' as string | null)
 
   const { user } = useAuth()
 
-  const [base, setBase] = useState({
-    NEW_BASE: '',
-    NEW_RASPE: '',
+  const [base, setBase] = useState<BaseIUpdate>({
+    NEW_BASE: 0,
+    NEW_RASPE: 0,
     NEW_OBSERVACION: ''
   })
 
@@ -24,7 +32,7 @@ export const BasesDetalle = () => {
     axios.get(`http://172.20.1.110:3030/baseDetalle/${id}`)
       .then(response => setData(response.data))
       .catch(error => { console.log(error) })
-  }, [id])
+  }, [id, message])
 
   function formatPesoColombia (value: number) {
     return new Intl.NumberFormat('es-CO', {
@@ -35,9 +43,10 @@ export const BasesDetalle = () => {
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target
+    const numericValue = name === 'NEW_BASE' || name === 'NEW_RASPE' ? parseInt(value, 10) : value
     setBase((prevBase) => ({
       ...prevBase,
-      [name]: value
+      [name]: numericValue
     }))
   }
 
@@ -47,7 +56,28 @@ export const BasesDetalle = () => {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-    axios.post('http://172.20.1.110:3030/updateBase', { ...base, vinculado: id, user: user.username, obs: data?.OBSERVACION, base: data?.BASE, raspe: data?.RASPE })
+    axios.post('http://172.20.1.110:3030/updateBase',
+      { ...base, vinculado: id, user: user.username, obs_act: data?.OBSERVACION, base_act: data?.BASE, raspe_act: data?.RASPE })
+      .then(response => {
+        if (response.status === 202) {
+          response.data.msg && setMessage(response.data.msg)
+          handleSwichtChange()
+        }
+      })
+      .catch(error => {
+        error.response.data.msg && setError(error.response.data.msg)
+      })
+      .finally(() => {
+        setBase({
+          NEW_BASE: 0,
+          NEW_RASPE: 0,
+          NEW_OBSERVACION: ''
+        })
+        setTimeout(() => {
+          setError(null)
+          setMessage(null)
+        }, 6000)
+      })
   }
 
   return (
@@ -59,7 +89,7 @@ export const BasesDetalle = () => {
           <p><span className='font-semibold'>N° Documento: </span>{data?.VINCULADO}</p>
           <div className='h-full flex justify-around items-center'>
             <p className='p-2 rounded-md bg-yellow-200'>Valor Base: <span className='font-semibold'>{formatPesoColombia(data?.BASE as number)}</span></p>
-            <p className='p-2 rounded-md bg-yellow-200'>Valor Raspe: <span className='font-semibold'>{data?.RASPE}</span> </p>
+            <p className='p-2 rounded-md bg-yellow-200'>Valor Raspe: <span className='font-semibold'>{formatPesoColombia(data?.RASPE as number)}</span> </p>
           </div>
           <p className='max-h-10'>Observación Actual: <span className='font-semibold'>{data?.OBSERVACION}</span></p>
         </Card>
@@ -68,11 +98,11 @@ export const BasesDetalle = () => {
           <form className='bg-slate-200 p-2 grid grid-cols-2 gap-2 rounded-md' onSubmit={handleSubmit}>
             <div className='col-span-1'>
               <Label>Nuevo Valor Base</Label>
-              <Input type='text' name='NEW_BASE' value={base.NEW_BASE} onChange={handleChange} />
+              <Input type='number' name='NEW_BASE' value={base.NEW_BASE} onChange={handleChange} />
             </div>
             <div className='col-span-1'>
               <Label>Nuevo Valor Raspe</Label>
-              <Input type='text' name='NEW_RASPE' value={base.NEW_RASPE} onChange={handleChange} />
+              <Input type='number' name='NEW_RASPE' value={base.NEW_RASPE} onChange={handleChange} />
             </div>
             <div className='col-span-2'>
               <Label>Observación</Label>
@@ -90,6 +120,10 @@ export const BasesDetalle = () => {
         <Card>
           <Title className='text-center'>Historial Actualización De Base</Title>
         </Card>
+      </section>
+      <section className='p-4 bg-slate-200'>
+        {error && <p className='text-center text-red-500 font-semibold'>{error}</p>}
+        {message && <p className='text-center text-green-500 font-semibold'>{message}</p>}
       </section>
     </>
   )
