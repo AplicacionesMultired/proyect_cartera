@@ -1,5 +1,5 @@
 import { getCartera, getCarteraSinABS } from './controllers/cartera.controller'
-import { getBaseDatalle, updateBase } from './controllers/bases.controller'
+import { detalleUpdates, getBaseDatalle, updateBase } from './controllers/bases.controller'
 
 import express from 'express'
 import cors from 'cors'
@@ -18,7 +18,10 @@ app.get('/carteraSinABS', getCarteraSinABS)
 
 app.get('/baseDetalle/:id', getBaseDatalle)
 
+app.get('/updatesBases/:id', detalleUpdates)
+
 app.post('/updateBase', updateBase)
+
 
 app.listen(PORT, () => {
   console.log(`Server is running at http://localhost:${PORT}`)

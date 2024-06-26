@@ -32,6 +32,10 @@ export const BasesDetalle = () => {
     axios.get(`http://172.20.1.110:3030/baseDetalle/${id}`)
       .then(response => setData(response.data))
       .catch(error => { console.log(error) })
+
+    axios.get(`http://172.20.1.110:3030/updatesBases/${id}`)
+      .then(response => console.log(response.data))
+      .catch(error => console.log(error))
   }, [id, message])
 
   function formatPesoColombia (value: number) {

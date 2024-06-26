@@ -105,3 +105,22 @@ export const updateBase = async (req: Request, res: Response) => {
   }
 
 }
+
+export const detalleUpdates = async (req: Request, res: Response) => {
+  const { id } = req.params
+  try {
+    await Aud_Bases.sync()
+
+    const result = await Aud_Bases.findAll({
+      where: {
+        VINCULADO: id
+      },
+      limit: 20,
+    })
+
+    return res.status(200).json(result)
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json(error)
+  }
+}
