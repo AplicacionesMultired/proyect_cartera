@@ -4,16 +4,35 @@ import { fn, where, col, Op } from 'sequelize'
 import { Request, Response } from 'express'
 import { Bases } from '../model/bases.model'
 
-// !! unificar la query y hacer llegar por parametro el fitrl ABS (>100 <0>)
-export const getCartera = async (_req: Request, res: Response) => {
+function ReturnEmpresa (empresa: string) {
+  if (empresa === '0') {
+    return [101, 102]
+  } else if (empresa === '102') {
+    return  [102]
+  } else if (empresa === '101') {
+    return [101]
+  }
+}
+
+function ReturnABS (abs: string) {
+  if (abs === 'true') {
+    return where(fn('ABS', col('SALDO_ANT')), '>', 100) 
+  } else {
+    return where(fn('ABS', col('SALDO_ANT')), '<>', 0) 
+  }
+}
+
+export const getCartera = async (req: Request, res: Response) => {
+  const { empresa, abs } = req.query
+  
   try {
     await Cartera.sync() // SINCRONIZA LA TABLE CON EL MODEL VERIFICAR QUE LOS CAMPON EN MODEL EXISTAN 
 
     const resulst = await Cartera.findAll({
       where: {
-        EMPRESA: 101,
+        EMPRESA: ReturnEmpresa(empresa as string),
         FECHA: fn('CURDATE'),
-        [Op.and]: where(fn('ABS', col('SALDO_ANT')), '>', 100),
+        [Op.and]: ReturnABS(abs as string)
       },
       include: [
         {
@@ -35,40 +54,6 @@ export const getCartera = async (_req: Request, res: Response) => {
     return res.status(500).json(error)
   }
 }
-
-// export const getCarteraSinABS = async (_req: Request, res: Response) => {
-//   try {
-//     await Cartera.sync()
-
-//     const resulst = await Cartera.findAll({
-//       where: {
-//         FECHA: fn('CURDATE'),
-//         [Op.and]: where(fn('ABS', col('SALDO_ANT')), '<>', 0),
-//       },
-//       include: [
-//         {
-//           attributes: ['NOMBRES'],
-//           model: Sellers,
-//           required: true,
-//         },
-//         {
-//           attributes: ['BASE', 'RASPE'],
-//           model: Bases,
-//           required: false,
-//         }
-//       ],
-//       // limit: 5
-//     })
-
-//     const fechaConsulta = conection.query('select curdate() from dual;')
-//     console.log(resulst.length);
-
-//     return res.status(200).json({ fechaConsulta, datos: resulst })
-//   } catch (error) {
-//     console.log(error);
-//     return res.status(500).json(error)
-//   }
-// }
 
 export const getCarteraPorVendedor = async (req: Request, res: Response) => {
   const { id } = req.params
@@ -94,6 +79,11 @@ export const getCarteraPorVendedor = async (req: Request, res: Response) => {
         }
       ],
     })
+
+    if (!resulst) {
+      return res.status(404).json({ message: 'No se encontraron datos' })
+    }
+
     return res.status(200).json([resulst])
   } catch (error) {
     console.log(error);
