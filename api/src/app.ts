@@ -14,8 +14,6 @@ app.use(cors())
 
 app.get('/cartera', getCartera)
 
-// app.get('/carteraSinABS', getCarteraSinABS)
-
 app.get('/cartera/:id', getCarteraPorVendedor)
 
 app.get('/baseDetalle/:id', getBaseDatalle)

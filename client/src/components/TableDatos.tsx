@@ -1,0 +1,95 @@
+import { Card, Table, TableBody, TableCell, TableHead, TableHeaderCell, TableRow } from '@tremor/react'
+import { formatPesoColombia } from '../utils/funtions'
+import { CarteraI } from '../types/cartera'
+import { Link } from 'react-router-dom'
+
+function calculateBalance (item: CarteraI) {
+  const base = item.Basis?.BASE || 0
+  return +item.SALDO_ANT - base - item.DEBITO - item.CREDITO
+}
+
+export const TableDatos = ({ data }: { data: CarteraI[] }) => {
+  return (
+    <Card decoration="top" decorationColor="rose" className='p-2'>
+      <Table className='max-h-[84vh]'>
+        <TableHead className='border-b-2 border-punch-300 sticky top-0 bg-white dark:bg-dark-tremor-brand-muted'>
+          <TableRow className='text-xs'>
+            <TableHeaderCell>Empresa</TableHeaderCell>
+            <TableHeaderCell>N° Cédula</TableHeaderCell>
+            <TableHeaderCell>Nombre</TableHeaderCell>
+            <TableHeaderCell className='text-center'>Base</TableHeaderCell>
+            <TableHeaderCell className=''>Saldo Ant</TableHeaderCell>
+            <TableHeaderCell className='text-center'>Débito</TableHeaderCell>
+            <TableHeaderCell className='text-center'>Crédito</TableHeaderCell>
+            <TableHeaderCell className='text-center'>Nuevo Saldo</TableHeaderCell>
+            <TableHeaderCell className='text-center'>Cartera</TableHeaderCell>
+            <TableHeaderCell className='text-center'>Rechazados</TableHeaderCell>
+            <TableHeaderCell className='text-center'>Aceptados</TableHeaderCell>
+            <TableHeaderCell className='text-center'>Pendiente Conteo</TableHeaderCell>
+            <TableHeaderCell className='text-center'>Digitados</TableHeaderCell>
+            <TableHeaderCell className='text-center'>Venta Bnet</TableHeaderCell>
+            <TableHeaderCell className='text-center'>Cuadre Web</TableHeaderCell>
+            <TableHeaderCell className='text-center'>Anulados</TableHeaderCell>
+          </TableRow>
+        </TableHead>
+        <TableBody className='text-xs'>
+          {data.map((item, index) => (
+            <TableRow key={index}>
+              <TableCell>{item.EMPRESA === '102' ? 'Multired' : 'Servired'}</TableCell>
+              <TableCell>{item.VINCULADO}</TableCell>
+              <TableCell>{item.Seller.NOMBRES}</TableCell>
+              {
+                item.Basis?.BASE !== undefined && item.Basis.BASE > 100
+                  ? (
+                    <Link className='' to={`/baseDetalle/${item.VINCULADO}`}>
+                      <TableCell className='hover:cursor-pointer hover:text-blue-600 hover:font-semibold hover:transition-all hover:bg-yellow-200'>
+                        {item.Basis?.BASE !== undefined ? formatPesoColombia(item.Basis.BASE) : '0'}
+                      </TableCell>
+                    </Link>)
+                  : <TableCell className='text-center'>0</TableCell>
+              }
+              <TableCell className={`${item.SALDO_ANT > 0
+                ? 'bg-punch-200 dark:bg-punch-950 font-medium text-gray-800 dark:text-gray-300'
+                : 'bg-green-200 dark:bg-green-950 font-medium text-gray-800 dark:text-gray-300'}`}>
+                {formatPesoColombia(item.SALDO_ANT)}
+              </TableCell>
+              <TableCell className='text-center'>
+                {formatPesoColombia(item.DEBITO)}
+              </TableCell>
+              <TableCell className='text-center'>
+                {formatPesoColombia(item.CREDITO)}
+              </TableCell>
+              <TableCell className='text-center' id='nuevo saldo'>
+                {formatPesoColombia(item.SALDO_ANT - item.CREDITO - item.DEBITO)}
+              </TableCell>
+              <TableCell className='text-center font-semibold text-black dark:text-gray-300' id='cartera'>
+                {formatPesoColombia(calculateBalance(item))}
+              </TableCell>
+              <TableCell className='text-center font-semibold text-black dark:text-gray-300'>
+                {formatPesoColombia(item.RECHAZADOS)}
+              </TableCell>
+              <TableCell className='text-center font-semibold text-black dark:text-gray-300'>
+                {formatPesoColombia(item.ACEPTADOS)}
+              </TableCell>
+              <TableCell className='text-center font-semibold text-black dark:text-gray-300'>
+                {formatPesoColombia(item.PENDIENTES_CONT)}
+              </TableCell>
+              <TableCell className='text-center font-semibold text-black dark:text-gray-300'>
+                {formatPesoColombia(item.DIGITADOS)}
+              </TableCell>
+              <TableCell className='text-center font-semibold text-black dark:text-gray-300'>
+                {formatPesoColombia(item.VTABNET)}
+              </TableCell>
+              <TableCell className='text-center font-semibold text-black dark:text-gray-300'>
+                {formatPesoColombia(item.VTASIISS)}
+              </TableCell>
+              <TableCell className='text-center font-semibold text-black dark:text-gray-300'>
+                {formatPesoColombia(item.VTA_S1)}
+              </TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </Card>
+  )
+}
