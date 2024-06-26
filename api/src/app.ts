@@ -1,5 +1,5 @@
-import { getCartera, getCarteraSinABS } from './controllers/cartera.controller'
-import { detalleUpdates, getBaseDatalle, updateBase } from './controllers/bases.controller'
+import { getCartera, getCarteraSinABS, getCarteraPorVendedor } from './controllers/cartera.controller'
+import { detalleUpdates, getBaseDatalle, updateBase} from './controllers/bases.controller'
 
 import express from 'express'
 import cors from 'cors'
@@ -15,6 +15,8 @@ app.use(cors())
 app.get('/cartera', getCartera)
 
 app.get('/carteraSinABS', getCarteraSinABS)
+
+app.get('/cartera/:id', getCarteraPorVendedor)
 
 app.get('/baseDetalle/:id', getBaseDatalle)
 

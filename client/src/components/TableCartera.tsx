@@ -1,26 +1,17 @@
-import { Card, Select, SelectItem, Switch, Table, TableBody, TableCell, TableHead, TableHeaderCell, TableRow, TextInput } from '@tremor/react'
+import { Button, Card, Select, SelectItem, Switch, Table, TableBody, TableCell, TableHead, TableHeaderCell, TableRow, TextInput } from '@tremor/react'
+import { formatPesoColombia } from '../utils/funtions'
 import { BottonExporCartera } from './ExportCartera'
 import { CarteraI } from '../types/cartera'
 import { useEffect, useState } from 'react'
-import axios from 'axios'
 import { Link } from 'react-router-dom'
-
-const formatPesoColombia = (value: number) => {
-  return new Intl.NumberFormat('es-CO', {
-    style: 'currency',
-    currency: 'COP'
-  }).format(value)
-}
+import { Label } from './ui'
+import axios from 'axios'
 
 export function TableCartera () {
-  const [filterText, setFilterText] = useState('')
-  const [originalData, setOriginalData] = useState<CarteraI[]>([])
   const [data, setData] = useState<CarteraI[]>([])
   const [active, setActive] = useState(false)
 
   const handleSwichtChange = () => {
-    setData([])
-    setOriginalData([])
     setActive(!active)
   }
 
@@ -28,40 +19,16 @@ export function TableCartera () {
     const fetchData = () => {
       axios.get(`http://172.20.1.110:3030/${active ? 'cartera' : 'carteraSinABS'}`)
         .then(res => {
-          console.log(res)
-          // Actualiza ambos estados con los datos de la API
-          setOriginalData(res.data.datos)
           setData(res.data.datos)
         })
         .catch(err => console.log(err))
     }
 
-    // Llama a fetchData inmediatamente y luego cada 15 minutos
     fetchData()
     const interval = setInterval(fetchData, 15 * 60 * 1000)
 
-    // Limpieza al desmontar el componente
     return () => clearInterval(interval)
   }, [active])
-
-  const handleChange = (ev: string) => {
-    if (ev === '0') {
-      setData(originalData)
-      return
-    }
-
-    const dataFiltrada = originalData.filter(item => item.EMPRESA === ev)
-
-    setData(dataFiltrada)
-  }
-
-  const handleFilterChange = (ev: string) => {
-    setFilterText(ev)
-  }
-
-  const filteredData = data.filter(item => {
-    return item.Seller.NOMBRES.toLowerCase().includes(filterText.toLowerCase()) || item.VINCULADO.includes(filterText)
-  })
 
   const fecha = new Intl.DateTimeFormat('es-ES', {
     year: 'numeric', month: 'long', day: 'numeric', weekday: 'long'
@@ -73,25 +40,29 @@ export function TableCartera () {
   }
 
   return (
-    filteredData && (
+    data && (
       <>
         <Card className='flex gap-4 mb-1 justify-between text-xs py-2' decoration="top" decorationColor="rose">
           <div>
             <p className='text-center'>Fecha:</p>
             <p className='font-semibold'>{fecha}</p>
           </div>
-          <Select defaultValue="0" className='w-60' onValueChange={ev => handleChange(ev)}>
+          <Select defaultValue="0" className='w-60'>
             <SelectItem value="0">Multired / Servired</SelectItem>
             <SelectItem value="102">Multired</SelectItem>
             <SelectItem value="101">Servired</SelectItem>
           </Select>
-          <TextInput placeholder='Buscar vendedor...' className='w-60' type='text' onValueChange={handleFilterChange} />
+          <div className='flex gap-1 items-center'>
+            <Label className='text-sm font-semibold'>Vinculado</Label>
+            <TextInput placeholder='1118111222 | 669102432' className='w-60' type='text' />
+            <Button>Buscar Vinculado</Button>
+          </div>
           <div className='flex flex-col items-center'>
             <p className='text-center'>Filtro ABS {'>'} 100</p>
             <Switch id="switch" name="switch" checked={active} onChange={handleSwichtChange} />
           </div>
-          <p className='flex text-center items-center text-gray-600 dark:text-white'>N° Datos Mostrados:<span className='font-semibold pl-1'>{filteredData.length}</span></p>
-          <BottonExporCartera datos={filteredData} />
+          <p className='flex text-center items-center text-gray-600 dark:text-white'>N° Datos Mostrados:<span className='font-semibold pl-1'>{data.length}</span></p>
+          <BottonExporCartera datos={data} />
         </Card>
 
         <Card decoration="top" decorationColor="rose" className='p-2'>
@@ -117,7 +88,7 @@ export function TableCartera () {
               </TableRow>
             </TableHead>
             <TableBody className='text-xs'>
-              {filteredData.map((item) => (
+              {data.map((item) => (
                 <TableRow key={item.VINCULADO}>
                   <TableCell>{item.EMPRESA === '102' ? 'Multired' : 'Servired'}</TableCell>
                   <TableCell>{item.VINCULADO}</TableCell>
