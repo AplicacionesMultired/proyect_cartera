@@ -64,6 +64,18 @@ export const updateBase = async (req: Request, res: Response) => {
 
     await Aud_Bases.sync()
 
+    const result2 = await Aud_Bases.create({
+      VINCULADO: VINCULADO,
+      BASE_ANT: BASE_ACT === null ? BASE : BASE_ACT,
+      BASE_NEW: BASE === null ? BASE_ACT : BASE,
+      RASPE_ANT: RASPE_ACT === null ? RASPE : RASPE_ACT,
+      RASPE_NEW: RASPE === null ? RASPE_ACT : RASPE,
+      LOGIN: LOGIN,
+      OBSERVACION: OBS,
+      VERSION: '1'
+    })
+
+    console.log(result2);
     
 
     return res.status(200).json('Base actualizada correctamente')

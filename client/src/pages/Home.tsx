@@ -2,6 +2,7 @@ import { HeaderCompCartera } from '../components/HeaderCompCartera'
 import { TableDatos } from '../components/TableDatos'
 import { useEffect, useState } from 'react'
 import { CarteraI } from '../types/cartera'
+import { HOST } from '../App'
 import axios from 'axios'
 
 export const Home = () => {
@@ -12,7 +13,7 @@ export const Home = () => {
 
   useEffect(() => {
     const fetchData = () => {
-      axios.get(`http://172.20.1.110:3030/cartera?empresa=${empresa}&abs=${abs}`)
+      axios.get(`${HOST}/cartera?empresa=${empresa}&abs=${abs}`)
         .then(res => {
           setData(res.data)
         })

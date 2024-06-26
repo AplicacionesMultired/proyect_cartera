@@ -22,7 +22,7 @@ export function useLogin (): UseLoginReturn {
   const handleSubmit = (ev: React.FormEvent): void => {
     ev.preventDefault()
 
-    void axios.post('http://172.20.1.216:4000/api/login', { user, password })
+    axios.post('http://172.20.1.216:4000/api/login', { user, password })
       .then(res => {
         if (res.data?.auth === true) {
           login()

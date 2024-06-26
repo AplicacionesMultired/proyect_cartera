@@ -1,15 +1,17 @@
-import { Card, Switch, Title } from '@tremor/react'
 import { formatPesoColombia } from '../utils/funtions'
-import { Button, Label } from '../components/ui'
-import { useParams } from 'react-router-dom'
+import { BasesI, BasesIUpdates } from '../types/Bases'
 import { useEffect, useRef, useState } from 'react'
-import { BasesI } from '../types/Bases'
-import axios from 'axios'
+import { Card, Switch, Title } from '@tremor/react'
+import { Button, Label } from '../components/ui'
 import { useAuth } from '../auth/AuthProvider'
+import { useParams } from 'react-router-dom'
+import axios from 'axios'
+import { HOST } from '../App'
 
 export const BasesDetalle = () => {
   const { id } = useParams()
   const [data, setData] = useState<BasesI>()
+  const [updates, setUpdates] = useState<BasesIUpdates[]>([])
   const { user } = useAuth()
 
   const [message, setMessage] = useState('')
@@ -24,8 +26,12 @@ export const BasesDetalle = () => {
 
   useEffect(() => {
     // Llamada a la API
-    axios.get(`http://172.20.1.110:3030/baseDetalle/${id}`)
+    axios.get(`${HOST}/baseDetalle/${id}`)
       .then(response => setData(response.data))
+      .catch(error => { console.log(error) })
+
+    axios.get(`${HOST}/updatesBases/${id}`)
+      .then(response => setUpdates(response.data))
       .catch(error => { console.log(error) })
   }, [id, pedirData])
 
@@ -38,7 +44,7 @@ export const BasesDetalle = () => {
       OBS: fields.obs as string
     }
 
-    axios.post('http://172.20.1.110:3030/updateBase', { ...newData, VINCULADO: id, BASE_ACT: data?.BASE, RASPE_ACT: data?.RASPE, LOGIN: user.username })
+    axios.post(`${HOST}/updateBase`, { ...newData, VINCULADO: id, BASE_ACT: data?.BASE, RASPE_ACT: data?.RASPE, LOGIN: user.username })
       .then(response => {
         console.log(response)
         if (response.status === 200) {
@@ -64,7 +70,7 @@ export const BasesDetalle = () => {
 
   return (
     <>
-      <section className='flex px-2'>
+      <section className='flex'>
         <Card className='flex flex-col  gap-2'>
           <Title className='text-center'>Datos De Vinculado</Title>
           <p><span className='font-semibold'>Nombres: </span>{data?.Seller.NOMBRES}</p>
@@ -75,28 +81,49 @@ export const BasesDetalle = () => {
           </div>
           <p className='max-h-10'>Observación Actual: <span className='font-semibold'>{data?.OBSERVACION}</span></p>
         </Card>
-        <Card className=''>
+        <Card className='flex flex-col'>
           <Title className='text-center pb-2'>Actualizar Base</Title>
           <form ref={formRef} className='bg-slate-200 p-2 rounded-md flex flex-col gap-3' onSubmit={handleSubmit}>
             <div className='flex items-center justify-between px-4'>
               <Label>Nuevo Valor Base </Label>
               <input className='w-56 rounded-md border-none' name='base' disabled={!isBaseEnabled} />
-              <Switch checked={isBaseEnabled} onChange={() => setIsBaseEnabled(!isBaseEnabled)} />
+              <div className='bg-blue-300 px-4 py-2 rounded-md'>
+                <Switch checked={isBaseEnabled} onChange={() => setIsBaseEnabled(!isBaseEnabled)} />
+              </div>
             </div>
             <div className='flex items-center justify-between px-4'>
               <Label>Nuevo Valor Raspe</Label>
               <input className='w-56 rounded-md border-none' name='raspe' disabled={!isRaspeEnabled} />
-              <Switch checked={isRaspeEnabled} onChange={() => setIsRaspeEnabled(!isRaspeEnabled)} />
+              <div className='bg-blue-300 px-4 py-2 rounded-md'>
+                <Switch checked={isRaspeEnabled} onChange={() => setIsRaspeEnabled(!isRaspeEnabled)} />
+              </div>
             </div>
             <Label>Observación:</Label>
-            <input name='obs' placeholder='ej: Base incrementada por ventas acumuladas' type='text' className='border-none rounded-md max-h-10'/>
+            <input name='obs' placeholder='ej: Base incrementada por ventas acumuladas' type='text' className='border-none rounded-md max-h-10' />
 
-            <Button>Actualizar Base</Button>
+            <div className='w-full flex justify-center'>
+              <Button>Actualizar Base</Button>
+            </div>
 
           </form>
         </Card>
-
       </section>
+      <Card className=''>
+        <Title className='text-center'>Historial de Actualizaciones</Title>
+        <div className='overflow-y-auto max-h-96 flex flex-col gap-2'>
+          {updates.map((update, index) => (
+            <div key={index} className='grid grid-cols-2 gap-1 px-4 py-2 bg-slate-200 rounded-md'>
+              <p><span className='font-semibold'>Fecha: </span>{update.FECHA}</p>
+              <p><span className='font-semibold'>Observación: </span>{update.OBSERVACION}</p>
+              <p><span className='font-semibold'>Base Nueva: </span>{formatPesoColombia(update.BASE_NEW)}</p>
+              <p><span className='font-semibold'>Raspe Anterior: </span>{formatPesoColombia(update.RASPE_ANT)}</p>
+              <p><span className='font-semibold'>Base Anterior: </span>{formatPesoColombia(update.BASE_ANT)}</p>
+              <p><span className='font-semibold'>Raspe Nuevo: </span>{formatPesoColombia(update.RASPE_NEW)}</p>
+              <p><span className='font-semibold'>Responsable: </span>{update.LOGIN}</p>
+            </div>
+          ))}
+        </div>
+      </Card>
 
       {error && <p className='text-red-500 p-4 bg-slate-100 text-center'>{error}</p>}
       {message && <p className='text-green-500 p-4 bg-slate-100 text-center'>{message}</p>}
