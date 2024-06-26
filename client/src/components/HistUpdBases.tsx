@@ -1,45 +1,44 @@
+import { Card } from '@tremor/react'
 import { BasesIUpdates } from '../types/Bases'
 
-export const HistUpdBases = ({ data }:{ data: BasesIUpdates[] }) => {
+export const HistUpdBases = ({ data }: { data: BasesIUpdates[] }) => {
   return (
     <div>
       {
         data.map((item, index) => {
           return (
-            <div key={index} className="bg-gray-100 p-2 my-2 rounded-md">
-              <div className="flex justify-between">
-                <div className="flex flex-col">
-                  <span className="text-xs text-gray-600">Fecha</span>
-                  <span>{item.FECHA}</span>
+            <Card key={index} className="bg-gray-100 p-2 my-2 rounded-md">
+              <article className='flex gap-4'>
+                <div>
+                  <p>Fecha / Hora Actualización</p>
+                  <p>{item.FECHA.split('T')[0]} : {item.FECHA.slice(11).split('.')[0]}</p>
                 </div>
-                <div className="flex flex-col">
-                  <span className="text-xs text-gray-600">Usuario</span>
-                  <span>{item.LOGIN}</span>
+                <div>
+                  <p>Base Anterior</p>
+                  <p>{item.BASE_ANT}</p>
                 </div>
-                <div className="flex flex-col">
-                  <span className="text-xs text-gray-600">Observación</span>
-                  <span>{item.OBSERVACION}</span>
+                <div>
+                  <p>Base Actualizada</p>
+                  <p>{item.BASE_NEW}</p>
                 </div>
-              </div>
-              <div className="flex justify-between">
-                <div className="flex flex-col">
-                  <span className="text-xs text-gray-600">Base Anterior</span>
-                  <span>{item.BASE_ANT}</span>
+                <div>
+                  <p>Raspe Anterior</p>
+                  <p>{item.RASPE_ANT}</p>
                 </div>
-                <div className="flex flex-col">
-                  <span className="text-xs text-gray-600">Base Nueva</span>
-                  <span>{item.BASE_NEW}</span>
+                <div>
+                  <p>Respe Actualizada</p>
+                  <p>{item.RASPE_NEW}</p>
                 </div>
-                <div className="flex flex-col">
-                  <span className="text-xs text-gray-600">Raspe Anterior</span>
-                  <span>{item.RASPE_ANT}</span>
+                <div>
+                  <p>Usuario Responsable</p>
+                  <p>{item.LOGIN}</p>
                 </div>
-                <div className="flex flex-col">
-                  <span className="text-xs text-gray-600">Raspe Nuevo</span>
-                  <span>{item.RASPE_NEW}</span>
+                <div>
+                  <p>Observaciones: </p>
+                  <p>{item.OBSERVACION}</p>
                 </div>
-              </div>
-            </div>
+              </article>
+            </Card>
           )
         })
       }
