@@ -1,89 +1,64 @@
-import { Button, Input, Label } from '../components/ui'
 import { Card, Switch, Title } from '@tremor/react'
-import { useAuth } from '../auth/AuthProvider'
+import { formatPesoColombia } from '../utils/funtions'
+import { Button, Label } from '../components/ui'
 import { useParams } from 'react-router-dom'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { BasesI } from '../types/Bases'
 import axios from 'axios'
-import { HistUpdBases } from '../components/HistUpdBases'
-
-interface BaseIUpdate {
-  NEW_BASE: number,
-  NEW_RASPE: number,
-  NEW_OBSERVACION: string
-}
+import { useAuth } from '../auth/AuthProvider'
 
 export const BasesDetalle = () => {
   const { id } = useParams()
   const [data, setData] = useState<BasesI>()
-  const [disabled, setDisabled] = useState(true)
-  const [error, setError] = useState('' as string | null)
-  const [message, setMessage] = useState('' as string | null)
-
-  const [hisUpdates, setHisUpdates] = useState([])
-
   const { user } = useAuth()
 
-  const [base, setBase] = useState<BaseIUpdate>({
-    NEW_BASE: 0,
-    NEW_RASPE: 0,
-    NEW_OBSERVACION: ''
-  })
+  const [message, setMessage] = useState('')
+  const [error, setError] = useState('')
+
+  const [isBaseEnabled, setIsBaseEnabled] = useState(false)
+  const [isRaspeEnabled, setIsRaspeEnabled] = useState(false)
+
+  const [pedirData, setPedirData] = useState(false)
+
+  const formRef = useRef<HTMLFormElement>(null)
 
   useEffect(() => {
     // Llamada a la API
     axios.get(`http://172.20.1.110:3030/baseDetalle/${id}`)
       .then(response => setData(response.data))
       .catch(error => { console.log(error) })
+  }, [id, pedirData])
 
-    axios.get(`http://172.20.1.110:3030/updatesBases/${id}`)
-      .then(response => setHisUpdates(response.data))
-      .catch(error => console.log(error))
-  }, [id, message])
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    const fields = Object.fromEntries(new window.FormData(e.currentTarget))
+    const newData = {
+      BASE: parseInt(fields.base as string),
+      RASPE: parseInt(fields.raspe as string),
+      OBS: fields.obs as string
+    }
 
-  function formatPesoColombia (value: number) {
-    return new Intl.NumberFormat('es-CO', {
-      style: 'currency',
-      currency: 'COP'
-    }).format(value)
-  }
-
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target
-    const numericValue = name === 'NEW_BASE' || name === 'NEW_RASPE' ? parseInt(value, 10) : value
-    setBase((prevBase) => ({
-      ...prevBase,
-      [name]: numericValue
-    }))
-  }
-
-  function handleSwichtChange () {
-    setDisabled(!disabled)
-  }
-
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
-    axios.post('http://172.20.1.110:3030/updateBase',
-      { ...base, vinculado: id, user: user.username, obs_act: data?.OBSERVACION, base_act: data?.BASE, raspe_act: data?.RASPE })
+    axios.post('http://172.20.1.110:3030/updateBase', { ...newData, VINCULADO: id, BASE_ACT: data?.BASE, RASPE_ACT: data?.RASPE, LOGIN: user.username })
       .then(response => {
-        if (response.status === 202) {
-          response.data.msg && setMessage(response.data.msg)
-          handleSwichtChange()
+        console.log(response)
+        if (response.status === 200) {
+          formRef.current?.reset()
+          setIsBaseEnabled(false)
+          setIsRaspeEnabled(false)
+          setPedirData(!pedirData)
+          setMessage(response.data)
         }
       })
       .catch(error => {
-        error.response.data.msg && setError(error.response.data.msg)
+        console.log(error)
+        const msg = error.response.data.msg
+        setError(msg)
       })
       .finally(() => {
-        setBase({
-          NEW_BASE: 0,
-          NEW_RASPE: 0,
-          NEW_OBSERVACION: ''
-        })
         setTimeout(() => {
-          setError(null)
-          setMessage(null)
-        }, 6000)
+          setError('')
+          setMessage('')
+        }, 5000)
       })
   }
 
@@ -102,41 +77,29 @@ export const BasesDetalle = () => {
         </Card>
         <Card className=''>
           <Title className='text-center pb-2'>Actualizar Base</Title>
-          <form className='bg-slate-200 p-2 grid grid-cols-2 gap-2 rounded-md' onSubmit={handleSubmit}>
-            <div className='col-span-1'>
-              <Label>Nuevo Valor Base</Label>
-              <Input type='number' name='NEW_BASE' value={base.NEW_BASE} onChange={handleChange} />
+          <form ref={formRef} className='bg-slate-200 p-2 rounded-md flex flex-col gap-3' onSubmit={handleSubmit}>
+            <div className='flex items-center justify-between px-4'>
+              <Label>Nuevo Valor Base </Label>
+              <input className='w-56 rounded-md border-none' name='base' disabled={!isBaseEnabled} />
+              <Switch checked={isBaseEnabled} onChange={() => setIsBaseEnabled(!isBaseEnabled)} />
             </div>
-            <div className='col-span-1'>
+            <div className='flex items-center justify-between px-4'>
               <Label>Nuevo Valor Raspe</Label>
-              <Input type='number' name='NEW_RASPE' value={base.NEW_RASPE} onChange={handleChange} />
+              <input className='w-56 rounded-md border-none' name='raspe' disabled={!isRaspeEnabled} />
+              <Switch checked={isRaspeEnabled} onChange={() => setIsRaspeEnabled(!isRaspeEnabled)} />
             </div>
-            <div className='col-span-2'>
-              <Label>Observación</Label>
-              <Input type='text' name='NEW_OBSERVACION' value={base.NEW_OBSERVACION} onChange={handleChange} required />
-            </div>
-            <div className='text-xs flex items-center justify-around'>
-              <Label>Confirmar Actualización</Label>
-              <Switch onChange={handleSwichtChange} />
-            </div>
-            <Button disabled={disabled}>Actualizar Base</Button>
+            <Label>Observación:</Label>
+            <input name='obs' placeholder='ej: Base incrementada por ventas acumuladas' type='text' className='border-none rounded-md max-h-10'/>
+
+            <Button>Actualizar Base</Button>
+
           </form>
         </Card>
+
       </section>
-      <section className='px-2'>
-        <Card>
-          <Title className='text-center'>Historial Actualización De Base</Title>
-          {
-            hisUpdates && hisUpdates.length > 0
-              ? (<HistUpdBases data={hisUpdates} />)
-              : (<p className='text-center pt-2 text-rose-400 font-semibold'>No existen historial de actualizaciones de bases</p>)
-          }
-        </Card>
-      </section>
-      <section className='p-4 bg-slate-200'>
-        {error && <p className='text-center text-red-500 font-semibold'>{error}</p>}
-        {message && <p className='text-center text-green-500 font-semibold'>{message}</p>}
-      </section>
+
+      {error && <p className='text-red-500 p-4 bg-slate-100 text-center'>{error}</p>}
+      {message && <p className='text-green-500 p-4 bg-slate-100 text-center'>{message}</p>}
     </>
   )
 }

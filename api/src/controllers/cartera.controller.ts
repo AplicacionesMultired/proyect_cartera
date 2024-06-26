@@ -54,39 +54,3 @@ export const getCartera = async (req: Request, res: Response) => {
     return res.status(500).json(error)
   }
 }
-
-export const getCarteraPorVendedor = async (req: Request, res: Response) => {
-  const { id } = req.params
-
-  try {
-    await Cartera.sync()
-
-    const resulst = await Cartera.findOne({
-      where: {
-        FECHA: fn('CURDATE'),
-        VINCULADO: id
-      },
-      include: [
-        {
-          attributes: ['NOMBRES'],
-          model: Sellers,
-          required: true,
-        },
-        {
-          attributes: ['BASE', 'RASPE'],
-          model: Bases,
-          required: false,
-        }
-      ],
-    })
-
-    if (!resulst) {
-      return res.status(404).json({ message: 'No se encontraron datos' })
-    }
-
-    return res.status(200).json([resulst])
-  } catch (error) {
-    console.log(error);
-    return res.status(500).json(error)
-  }
-}

@@ -1,5 +1,5 @@
-import { getCartera, getCarteraPorVendedor } from './controllers/cartera.controller'
 import { detalleUpdates, getBaseDatalle, updateBase} from './controllers/bases.controller'
+import { getCartera } from './controllers/cartera.controller'
 
 import express from 'express'
 import cors from 'cors'
@@ -14,8 +14,6 @@ app.use(cors())
 
 app.get('/cartera', getCartera)
 
-app.get('/cartera/:id', getCarteraPorVendedor)
-
 app.get('/baseDetalle/:id', getBaseDatalle)
 
 app.get('/updatesBases/:id', detalleUpdates)
@@ -27,15 +25,3 @@ app.listen(PORT, () => {
   console.log(`Server is running at http://localhost:${PORT}`)
 })
 
-/*
-async function test(){
-  try {
-    await conection.authenticate()
-    console.log('Connection has been established successfully.')
-  } catch (error) {
-    console.error('Unable to connect to the database:', error)
-  }
-}
-
-test()
-*/

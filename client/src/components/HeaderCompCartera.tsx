@@ -1,6 +1,6 @@
 import { Card, Select, SelectItem, Switch, TextInput } from '@tremor/react'
 import { BottonExporCartera } from './ExportCartera'
-import { Button, Label } from './ui'
+import { Label } from './ui'
 import { CarteraI } from '../types/cartera'
 
 const fecha = new Intl.DateTimeFormat('es-ES', {
@@ -9,26 +9,25 @@ const fecha = new Intl.DateTimeFormat('es-ES', {
 
 interface PropsCompo {
   data: CarteraI[]
-  funSearch: (e: React.FormEvent<HTMLFormElement>) => void
   funEmpresa: (e: string) => void
   funABS: (e: boolean) => void
-  funReset: () => void
+  funFilter: (e: React.ChangeEvent<HTMLInputElement>) => void
+  vinculado: string
 }
 
-export const HeaderCompCartera = ({ data, funSearch, funEmpresa, funABS, funReset }: PropsCompo) => {
+export const HeaderCompCartera = ({ data, funEmpresa, funABS, funFilter, vinculado }: PropsCompo) => {
   return (
     <Card className='flex gap-4 mb-1 justify-between text-xs py-2' decoration="top" decorationColor="rose">
       <div>
         <p className='text-center'>Fecha:</p>
         <p className='font-semibold'>{fecha}</p>
       </div>
-      <button onClick={funReset} className='bg-gradient-to-b from-green-700 to-green-800 px-2 rounded-md text-white font-semibold hover:bg-gradient-to-b
-      hover:from-green-500 hover:to-green-600 transition-all ease-in-out'>Reset Data</button>
-      <form className='flex gap-1 items-center' onSubmit={funSearch}>
-        <Label className='text-sm font-semibold'>Vinculado</Label>
-        <TextInput name='viculado' placeholder='1118111222 | 669102432' className='w-40' type='text' required />
-        <Button type='submit'>Buscar Vinculado</Button>
-      </form>
+
+      <div className='flex gap-2 items-center' >
+        <Label className='text-sm font-semibold'>Vinculado:</Label>
+        <TextInput name='viculado' placeholder='1118111222 | 669102432' value={vinculado} className='w-52' type='text' onChange={funFilter}/>
+
+      </div>
       <Select defaultValue="0" className='w-60' onValueChange={funEmpresa}>
         <SelectItem value="0">Multired / Servired</SelectItem>
         <SelectItem value="102">Multired</SelectItem>

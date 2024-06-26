@@ -1,7 +1,7 @@
-import { Bases } from "../model/bases.model";
 import { Aud_Bases } from '../model/aud_bases.model'
-import { Request, Response } from "express";
 import { Sellers } from "../model/vendedores.model";
+import { Bases } from "../model/bases.model";
+import { Request, Response } from "express";
 
 export const getBaseDatalle = async (req: Request, res: Response) => {
   const { id } = req.params
@@ -28,83 +28,52 @@ export const getBaseDatalle = async (req: Request, res: Response) => {
 
 export const updateBase = async (req: Request, res: Response) => {
   console.log(req.body);
-  const { NEW_BASE, NEW_RASPE, NEW_OBSERVACION, vinculado, user, obs_act, base_act, raspe_act } = req.body
 
-  if (NEW_BASE === 0 && NEW_RASPE === 0) {
+  const { BASE, RASPE, OBS, VINCULADO, BASE_ACT, RASPE_ACT, LOGIN } = req.body
+
+  if (BASE === null && RASPE === null) {
     return res.status(400).json({ msg: 'Mínimo se debe actualizar una base' })
   }
-/*
-  if(NEW_BASE === obs_act || NEW_RASPE === raspe_act){
-    return res.status(400).json({ msg: 'No se puede actualizar la base con el mismo valor actual' })
-  }
-*/
-  if(NEW_OBSERVACION === ''){
+
+  if (OBS === '') {
     return res.status(400).json({ msg: 'La observación no puede estar vacía' })
   }
 
-  function ReturnQuery() {
-    if (NEW_BASE !== 0 && NEW_RASPE !== 0) {
-      return {
-        BASE: NEW_BASE,
-        RASPE: NEW_RASPE,
-        OBSERVACION: NEW_OBSERVACION,
-        LOGIN: user
-      }
-    } else if (NEW_BASE !== 0) {
-      return {
-        BASE: NEW_BASE,
-        OBSERVACION: NEW_OBSERVACION,
-        LOGIN: user
-      }
-    } else if (NEW_RASPE !== 0) {
-      return {
-        RASPE: NEW_RASPE,
-        OBSERVACION: NEW_OBSERVACION,
-        LOGIN: user
-      }
-    } else {
-      return {}
-    }
+  if (BASE === BASE_ACT || RASPE === RASPE_ACT) {
+    return res.status(400).json({ msg: 'No se puede actualizar con el mismo valor actual' })
   }
 
   try {
 
     await Bases.sync()
 
-    const result = await Bases.update(
-      ReturnQuery(), {
+    const result = await Bases.update({
+      BASE: BASE === null ? BASE_ACT : BASE,
+      RASPE: RASPE === null ? RASPE_ACT : RASPE,
+      OBSERVACION: OBS,
+      LOGIN: LOGIN
+    }, {
       where: {
-        VINCULADO: vinculado
+        VINCULADO
       }
     })
 
-    if (result[0] === 1) {
-      await Aud_Bases.sync()
-
-      const result_aud = await Aud_Bases.create({
-        VINCULADO: vinculado,
-        BASE_ANT: base_act,
-        BASE_NEW: NEW_BASE === 0 ? base_act : NEW_BASE,
-        RASPE_ANT: raspe_act,
-        RASPE_NEW: NEW_RASPE === 0 ? raspe_act : NEW_RASPE,
-        LOGIN: user,
-        OBSERVACION: obs_act,
-        VERSION: 0
-      })
-
-      console.log(result_aud);
-
-    } else {
-      return res.status(500).json({ msg: 'error al actualizar la base' })
+    if (result[0] === 0) {
+      return res.status(400).json({ msg: 'No se pudo actualizar la base' })
     }
 
-    return res.status(202).json({ msg: 'Base actualizada y Registro Creado' })
+    await Aud_Bases.sync()
+
+    
+
+    return res.status(200).json('Base actualizada correctamente')
   } catch (error) {
     console.log(error);
     return res.status(500).json(error)
   }
 
 }
+
 
 export const detalleUpdates = async (req: Request, res: Response) => {
   const { id } = req.params
