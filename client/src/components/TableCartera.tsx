@@ -7,6 +7,15 @@ import { Link } from 'react-router-dom'
 import { Label } from './ui'
 import axios from 'axios'
 
+function calculateBalance (item: CarteraI) {
+  const base = item.Basis?.BASE || 0
+  return +item.SALDO_ANT - base - item.DEBITO - item.CREDITO
+}
+
+const fecha = new Intl.DateTimeFormat('es-ES', {
+  year: 'numeric', month: 'long', day: 'numeric', weekday: 'long'
+}).format(new Date())
+
 export function TableCartera () {
   const [data, setData] = useState<CarteraI[]>([])
   const [active, setActive] = useState(false)
@@ -17,9 +26,9 @@ export function TableCartera () {
 
   useEffect(() => {
     const fetchData = () => {
-      axios.get(`http://172.20.1.110:3030/${active ? 'cartera' : 'carteraSinABS'}`)
+      axios.get('http://172.20.1.110:3030/cartera')
         .then(res => {
-          setData(res.data.datos)
+          setData(res.data)
         })
         .catch(err => console.log(err))
     }
@@ -28,16 +37,7 @@ export function TableCartera () {
     const interval = setInterval(fetchData, 15 * 60 * 1000)
 
     return () => clearInterval(interval)
-  }, [active])
-
-  const fecha = new Intl.DateTimeFormat('es-ES', {
-    year: 'numeric', month: 'long', day: 'numeric', weekday: 'long'
-  }).format(new Date())
-
-  function calculateBalance (item: CarteraI) {
-    const base = item.Basis?.BASE || 0
-    return +item.SALDO_ANT - base - item.DEBITO - item.CREDITO
-  }
+  }, [])
 
   return (
     data && (
@@ -52,11 +52,11 @@ export function TableCartera () {
             <SelectItem value="102">Multired</SelectItem>
             <SelectItem value="101">Servired</SelectItem>
           </Select>
-          <div className='flex gap-1 items-center'>
+          <form className='flex gap-1 items-center'>
             <Label className='text-sm font-semibold'>Vinculado</Label>
-            <TextInput placeholder='1118111222 | 669102432' className='w-60' type='text' />
-            <Button>Buscar Vinculado</Button>
-          </div>
+            <TextInput placeholder='1118111222 | 669102432' className='w-40' type='text'/>
+            <Button type='submit'>Buscar Vinculado</Button>
+          </form>
           <div className='flex flex-col items-center'>
             <p className='text-center'>Filtro ABS {'>'} 100</p>
             <Switch id="switch" name="switch" checked={active} onChange={handleSwichtChange} />
@@ -88,8 +88,8 @@ export function TableCartera () {
               </TableRow>
             </TableHead>
             <TableBody className='text-xs'>
-              {data.map((item) => (
-                <TableRow key={item.VINCULADO}>
+              {data.map((item, index) => (
+                <TableRow key={index}>
                   <TableCell>{item.EMPRESA === '102' ? 'Multired' : 'Servired'}</TableCell>
                   <TableCell>{item.VINCULADO}</TableCell>
                   <TableCell>{item.Seller.NOMBRES}</TableCell>
@@ -100,8 +100,7 @@ export function TableCartera () {
                           <TableCell className='hover:cursor-pointer hover:text-blue-600 hover:font-semibold hover:transition-all hover:bg-yellow-200'>
                             {item.Basis?.BASE !== undefined ? formatPesoColombia(item.Basis.BASE) : '0'}
                           </TableCell>
-                        </Link>
-                        )
+                        </Link>)
                       : <TableCell className='text-center'>0</TableCell>
                   }
                   <TableCell className={`${item.SALDO_ANT > 0
