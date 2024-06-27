@@ -26,6 +26,10 @@ export const BasesPage = () => {
     return () => navigate(`/baseDetalle/${id}`)
   }
 
+  const handleCreateBase = () => {
+    return navigate('/asignarNuevaBase')
+  }
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setVinculado(e.target.value)
   }
@@ -39,12 +43,18 @@ export const BasesPage = () => {
 
   return (
     <Card>
-      <form className="flex items-center py-2 px-4 gap-2 w-96 bg-gray-300 rounded-lg">
-        <Label>Vinculado: </Label>
-        <Input type="text" placeholder="Buscar por cédula" onChange={handleChange}
-          className="w-full p-2 border border-gray-300 rounded-md" value={vinculado}
-        />
-      </form>
+      <section className="flex items-center justify-around py-2 px-4 gap-2 bg-gray-300 rounded-lg">
+        <div className='flex items-center gap-2 w-96'>
+          <Label>Vinculado: </Label>
+          <Input type="text" placeholder="Buscar por cédula" onChange={handleChange}
+            className="w-full p-2 border border-gray-300 rounded-md" value={vinculado} />
+        </div>
+        {
+          user.rol === 'Administrador'
+            ? <Button color='emerald' onClick={handleCreateBase}>Asignar Nueva Base</Button>
+            : <Button variant="secondary" color='red' size="sm" icon={RiLockLine}></Button>
+        }
+      </section>
       <Table className="max-h-[82vh]">
         <TableHead>
           <TableRow>

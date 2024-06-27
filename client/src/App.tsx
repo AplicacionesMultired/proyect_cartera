@@ -8,6 +8,7 @@ import LoginPage from './pages/Login'
 import { Home } from './pages/Home'
 import { useEffect } from 'react'
 import { NotFound } from './pages/NotFound'
+import { AsignarNewBase } from './pages/AsignarNewBase'
 
 export const HOST = 'http://172.20.1.110:4040'
 
@@ -37,6 +38,7 @@ export function App (): JSX.Element {
           <Route path="/home" element={<Home />} />
           <Route path='/baseDetalle/:id' element={<BasesDetalle />} />
           <Route path='/Bases' element={<BasesPage />} />
+          <Route path='/asignarNuevaBase' element={<AsignarNewBase />} />
           <Route path='*' element={<NotFound />} />
         </Route>
       </Routes>

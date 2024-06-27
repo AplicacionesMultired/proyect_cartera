@@ -1,4 +1,4 @@
-import { detalleUpdates, getBaseDatalle, updateBase, getAllBases} from './controllers/bases.controller'
+import { detalleUpdates, getBaseDatalle, updateBase, getAllBases, usersSinBase} from './controllers/bases.controller'
 import { getCartera } from './controllers/cartera.controller'
 
 import express from 'express'
@@ -19,6 +19,8 @@ app.get('/getAllBases', getAllBases)
 app.get('/baseDetalle/:id', getBaseDatalle)
 
 app.get('/updatesBases/:id', detalleUpdates)
+
+app.get('/usersSinBase', usersSinBase)
 
 app.post('/updateBase', updateBase)
 

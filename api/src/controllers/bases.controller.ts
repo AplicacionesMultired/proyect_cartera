@@ -1,7 +1,9 @@
 import { Aud_Bases } from '../model/aud_bases.model'
 import { Sellers } from "../model/vendedores.model";
+import { Cartera } from '../model/cartera.model';
 import { Bases } from "../model/bases.model";
 import { Request, Response } from "express";
+import { fn } from 'sequelize';
 
 export const getAllBases = async (req: Request, res: Response) => {
   try {
@@ -117,6 +119,38 @@ export const detalleUpdates = async (req: Request, res: Response) => {
     })
 
     return res.status(200).json(result)
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json(error)
+  }
+}
+
+export const usersSinBase = async (req: Request, res: Response) => {
+  try {
+    const resulst = await Cartera.findAll({
+      attributes:['EMPRESA', 'CUENTA', 'VINCULADO'],
+      where: {FECHA: fn('CURDATE')},
+      include: [
+        {
+          attributes: ['NOMBRES'],
+          model: Sellers,
+          required: true,
+        },
+        {
+          attributes: ['BASE', 'RASPE'],
+          model: Bases,
+          required: false,
+        }
+      ],
+    })
+
+    console.log('antes de filtrar: ' + resulst.length);
+    
+
+    const userSinBase = resulst.filter((item: any) => item.Basis === null);
+    
+    console.log('despues de filtrar: ' + userSinBase.length);
+    return res.status(200).json(userSinBase)
   } catch (error) {
     console.log(error);
     return res.status(500).json(error)
