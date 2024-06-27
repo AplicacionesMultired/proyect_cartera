@@ -3,6 +3,23 @@ import { Sellers } from "../model/vendedores.model";
 import { Bases } from "../model/bases.model";
 import { Request, Response } from "express";
 
+export const getAllBases = async (req: Request, res: Response) => {
+  try {
+    await Bases.sync()
+    const result = await Bases.findAll({
+      include: {
+        attributes: ['NOMBRES'],
+        model: Sellers,
+        required: true,
+      }
+    })
+    return res.status(200).json(result)
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json(error)
+  }
+}
+
 export const getBaseDatalle = async (req: Request, res: Response) => {
   const { id } = req.params
   try {

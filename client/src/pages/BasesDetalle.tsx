@@ -1,17 +1,18 @@
-import { formatPesoColombia } from '../utils/funtions'
+import { Button as ButtonMe, Label } from '../components/ui'
+import { Card, Switch, Title, Button } from '@tremor/react'
+import { useNavigate, useParams } from 'react-router-dom'
 import { BasesI, BasesIUpdates } from '../types/Bases'
+import { formatPesoColombia } from '../utils/funtions'
 import { useEffect, useRef, useState } from 'react'
-import { Card, Switch, Title } from '@tremor/react'
-import { Button, Label } from '../components/ui'
 import { useAuth } from '../auth/AuthProvider'
-import { useParams } from 'react-router-dom'
-import axios from 'axios'
 import { HOST } from '../App'
+import axios from 'axios'
 
 export const BasesDetalle = () => {
   const { id } = useParams()
   const [data, setData] = useState<BasesI>()
   const [updates, setUpdates] = useState<BasesIUpdates[]>([])
+  const navigate = useNavigate()
   const { user } = useAuth()
 
   const [message, setMessage] = useState('')
@@ -71,7 +72,10 @@ export const BasesDetalle = () => {
   return (
     <>
       <section className='flex'>
-        <Card className='flex flex-col  gap-2'>
+        <Card className='flex flex-col gap-2'>
+          <div className='flex justify-end'>
+            <Button variant='primary' color='sky' onClick={() => navigate('/Bases')}>Volver Bases</Button>
+          </div>
           <Title className='text-center'>Datos De Vinculado</Title>
           <p><span className='font-semibold'>Nombres: </span>{data?.Seller.NOMBRES}</p>
           <p><span className='font-semibold'>N° Documento: </span>{data?.VINCULADO}</p>
@@ -102,7 +106,7 @@ export const BasesDetalle = () => {
             <input name='obs' placeholder='ej: Base incrementada por ventas acumuladas' type='text' className='border-none rounded-md max-h-10' />
 
             <div className='w-full flex justify-center'>
-              <Button>Actualizar Base</Button>
+              <ButtonMe>Actualizar Base</ButtonMe>
             </div>
 
           </form>

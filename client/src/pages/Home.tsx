@@ -57,6 +57,7 @@ export const Home = () => {
       }
     })
   }
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setVinculado(e.target.value)
   }

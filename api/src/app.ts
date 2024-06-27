@@ -1,4 +1,4 @@
-import { detalleUpdates, getBaseDatalle, updateBase} from './controllers/bases.controller'
+import { detalleUpdates, getBaseDatalle, updateBase, getAllBases} from './controllers/bases.controller'
 import { getCartera } from './controllers/cartera.controller'
 
 import express from 'express'
@@ -13,6 +13,8 @@ app.use(express.json())
 app.use(cors())
 
 app.get('/cartera', getCartera)
+
+app.get('/getAllBases', getAllBases)
 
 app.get('/baseDetalle/:id', getBaseDatalle)
 

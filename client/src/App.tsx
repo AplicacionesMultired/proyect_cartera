@@ -2,10 +2,12 @@ import { ProtectedRoute } from './components/ProtectedRoutes'
 import { authTokenServices } from './services/tokenServices'
 import { BasesDetalle } from './pages/BasesDetalle'
 import { Route, Routes } from 'react-router-dom'
+import { BasesPage } from './pages/BasesPage'
 import { useAuth } from './auth/AuthProvider'
 import LoginPage from './pages/Login'
 import { Home } from './pages/Home'
 import { useEffect } from 'react'
+import { NotFound } from './pages/NotFound'
 
 export const HOST = 'http://172.20.1.110:4040'
 
@@ -34,6 +36,8 @@ export function App (): JSX.Element {
         <Route element={<ProtectedRoute isAllowed={!isAuthenticated} redirectTo='/' />}>
           <Route path="/home" element={<Home />} />
           <Route path='/baseDetalle/:id' element={<BasesDetalle />} />
+          <Route path='/Bases' element={<BasesPage />} />
+          <Route path='*' element={<NotFound />} />
         </Route>
       </Routes>
     </>

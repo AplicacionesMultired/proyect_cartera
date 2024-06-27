@@ -1,8 +1,7 @@
 import { Card, Table, TableBody, TableCell, TableHead, TableHeaderCell, TableRow } from '@tremor/react'
+import { ArrowDown, ArrowUp, DotsIcon } from './icons/ArrowIcons'
 import { formatPesoColombia } from '../utils/funtions'
 import { CarteraI } from '../types/cartera'
-import { Link } from 'react-router-dom'
-import { ArrowDown, ArrowUp, DotsIcon } from './icons/ArrowIcons'
 
 function calculateBalance (item: CarteraI) {
   const base = item.Basis?.BASE || 0
@@ -12,7 +11,7 @@ function calculateBalance (item: CarteraI) {
 export const TableDatos = ({ data, funSort, valueOrder }: { data: CarteraI[], funSort: () => void, valueOrder: 'asc' | 'desc' | '' }) => {
   return (
     <Card decoration="top" decorationColor="rose" className='p-2'>
-      <Table className='max-h-[83vh]'>
+      <Table className='max-h-[84.5vh]'>
         <TableHead className='border-b-2 border-punch-300 sticky top-0 bg-white dark:bg-dark-tremor-brand-muted'>
           <TableRow className='text-xs'>
             <TableHeaderCell>Empresa</TableHeaderCell>
@@ -44,12 +43,7 @@ export const TableDatos = ({ data, funSort, valueOrder }: { data: CarteraI[], fu
               <TableCell>{item.Seller.NOMBRES}</TableCell>
               {
                 item.Basis?.BASE !== undefined && item.Basis.BASE > 100
-                  ? (
-                    <Link className='' to={`/baseDetalle/${item.VINCULADO}`}>
-                      <TableCell className='hover:cursor-pointer hover:text-blue-600 hover:font-semibold hover:transition-all hover:bg-yellow-200'>
-                        {item.Basis?.BASE !== undefined ? formatPesoColombia(item.Basis.BASE) : '0'}
-                      </TableCell>
-                    </Link>)
+                  ? (<TableCell className=''>{item.Basis?.BASE !== undefined ? formatPesoColombia(item.Basis.BASE) : '0'}</TableCell>)
                   : <TableCell className='text-center'>0</TableCell>
               }
               <TableCell className={`${item.SALDO_ANT > 0
