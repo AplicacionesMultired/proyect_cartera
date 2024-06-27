@@ -2,23 +2,27 @@ import { Card, Table, TableBody, TableCell, TableHead, TableHeaderCell, TableRow
 import { formatPesoColombia } from '../utils/funtions'
 import { CarteraI } from '../types/cartera'
 import { Link } from 'react-router-dom'
+import { ArrowDown, ArrowUp, DotsIcon } from './icons/ArrowIcons'
 
 function calculateBalance (item: CarteraI) {
   const base = item.Basis?.BASE || 0
   return +item.SALDO_ANT - base - item.DEBITO - item.CREDITO
 }
 
-export const TableDatos = ({ data }: { data: CarteraI[] }) => {
+export const TableDatos = ({ data, funSort, valueOrder }: { data: CarteraI[], funSort: () => void, valueOrder: 'asc' | 'desc' | '' }) => {
   return (
     <Card decoration="top" decorationColor="rose" className='p-2'>
-      <Table className='max-h-[80vh]'>
+      <Table className='max-h-[83vh]'>
         <TableHead className='border-b-2 border-punch-300 sticky top-0 bg-white dark:bg-dark-tremor-brand-muted'>
           <TableRow className='text-xs'>
             <TableHeaderCell>Empresa</TableHeaderCell>
             <TableHeaderCell>N° Cédula</TableHeaderCell>
             <TableHeaderCell>Nombre</TableHeaderCell>
             <TableHeaderCell className='text-center'>Base</TableHeaderCell>
-            <TableHeaderCell className=''>Saldo Ant</TableHeaderCell>
+            <TableHeaderCell className='flex items-center gap-2 text-xs cursor-pointer hover:text-blue-400' onClick={funSort}>
+              <span>Saldo Ant</span>
+              { valueOrder === '' ? <ArrowUp /> : valueOrder === 'asc' ? <ArrowDown /> : <DotsIcon />}
+            </TableHeaderCell>
             <TableHeaderCell className='text-center'>Débito</TableHeaderCell>
             <TableHeaderCell className='text-center'>Crédito</TableHeaderCell>
             <TableHeaderCell className='text-center'>Nuevo Saldo</TableHeaderCell>
