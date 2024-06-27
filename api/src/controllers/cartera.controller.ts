@@ -26,7 +26,7 @@ export const getCartera = async (req: Request, res: Response) => {
   const { empresa, abs } = req.query
   
   try {
-    await Cartera.sync() // SINCRONIZA LA TABLE CON EL MODEL VERIFICAR QUE LOS CAMPON EN MODEL EXISTAN 
+    await Cartera.sync()
 
     const resulst = await Cartera.findAll({
       where: {

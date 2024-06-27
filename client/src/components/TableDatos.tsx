@@ -11,7 +11,7 @@ function calculateBalance (item: CarteraI) {
 export const TableDatos = ({ data }: { data: CarteraI[] }) => {
   return (
     <Card decoration="top" decorationColor="rose" className='p-2'>
-      <Table className='max-h-[84vh]'>
+      <Table className='max-h-[80vh]'>
         <TableHead className='border-b-2 border-punch-300 sticky top-0 bg-white dark:bg-dark-tremor-brand-muted'>
           <TableRow className='text-xs'>
             <TableHeaderCell>Empresa</TableHeaderCell>

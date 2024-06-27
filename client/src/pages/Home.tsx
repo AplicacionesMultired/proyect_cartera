@@ -7,8 +7,9 @@ import axios from 'axios'
 
 export const Home = () => {
   const [empresa, setEmpresa] = useState<string>('0')
-  const [data, setData] = useState<CarteraI[]>([])
   const [abs, setAbs] = useState<boolean>(false)
+
+  const [data, setData] = useState<CarteraI[]>([])
   const [vinculado, setVinculado] = useState<string>('')
 
   useEffect(() => {
@@ -30,7 +31,6 @@ export const Home = () => {
     setVinculado(e.target.value)
   }
 
-  // Función para filtrar los datos basados en el estado vinculado
   const filterVinculado = (data: CarteraI[]) => {
     if (!vinculado) return data // Si vinculado está vacío, retorna todos los datos
     return data.filter(item => item.VINCULADO.toLowerCase().includes(vinculado.toLowerCase())) // Usa includes para una búsqueda parcial

@@ -1,9 +1,9 @@
-import { Card } from '@tremor/react'
 import { BasesIUpdates } from '../types/Bases'
+import { Card } from '@tremor/react'
 
 export const HistUpdBases = ({ data }: { data: BasesIUpdates[] }) => {
   return (
-    <div>
+    <section>
       {
         data.map((item, index) => {
           return (
@@ -42,6 +42,6 @@ export const HistUpdBases = ({ data }: { data: BasesIUpdates[] }) => {
           )
         })
       }
-    </div>
+    </section>
   )
 }
