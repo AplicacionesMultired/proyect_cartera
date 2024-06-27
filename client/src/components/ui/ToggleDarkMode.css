@@ -1,0 +1,18 @@
+.toggle-label .dot {
+  transition: transform 0.3s ease-in-out;
+}
+
+.toggle-label .block {
+  transition: background-color 0.3s ease-in-out;
+}
+
+/* Opcional: Para una transición suave de los iconos, puedes usar opacidad */
+.toggle-label svg {
+  transition: opacity 0.3s ease-in-out;
+  opacity: 0;
+  position: absolute;
+}
+
+.toggle-label .dot svg {
+  opacity: 1;
+}

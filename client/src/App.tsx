@@ -1,11 +1,11 @@
 import { ProtectedRoute } from './components/ProtectedRoutes'
+import { authTokenServices } from './services/tokenServices'
 import { BasesDetalle } from './pages/BasesDetalle'
 import { Route, Routes } from 'react-router-dom'
 import { useAuth } from './auth/AuthProvider'
 import LoginPage from './pages/Login'
 import { Home } from './pages/Home'
 import { useEffect } from 'react'
-import { authTokenServices } from './services/tokenServices'
 
 export const HOST = 'http://172.20.1.110:4040'
 
@@ -16,11 +16,7 @@ export function App (): JSX.Element {
     const token = localStorage.getItem('cartera')
     if (token !== null) {
       authTokenServices({ token })
-        .then(res => {
-          if (res.status === 200) {
-            login(res.data)
-          }
-        })
+        .then(res => { if (res.status === 200) login(res.data) })
         .catch(error => {
           console.error(error.response.data.message)
           logout()
