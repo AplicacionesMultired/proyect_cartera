@@ -1,35 +1,35 @@
 import { ProtectedRoute } from './components/ProtectedRoutes'
 import { authTokenServices } from './services/tokenServices'
+import { AsignarNewBase } from './pages/AsignarNewBase'
 import { BasesDetalle } from './pages/BasesDetalle'
 import { Route, Routes } from 'react-router-dom'
 import { BasesPage } from './pages/BasesPage'
 import { useAuth } from './auth/AuthProvider'
+import { NotFound } from './pages/NotFound'
 import LoginPage from './pages/Login'
 import { Home } from './pages/Home'
 import { useEffect } from 'react'
-import { NotFound } from './pages/NotFound'
-import { AsignarNewBase } from './pages/AsignarNewBase'
 
-export const HOST = 'http://172.20.1.110:4040'
+export const HOST = 'http://172.20.1.70:4040'
 
 export function App (): JSX.Element {
   const { login, logout, isAuthenticated } = useAuth()
 
-  // useEffect(() => {
-  //   const token = localStorage.getItem('cartera')
-  //   if (token !== null) {
-  //     authTokenServices({ token })
-  //       .then(res => { if (res.status === 200) login(res.data) })
-  //       .catch(error => {
-  //         console.error(error.response.data.message)
-  //         logout()
-  //       })
-  //   } else {
-  //     console.log('No hay token')
-  //     localStorage.removeItem('cartera')
-  //   }
-  // // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [])
+  useEffect(() => {
+    const token = localStorage.getItem('cartera')
+    if (token !== null) {
+      authTokenServices({ token })
+        .then(res => { if (res.status === 200) login(res.data) })
+        .catch(error => {
+          console.error(error.response.data.message)
+          logout()
+        })
+    } else {
+      console.log('No hay token')
+      localStorage.removeItem('cartera')
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   return (
     <>

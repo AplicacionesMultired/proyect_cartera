@@ -25,7 +25,7 @@ function FormCreate ({ nombres, vinculado, funClose }: PropsCrating) {
 
   return (
     <section className='flex items-center justify-center w-full h-[99.5vh] bg-slate-900 bg-opacity-50 z-20 absolute top-1'>
-      <Card className="bg-punch-200 z-30 xl:w-[650px] p-5 flex flex-col items-center justify-center">
+      <Card className="bg-punch-200 z-30 xl:w-[650px] max-w-[720px] p-5 flex flex-col items-center justify-center">
         <Button onClick={funClose} color='red'>Cancelar</Button>
         <h3 className='text-center text-xl font-semibold my-4'>Asignación Nueva Base a Vinculado</h3>
         <div className='w-full flex flex-col items-center'>
