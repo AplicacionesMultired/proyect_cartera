@@ -22,11 +22,15 @@ export const TableDatos = ({ data, funSort, valueOrder }: { data: CarteraI[], fu
             <TableHeaderCell className='flex items-center gap-2 text-xs cursor-pointer hover:text-blue-400' onClick={funSort}>
               <span>Saldo Ant</span>
               { valueOrder === '' ? <ArrowUp /> : valueOrder === 'asc' ? <ArrowDown /> : <DotsIcon />}
-            </TableHeaderCell>
+            </TableHeaderCell >
             <TableHeaderCell className='text-center'>Débito</TableHeaderCell>
             <TableHeaderCell className='text-center'>Crédito</TableHeaderCell>
             <TableHeaderCell className='text-center'>Nuevo Saldo</TableHeaderCell>
-            <TableHeaderCell className='text-center'>Cartera</TableHeaderCell>
+            <TableHeaderCell className='flex items-center gap-2 text-xs cursor-pointer hover:text-blue-400'
+              onClick={ev => console.log(ev)}>
+              <span>Cartera</span>
+            { valueOrder === '' ? <ArrowUp /> : valueOrder === 'asc' ? <ArrowDown /> : <DotsIcon />}
+            </TableHeaderCell>
             <TableHeaderCell className='text-center'>Rechazados</TableHeaderCell>
             <TableHeaderCell className='text-center'>Aceptados</TableHeaderCell>
             <TableHeaderCell className='text-center'>Pendiente Conteo</TableHeaderCell>
@@ -52,7 +56,7 @@ export const TableDatos = ({ data, funSort, valueOrder }: { data: CarteraI[], fu
               </TableCell>
               {
                 item.Basis?.BASE !== undefined && item.Basis.BASE > 100
-                  ? (<TableCell className=''>{item.Basis?.BASE !== undefined ? formatPesoColombia(item.Basis.BASE) : '0'}</TableCell>)
+                  ? (<TableCell className=''>{item.Basis?.BASE !== undefined ? formatPesoColombia(item.Basis.BASE) : 0}</TableCell>)
                   : <TableCell className='text-center'>0</TableCell>
               }
               <TableCell className={`${item.SALDO_ANT > 0
