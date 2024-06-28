@@ -71,7 +71,7 @@ export const Home = () => {
 
   return (
     data && (
-      <section className='relative'>
+      <section className='relative px-1'>
         <HeaderCompCartera data={dataOrdenadaYFiltrada} funEmpresa={setEmpresa} funABS={setAbs} funFilter={handleChange} vinculado={vinculado}/>
         <TableDatos data={dataOrdenadaYFiltrada} funSort={handleClickOrden} valueOrder={orden}/>
       </section>

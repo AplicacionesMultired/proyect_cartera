@@ -15,21 +15,21 @@ export const HOST = 'http://172.20.1.110:4040'
 export function App (): JSX.Element {
   const { login, logout, isAuthenticated } = useAuth()
 
-  useEffect(() => {
-    const token = localStorage.getItem('cartera')
-    if (token !== null) {
-      authTokenServices({ token })
-        .then(res => { if (res.status === 200) login(res.data) })
-        .catch(error => {
-          console.error(error.response.data.message)
-          logout()
-        })
-    } else {
-      console.log('No hay token')
-      localStorage.removeItem('cartera')
-    }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  // useEffect(() => {
+  //   const token = localStorage.getItem('cartera')
+  //   if (token !== null) {
+  //     authTokenServices({ token })
+  //       .then(res => { if (res.status === 200) login(res.data) })
+  //       .catch(error => {
+  //         console.error(error.response.data.message)
+  //         logout()
+  //       })
+  //   } else {
+  //     console.log('No hay token')
+  //     localStorage.removeItem('cartera')
+  //   }
+  // // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [])
 
   return (
     <>

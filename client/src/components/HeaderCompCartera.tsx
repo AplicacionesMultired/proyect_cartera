@@ -17,7 +17,7 @@ interface PropsCompo {
 
 export const HeaderCompCartera = ({ data, funEmpresa, funABS, funFilter, vinculado }: PropsCompo) => {
   return (
-    <Card className='flex gap-4 mb-1 justify-between text-xs py-2 dark:text-white' decoration="top" decorationColor="rose">
+    <Card className='flex gap-4 justify-between text-xs py-2 mt-0.5 dark:text-white' decoration="top" decorationColor="rose">
       <div>
         <p className='text-center'>Fecha:</p>
         <p className='font-semibold'>{fecha}</p>
