@@ -11,8 +11,8 @@ const Links = [
 
 const LinkComponent = ({ link, name }: { link: string, name: string }): JSX.Element => {
   return (
-    <li className=''>
-      <NavLink to={link} className='text-gray-800 font-medium hover:text-blue-600 hover:underline lg:text-xl dark:text-white'>{name}</NavLink>
+    <li className='text-white font-medium hover:text-yellow-200 dark:hover:text-yellow-200'>
+      <NavLink to={link}>{name}</NavLink>
     </li>
   )
 }
@@ -22,7 +22,7 @@ function NavBar (): JSX.Element {
 
   return (
     <>
-      <ul className='flex justify-around items-center'>
+      <ul className='flex justify-around items-center mt-1'>
         <figure className=''>
           <img src="/gane.webp" alt="logo de gane" className='w-20 py-2 lg:w-22 ' loading='lazy' />
         </figure>

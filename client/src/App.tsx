@@ -10,7 +10,7 @@ import { useEffect } from 'react'
 import { NotFound } from './pages/NotFound'
 import { AsignarNewBase } from './pages/AsignarNewBase'
 
-export const HOST = 'http://172.20.1.70:4040'
+export const HOST = 'http://172.20.1.110:4040'
 
 export function App (): JSX.Element {
   const { login, logout, isAuthenticated } = useAuth()
