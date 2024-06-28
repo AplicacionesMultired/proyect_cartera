@@ -24,24 +24,24 @@ function FormCreate ({ nombres, vinculado, funClose }: PropsCrating) {
   const [base, setBase] = useState<number>(0)
 
   return (
-    <section className='flex items-center justify-center w-full h-full bg-slate-900 bg-opacity-50 z-20 absolute top-1'>
-      <Card className="bg-blue-200 z-30 w-11/12 md:w-1/2 lg:w-1/3 xl:w-1/4 p-5 flex flex-col items-center justify-center">
-        <Button onClick={funClose} color='red'>Cerrar</Button>
+    <section className='flex items-center justify-center w-full h-[99.5vh] bg-slate-900 bg-opacity-50 z-20 absolute top-1'>
+      <Card className="bg-punch-200 z-30 xl:w-[650px] p-5 flex flex-col items-center justify-center">
+        <Button onClick={funClose} color='red'>Cancelar</Button>
         <h3 className='text-center text-xl font-semibold my-4'>Asignación Nueva Base a Vinculado</h3>
         <div className='w-full flex flex-col items-center'>
           <div className="w-full mb-4">
             <Label>Nombres</Label>
-            <Input type="text" value={nombres} readOnly/>
+            <Input type="text" value={nombres} readOnly />
           </div>
           <div className="w-full mb-4">
             <Label>N° Cédula</Label>
-            <Input type="text" value={vinculado} readOnly/>
+            <Input type="text" value={vinculado} readOnly />
           </div>
           <div className="w-full mb-4">
             <Label>Valor Base</Label>
-            <Input type='number' value={base} onChange={ev => setBase(parseInt(ev.target.value))}/>
+            <Input type='number' value={base} onChange={ev => setBase(parseInt(ev.target.value))} />
           </div>
-          <Button>Asignar Base</Button>
+          <Button color='red'>Asignar Base</Button>
         </div>
       </Card>
     </section>
@@ -73,9 +73,15 @@ export const AsignarNewBase = () => {
   }
 
   return (
-    <section className='w-full relative'>
-      <Card className='h-[94vh] overflow-y-auto '>
-        <Title className='text-center'>Vinculado Sin Base Asingada </Title>
+    <section className=''>
+      <section className='flex items-center justify-around py-2 px-4'>
+        <Title className='text-center'>Lista vinculados sin base  </Title>
+        <div>
+          <Label>Buscar Vinculado: </Label>
+          <Input type="text" placeholder="Cédula" className="p-2 border border-gray-300 rounded-md" />
+        </div>
+      </section>
+      <Card className='h-[86vh] xl:h-[82vh] overflow-y-auto p-2'>
         <Table className="">
           <TableHead>
             <TableRow>
@@ -94,7 +100,7 @@ export const AsignarNewBase = () => {
                 <TableCell>{item.VINCULADO}</TableCell>
                 <TableCell>{item.EMPRESA === '101' ? 'Servired' : 'Multired'}</TableCell>
                 <TableCell>
-                  <Button onClick={() => handleAssignClick(item)}>Asignar</Button>
+                  <Button color='red' onClick={() => handleAssignClick(item)}>Asignar</Button>
                 </TableCell>
               </TableRow>
             ))}

@@ -55,7 +55,7 @@ export const BasesPage = () => {
             : <Button variant="secondary" color='red' size="sm" icon={RiLockLine}></Button>
         }
       </section>
-        <Table className='mt-14 max-h-[86vh]'>
+        <Table className='mt-14 max-h-[86vh] xl:max-h-[82vh]'>
           <TableHead>
             <TableRow className='border-b-2 border-punch-300 sticky top-0 bg-punch-200'>
               <TableHeaderCell className='text-center'>#</TableHeaderCell>

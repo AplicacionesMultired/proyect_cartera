@@ -35,7 +35,7 @@ export const HeaderCompCartera = ({ data, funEmpresa, funABS, funFilter, vincula
       </Select>
       <div className='flex flex-col items-center'>
         <p className='text-center'>Filtro ABS {'>'} 100</p>
-        <Switch id="switch" name="switch" onChange={funABS} />
+        <Switch color='red' id="switch" name="switch" onChange={funABS} />
       </div>
       <p className='flex text-center items-center text-gray-600 dark:text-white'>N° Datos Mostrados:<span className='font-semibold pl-1'>{data.length}</span></p>
       <BottonExporCartera datos={data} />
