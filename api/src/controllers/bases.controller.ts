@@ -143,13 +143,8 @@ export const usersSinBase = async (req: Request, res: Response) => {
         }
       ],
     })
-
-    console.log('antes de filtrar: ' + resulst.length);
-    
-
+   
     const userSinBase = resulst.filter((item: any) => item.Basis === null);
-    
-    console.log('despues de filtrar: ' + userSinBase.length);
     return res.status(200).json(userSinBase)
   } catch (error) {
     console.log(error);

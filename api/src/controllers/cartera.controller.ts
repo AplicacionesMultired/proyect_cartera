@@ -36,7 +36,7 @@ export const getCartera = async (req: Request, res: Response) => {
       },
       include: [
         {
-          attributes: ['NOMBRES'],
+          attributes: ['NOMBRES', 'NOMBRECARGO'],
           model: Sellers,
           required: true,
         },

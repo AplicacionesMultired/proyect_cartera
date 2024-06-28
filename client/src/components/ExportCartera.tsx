@@ -5,7 +5,7 @@ import { Button } from './ui'
 export const BottonExporCartera = ({ datos }: { datos: CarteraI[] }): JSX.Element => {
   const titulo = [{ A: 'Reporte Cartera ' }]
 
-  const longitudes = [10, 10, 20, 10, 20, 10, 10, 20, 10, 10, 10, 10]
+  const longitudes = [10, 10, 30, 10, 20, 10, 10, 20, 10, 10, 10, 10, 10, 10, 10, 10, 10]
 
   const handleDownload = (): void => {
     const tabla = [
@@ -13,19 +13,20 @@ export const BottonExporCartera = ({ datos }: { datos: CarteraI[] }): JSX.Elemen
         A: 'EMPRESA',
         B: 'CEDULA',
         C: 'NOMBRES',
-        D: 'BASE',
-        E: 'SALDO ANT',
-        F: 'DÉBITO',
-        G: 'CRÉDITO',
-        H: 'NUEVO SALDO',
-        I: 'CARTERA',
-        J: 'RECHAZADOS',
-        K: 'ACEPTADOS',
-        L: 'P CONTEO',
-        M: 'DIGITADOS',
-        N: 'VENTA BNET',
-        O: 'CUADRE WEB',
-        P: 'ANULADOS'
+        D: 'CARGO',
+        E: 'BASE',
+        F: 'SALDO ANT',
+        G: 'DÉBITO',
+        H: 'CRÉDITO',
+        I: 'NUEVO SALDO',
+        J: 'CARTERA',
+        K: 'RECHAZADOS',
+        L: 'ACEPTADOS',
+        M: 'P CONTEO',
+        N: 'DIGITADOS',
+        O: 'VENTA BNET',
+        P: 'CUADRE WEB',
+        Q: 'ANULADOS'
       }
     ]
 
@@ -35,19 +36,20 @@ export const BottonExporCartera = ({ datos }: { datos: CarteraI[] }): JSX.Elemen
           A: it.EMPRESA === '102' ? 'Multired' : 'Servired',
           B: it.VINCULADO,
           C: it.Seller.NOMBRES,
-          D: it.Basis?.BASE !== undefined && it.Basis.BASE > 0 ? it.Basis.BASE.toString() : '0',
-          E: it.SALDO_ANT !== undefined ? it.SALDO_ANT.toString() : '0',
-          F: it.DEBITO.toString(),
-          G: it.CREDITO.toString(),
-          H: (it.SALDO_ANT - it.CREDITO - it.DEBITO).toString(),
-          I: (+it.SALDO_ANT - (it.Basis?.BASE !== undefined && it.Basis.BASE > 0 ? it.Basis.BASE : 0) - it.DEBITO - it.CREDITO).toString(),
-          J: it.RECHAZADOS.toString(),
-          K: it.ACEPTADOS.toString(),
-          L: it.PENDIENTES_CONT.toString(),
-          M: it.DIGITADOS.toString(),
-          N: it.VTABNET.toString(),
-          O: it.VTASIISS.toString(),
-          P: it.VTA_S1.toString()
+          D: it.Seller?.NOMBRECARGO !== undefined && it.Seller.NOMBRECARGO !== null ? it.Seller.NOMBRECARGO : 'Sin cargo',
+          E: it.Basis?.BASE !== undefined && it.Basis.BASE > 0 ? it.Basis.BASE.toString() : '0',
+          F: it.SALDO_ANT !== undefined ? it.SALDO_ANT.toString() : '0',
+          G: it.DEBITO.toString(),
+          H: it.CREDITO.toString(),
+          I: (it.SALDO_ANT - it.CREDITO - it.DEBITO).toString(),
+          J: (+it.SALDO_ANT - (it.Basis?.BASE !== undefined && it.Basis.BASE > 0 ? it.Basis.BASE : 0) - it.DEBITO - it.CREDITO).toString(),
+          K: it.RECHAZADOS.toString(),
+          L: it.ACEPTADOS.toString(),
+          M: it.PENDIENTES_CONT.toString(),
+          N: it.DIGITADOS.toString(),
+          O: it.VTABNET.toString(),
+          P: it.VTASIISS.toString(),
+          Q: it.VTA_S1.toString()
 
         }
       )

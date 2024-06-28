@@ -17,6 +17,7 @@ export const TableDatos = ({ data, funSort, valueOrder }: { data: CarteraI[], fu
             <TableHeaderCell>Empresa</TableHeaderCell>
             <TableHeaderCell>N° Cédula</TableHeaderCell>
             <TableHeaderCell>Nombre</TableHeaderCell>
+            <TableHeaderCell>Cargo</TableHeaderCell>
             <TableHeaderCell className='text-center'>Base</TableHeaderCell>
             <TableHeaderCell className='flex items-center gap-2 text-xs cursor-pointer hover:text-blue-400' onClick={funSort}>
               <span>Saldo Ant</span>
@@ -40,7 +41,15 @@ export const TableDatos = ({ data, funSort, valueOrder }: { data: CarteraI[], fu
             <TableRow key={index}>
               <TableCell>{item.EMPRESA === '102' ? 'Multired' : 'Servired'}</TableCell>
               <TableCell>{item.VINCULADO}</TableCell>
-              <TableCell>{item.Seller.NOMBRES}</TableCell>
+              <TableCell className='text-clip text-[0.7rem]'>{item.Seller.NOMBRES}</TableCell>
+              <TableCell>
+                {
+
+                  item.Seller?.NOMBRECARGO !== undefined && item.Seller.NOMBRECARGO !== null
+                    ? item.Seller.NOMBRECARGO
+                    : 'Sin cargo'
+                }
+              </TableCell>
               {
                 item.Basis?.BASE !== undefined && item.Basis.BASE > 100
                   ? (<TableCell className=''>{item.Basis?.BASE !== undefined ? formatPesoColombia(item.Basis.BASE) : '0'}</TableCell>)

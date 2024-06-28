@@ -1,9 +1,10 @@
 interface Seller {
   NOMBRES: string
+  NOMBRECARGO: string | null
 }
 
 interface Basis {
-  BASE: number
+  BASE: number,
 }
 
 export interface CarteraI {

@@ -9,6 +9,7 @@ Sellers.init({
     GRPVTAS_CODIGO: { type: DataTypes.STRING, allowNull: true },
     CARGO: { type: DataTypes.STRING, allowNull: true },
     VERSION: { type: DataTypes.STRING, allowNull: true },
+    NOMBRECARGO: { type: DataTypes.STRING, allowNull: true },
 }, {
     sequelize: conection,
     modelName: 'Seller',
