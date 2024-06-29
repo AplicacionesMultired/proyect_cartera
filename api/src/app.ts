@@ -1,5 +1,7 @@
 import { detalleUpdates, getBaseDatalle, updateBase, getAllBases, usersSinBase} from './controllers/bases.controller'
-import { getCartera } from './controllers/cartera.controller'
+import { GetSellers } from './controllers/sellers.controller'
+
+import { CarteraRouter } from './routes/cartera.routes'
 
 import express from 'express'
 import cors from 'cors'
@@ -12,7 +14,9 @@ const PORT = process.env.PORT || 4040;
 app.use(express.json())
 app.use(cors())
 
-app.get('/cartera', getCartera)
+app.use('/api/v1/', CarteraRouter)
+
+app.get('/sellers', GetSellers)
 
 app.get('/getAllBases', getAllBases)
 
