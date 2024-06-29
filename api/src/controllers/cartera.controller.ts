@@ -1,4 +1,4 @@
-import { CarteraDataServices } from '../services/CarteraServices'
+import { CarteraDataServices } from '../services/cartera.services'
 import { mapCarteraResults } from '../utils/funtions';
 import { Cartera } from '../model/cartera.model'
 import { Request, Response } from 'express'

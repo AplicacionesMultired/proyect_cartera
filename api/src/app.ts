@@ -1,4 +1,4 @@
-import { detalleUpdates, getBaseDatalle, updateBase, getAllBases, usersSinBase} from './controllers/bases.controller'
+import { getBaseDatalle, updateBase, getAllBases, usersSinBase} from './controllers/bases.controller'
 import { GetSellers } from './controllers/sellers.controller'
 
 import { CarteraRouter } from './routes/cartera.routes'
@@ -16,17 +16,17 @@ app.use(cors())
 
 app.use('/api/v1/', CarteraRouter)
 
-app.get('/sellers', GetSellers)
+// app.get('/sellers', GetSellers)
 
-app.get('/getAllBases', getAllBases)
+// app.get('/getAllBases', getAllBases)
 
-app.get('/baseDetalle/:id', getBaseDatalle)
+// app.get('/baseDetalle/:id', getBaseDatalle)
 
-app.get('/updatesBases/:id', detalleUpdates)
+// app.get('/updatesBases/:id', detalleUpdates)
 
-app.get('/usersSinBase', usersSinBase)
+// app.get('/usersSinBase', usersSinBase)
 
-app.post('/updateBase', updateBase)
+// app.post('/updateBase', updateBase)
 
 
 app.listen(PORT, () => {

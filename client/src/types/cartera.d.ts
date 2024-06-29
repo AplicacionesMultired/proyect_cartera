@@ -1,39 +1,20 @@
-interface Seller {
-  NOMBRES: string
-  NOMBRECARGO: string | null
-}
-
-interface Basis {
-  BASE: number,
-}
-
 export interface CarteraI {
-  EMPRESA: string
-  CUENTA: string
-  VINCULADO: string
-  FECHA: string
-  BASE: number
-  RASPAS: number
-  EXCP2: number
-  EXCP3: number
-  SALDO_ANT: number
-  DEBITO: number
-  CREDITO: number
-  NUEVOSALDO: number
-  VTABNET: number
-  VTASIISS: number
-  VTASFLEX: number
-  VTA_S1: number
-  VTA_S2: number
-  VTA_S3: number
-  RECHAZADOS: number
-  ACEPTADOS: number
-  DIGITADOS: number
-  OBSERVACION1: string
-  OBSERVACION2: string
-  OBSERVACION3: string
-  VERSION: string
-  PENDIENTES_CONT: number
-  Seller: Seller
-  Basis: Basis
+  Empresa: string;
+  Vinculado: string;
+  Nombres: string;
+  Cargo: string;
+  Base: number;
+  Raspe: number;
+  SaldoAnt: number;
+  Debito: number;
+  Credito: number;
+  NuevoSaldo: number;
+  Cartera: number;
+  Rechazados: number;
+  Aceptados: number;
+  PendientesCont: number;
+  Digitados: number;
+  Vtabnet: number;
+  CuadreWeb: number;
+  Anulados: number;
 }

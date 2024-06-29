@@ -3,11 +3,6 @@ import { ArrowDown, ArrowUp, DotsIcon } from './icons/ArrowIcons'
 import { formatPesoColombia } from '../utils/funtions'
 import { CarteraI } from '../types/cartera'
 
-function calculateBalance (item: CarteraI) {
-  const base = item.Basis?.BASE || 0
-  return +item.SALDO_ANT - base - item.DEBITO - item.CREDITO
-}
-
 export const TableDatos = ({ data, funSort, valueOrder }: { data: CarteraI[], funSort: () => void, valueOrder: 'asc' | 'desc' | '' }) => {
   return (
     <Card decoration="top" decorationColor="rose" className='p-2 mt-0.5'>
@@ -43,59 +38,48 @@ export const TableDatos = ({ data, funSort, valueOrder }: { data: CarteraI[], fu
         <TableBody className='text-xs'>
           {data.map((item, index) => (
             <TableRow key={index}>
-              <TableCell>{item.EMPRESA === '102' ? 'Multired' : 'Servired'}</TableCell>
-              <TableCell>{item.VINCULADO}</TableCell>
-              <TableCell className='text-clip text-[0.7rem]'>{item.Seller.NOMBRES}</TableCell>
-              <TableCell>
-                {
-
-                  item.Seller?.NOMBRECARGO !== undefined && item.Seller.NOMBRECARGO !== null
-                    ? item.Seller.NOMBRECARGO
-                    : 'Sin cargo'
-                }
-              </TableCell>
-              {
-                item.Basis?.BASE !== undefined && item.Basis.BASE > 100
-                  ? (<TableCell className=''>{item.Basis?.BASE !== undefined ? formatPesoColombia(item.Basis.BASE) : 0}</TableCell>)
-                  : <TableCell className='text-center'>0</TableCell>
-              }
-              <TableCell className={`${item.SALDO_ANT > 0
+              <TableCell>{item.Empresa}</TableCell>
+              <TableCell>{item.Vinculado}</TableCell>
+              <TableCell className='text-clip text-[0.7rem]'>{item.Nombres}</TableCell>
+              <TableCell>{item.Cargo}</TableCell>
+              <TableCell>{formatPesoColombia(item.Base)}</TableCell>
+              <TableCell className={`${item.SaldoAnt > 0
                 ? 'bg-punch-200 dark:bg-punch-950 font-medium text-gray-800 dark:text-gray-300'
                 : 'bg-green-200 dark:bg-green-950 font-medium text-gray-800 dark:text-gray-300'}`}>
-                {formatPesoColombia(item.SALDO_ANT)}
+                {formatPesoColombia(item.SaldoAnt)}
               </TableCell>
               <TableCell className='text-center'>
-                {formatPesoColombia(item.DEBITO)}
+                {formatPesoColombia(item.Debito)}
               </TableCell>
               <TableCell className='text-center'>
-                {formatPesoColombia(item.CREDITO)}
+                {formatPesoColombia(item.Credito)}
               </TableCell>
               <TableCell className='text-center' id='nuevo saldo'>
-                {formatPesoColombia(item.SALDO_ANT - item.CREDITO - item.DEBITO)}
+                {formatPesoColombia(item.SaldoAnt - item.Credito - item.Debito)}
               </TableCell>
               <TableCell className='text-center font-semibold text-black dark:text-gray-300' id='cartera'>
-                {formatPesoColombia(calculateBalance(item))}
+                {formatPesoColombia(item.Cartera)}
               </TableCell>
               <TableCell className='text-center font-semibold text-black dark:text-gray-300'>
-                {formatPesoColombia(item.RECHAZADOS)}
+                {formatPesoColombia(item.Rechazados)}
               </TableCell>
               <TableCell className='text-center font-semibold text-black dark:text-gray-300'>
-                {formatPesoColombia(item.ACEPTADOS)}
+                {formatPesoColombia(item.Aceptados)}
               </TableCell>
               <TableCell className='text-center font-semibold text-black dark:text-gray-300'>
-                {formatPesoColombia(item.PENDIENTES_CONT)}
+                {formatPesoColombia(item.PendientesCont)}
               </TableCell>
               <TableCell className='text-center font-semibold text-black dark:text-gray-300'>
-                {formatPesoColombia(item.DIGITADOS)}
+                {formatPesoColombia(item.Digitados)}
               </TableCell>
               <TableCell className='text-center font-semibold text-black dark:text-gray-300'>
-                {formatPesoColombia(item.VTABNET)}
+                {formatPesoColombia(item.Vtabnet)}
               </TableCell>
               <TableCell className='text-center font-semibold text-black dark:text-gray-300'>
-                {formatPesoColombia(item.VTASIISS)}
+                {formatPesoColombia(item.CuadreWeb)}
               </TableCell>
               <TableCell className='text-center font-semibold text-black dark:text-gray-300'>
-                {formatPesoColombia(item.VTA_S1)}
+                {formatPesoColombia(item.Anulados)}
               </TableCell>
             </TableRow>
           ))}

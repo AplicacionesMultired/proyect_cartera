@@ -10,7 +10,7 @@ import LoginPage from './pages/Login'
 import { Home } from './pages/Home'
 import { useEffect } from 'react'
 
-export const HOST = 'http://172.20.1.110:4040'
+export const HOST = 'http://172.20.1.110:4040/api/v1'
 
 export function App (): JSX.Element {
   const { login, logout, isAuthenticated } = useAuth()

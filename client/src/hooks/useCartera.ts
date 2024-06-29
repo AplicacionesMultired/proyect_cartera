@@ -48,9 +48,9 @@ export const useCartera = () => {
     }
     return [...data].sort((a, b) => {
       if (orden === 'asc') {
-        return a.SALDO_ANT - b.SALDO_ANT
+        return a.SaldoAnt - b.SaldoAnt
       } else {
-        return b.SALDO_ANT - a.SALDO_ANT
+        return b.SaldoAnt - a.SaldoAnt
       }
     })
   }
@@ -61,7 +61,7 @@ export const useCartera = () => {
 
   const filterVinculado = (data: CarteraI[]) => {
     if (!vinculado) return data // Si vinculado está vacío, retorna todos los datos
-    return data.filter(item => item.VINCULADO.toLowerCase().includes(vinculado.toLowerCase())) // Usa includes para una búsqueda parcial
+    return data.filter(item => item.Vinculado.toLowerCase().includes(vinculado.toLowerCase())) // Usa includes para una búsqueda parcial
   }
 
   const dataOrdenadaYFiltrada = filterVinculado(orden === '' ? data : ordenarCartera(data))
