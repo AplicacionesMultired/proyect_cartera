@@ -1,9 +1,6 @@
-import { ReturnABS, ReturnEmpresa } from "../utils/funtions";
-import { Sellers } from "../model/vendedores.model";
-import { Cartera } from "../model/cartera.model";
-import { Bases } from "../model/bases.model";
-import { fn } from "sequelize";
-import { Op } from "sequelize";
+import { ReturnABS, ReturnEmpresa } from '../utils/funtions';
+import { Bases, Cartera, Sellers } from '../model'
+import { fn, Op} from 'sequelize';
 
 export async function CarteraDataServices(empresa: string, abs: string): Promise<any> {
   return Cartera.findAll({

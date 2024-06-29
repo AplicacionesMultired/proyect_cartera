@@ -10,6 +10,7 @@ export const getCartera = async (req: Request, res: Response) => {
     await Cartera.sync();
 
     const results = await CarteraDataServices(empresa as string, abs as string);
+    
     const mappedResults = mapCarteraResults(results);
 
     return res.status(200).json(mappedResults);

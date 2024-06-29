@@ -1,10 +1,10 @@
-import { col, fn, where } from "sequelize";
+import { col, fn, where } from 'sequelize';
 
-type EmpresaKey = "102" | "101";
+type EmpresaKey = '102' | '101';
 
 const empresaMapping = {
-  "102": "Multired",
-  "101": "Servired"
+  '102': 'Multired',
+  '101': 'Servired'
 };
 
 export function ReturnEmpresaObj(empresa: EmpresaKey) {
@@ -22,6 +22,7 @@ export function mapCarteraResults(results: any): any {
     Nombres: item.Seller?.NOMBRES,
     Cargo: item.Seller?.NOMBRECARGO,
     Base: item.Basis?.BASE || 0,
+    Raspe: item.Basis?.RASPE || 0,
     SaldoAnt: item.SALDO_ANT,
     Debito: item.DEBITO,
     Credito: item.CREDITO,
@@ -37,6 +38,7 @@ export function mapCarteraResults(results: any): any {
   }));
 }
 
+// TODO: FUNCIONES UTILIZANDAS EN EL SERVICIO DE CARTERA
 export function ReturnEmpresa(empresa: string) {
   if (empresa === '0') {
     return [101, 102]
