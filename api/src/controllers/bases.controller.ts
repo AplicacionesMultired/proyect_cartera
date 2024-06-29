@@ -1,5 +1,5 @@
 import { Aud_Bases } from '../model/aud_bases.model'
-import { Sellers } from "../model/vendedores.model";
+import { Sellers } from "../model/sellers.model";
 import { Cartera } from '../model/cartera.model';
 import { Bases } from "../model/bases.model";
 import { Request, Response } from "express";

@@ -1,4 +1,4 @@
-import { Sellers } from '../model/vendedores.model'
+import { Sellers } from '../model/sellers.model'
 import { Request, Response } from 'express'
 
 export async function GetSellers(req: Request, res: Response) {

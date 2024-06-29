@@ -1,6 +1,6 @@
 import { conection } from '../connections/cartera'
 import { DataTypes, Model } from "sequelize";
-import { Sellers } from './vendedores.model';
+import { Sellers } from './sellers.model';
 
 class Bases extends Model {}
 

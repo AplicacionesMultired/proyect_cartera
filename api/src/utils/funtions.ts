@@ -18,7 +18,7 @@ export function mapCarteraResults(results: any): any {
     Empresa: ReturnEmpresaObj(item.EMPRESA),
     Vinculado: item.VINCULADO,
     Nombres: item.Seller?.NOMBRES,
-    Cargo: item.Seller?.NOMBRECARGO,
+    Cargo: item.Seller.NOMBRECARGO,
     Base: item.Basis?.BASE || 0,
     Raspe: item.Basis?.RASPE || 0,
     SaldoAnt: item.SALDO_ANT,
