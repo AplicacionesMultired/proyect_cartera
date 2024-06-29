@@ -1,13 +1,31 @@
+import { DataTypes, Model, Optional } from 'sequelize'
 import { conection } from '../connections/cartera'
-import { DataTypes, Model } from 'sequelize'
 
-class Sellers extends Model { }
+type SellerAttributes = {
+    DOCUMENTO: string
+    NOMBRES: string
+    GRPVTAS_CODIGO: string
+    CARGO: string
+    VERSION: string
+    NOMBRECARGO: 'COLOCADOR_INDEPENDIENTE' | 'VENDEDOR' | 'CAJERO_RESORERIA' | null
+}
+
+type UserCreationAttributes = Optional<SellerAttributes, 'DOCUMENTO'>
+
+class Sellers extends Model<SellerAttributes, UserCreationAttributes> {
+    declare DOCUMENTO: string
+    declare NOMBRES: string
+    declare GRPVTAS_CODIGO: string
+    declare CARGO: string
+    declare VERSION: string
+    declare NOMBRECARGO: 'COLOCADOR_INDEPENDIENTE' | 'VENDEDOR' | 'CAJERO_RESORERIA' | null
+}
 
 Sellers.init({
     DOCUMENTO: { type: DataTypes.STRING, allowNull: false, primaryKey: true },
-    NOMBRES: { type: DataTypes.STRING, allowNull: true },
-    GRPVTAS_CODIGO: { type: DataTypes.STRING, allowNull: true },
     CARGO: { type: DataTypes.STRING, allowNull: true },
+    GRPVTAS_CODIGO: { type: DataTypes.STRING, allowNull: true },
+    NOMBRES: { type: DataTypes.STRING, allowNull: true },
     VERSION: { type: DataTypes.STRING, allowNull: true },
     NOMBRECARGO: { type: DataTypes.STRING, allowNull: true },
 }, {
@@ -18,3 +36,21 @@ Sellers.init({
 })
 
 export { Sellers }
+
+// class Sellers extends Model {}
+
+// Sellers.init({
+//     DOCUMENTO: { type: DataTypes.STRING, allowNull: false, primaryKey: true },
+//     NOMBRES: { type: DataTypes.STRING, allowNull: true },
+//     GRPVTAS_CODIGO: { type: DataTypes.STRING, allowNull: true },
+//     CARGO: { type: DataTypes.STRING, allowNull: true },
+//     VERSION: { type: DataTypes.STRING, allowNull: true },
+//     NOMBRECARGO: { type: DataTypes.STRING, allowNull: true },
+// }, {
+//     sequelize: conection,
+//     modelName: 'Seller',
+//     tableName: 'VENDEDORES',
+//     timestamps: false
+// })
+
+// export { Sellers }

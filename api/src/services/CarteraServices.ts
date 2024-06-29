@@ -1,6 +1,24 @@
-import { ReturnABS, ReturnEmpresa } from '../utils/funtions';
 import { Bases, Cartera, Sellers } from '../model'
-import { fn, Op} from 'sequelize';
+import { col, fn, where, Op } from 'sequelize';
+
+// TODO: FUNCIONES UTILIZANDAS EN EL SERVICIO DE CARTERA
+function ReturnEmpresa(empresa: string) {
+  if (empresa === '0') {
+    return [101, 102]
+  } else if (empresa === '102') {
+    return [102]
+  } else if (empresa === '101') {
+    return [101]
+  }
+}
+
+function ReturnABS(abs: string) {
+  if (abs === 'true') {
+    return where(fn('ABS', col('SALDO_ANT')), '>', 100)
+  } else {
+    return where(fn('ABS', col('SALDO_ANT')), '<>', 0)
+  }
+}
 
 export async function CarteraDataServices(empresa: string, abs: string): Promise<any> {
   return Cartera.findAll({
