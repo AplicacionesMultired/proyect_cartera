@@ -1,10 +1,10 @@
-import { conection } from '../connections/cartera'
 import { DataTypes, Model, Optional } from 'sequelize'
+import { conection } from '../connections/cartera'
 import { Sellers } from './sellers.model'
 import { Bases } from './bases.model';
 
-type CarteraAttributes = {
-  EMPRESA: '101' | '102'
+export type CarteraAttributes = {
+  EMPRESA: string
   CUENTA: string
   VINCULADO: string
   FECHA: Date
@@ -25,9 +25,9 @@ type CarteraAttributes = {
   RECHAZADOS: number
   ACEPTADOS: number
   DIGITADOS: number
-  OBSERVACION1: string
-  OBSERVACION2: string
-  OBSERVACION3: string
+  OBSERVACION1: string | null
+  OBSERVACION2: string | null
+  OBSERVACION3: string | null
   VERSION: string
   PENDIENTES_CONT: number
 }
@@ -35,7 +35,7 @@ type CarteraAttributes = {
 type CarteraCreationAttributes = Optional<CarteraAttributes, 'VINCULADO'>
 
 class Cartera extends Model<CarteraAttributes, CarteraCreationAttributes> {
-  declare EMPRESA: '101' | '102'
+  declare EMPRESA: string
   declare CUENTA: string
   declare VINCULADO: string
   declare FECHA: Date
@@ -56,15 +56,15 @@ class Cartera extends Model<CarteraAttributes, CarteraCreationAttributes> {
   declare RECHAZADOS: number
   declare ACEPTADOS: number
   declare DIGITADOS: number
-  declare OBSERVACION1: string
-  declare OBSERVACION2: string
-  declare OBSERVACION3: string
+  declare OBSERVACION1: string | null
+  declare OBSERVACION2: string | null
+  declare OBSERVACION3: string | null
   declare VERSION: string
   declare PENDIENTES_CONT: number
 }
 
 Cartera.init({
-  EMPRESA: { type: DataTypes.STRING, allowNull: false, primaryKey: true },
+  EMPRESA: { type: DataTypes.STRING, allowNull: false },
   CUENTA: { type: DataTypes.STRING, primaryKey: true },
   VINCULADO: { type: DataTypes.STRING, allowNull: false, primaryKey: true },
   FECHA: { type: DataTypes.DATE, allowNull: false, primaryKey: true },
@@ -97,12 +97,11 @@ Cartera.init({
   timestamps: false
 });
 
-// Definir la relación
-// TODO: Relación entre CARTERA Y VENDEDORES
-Cartera.belongsTo(Sellers, { foreignKey: 'VINCULADO', targetKey: 'DOCUMENTO' });
+// TODO: Relación entre CARTERA.VINCULADO Y VENDEDORES.DOCUMENTO
+Cartera.hasOne(Sellers, { foreignKey: 'DOCUMENTO', sourceKey: 'VINCULADO' })
 
-// TODO: Relación entre CARTERA Y BASES 
-Cartera.belongsTo(Bases, { foreignKey: 'VINCULADO', targetKey: 'VINCULADO' })
+// TODO: Relación entre CARTERA.VINCULADO Y BASES.VINCULADO
+Cartera.hasOne(Bases, { foreignKey: 'VINCULADO', sourceKey: 'VINCULADO' })
 
 
 export { Cartera }

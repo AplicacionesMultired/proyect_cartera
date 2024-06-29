@@ -1,8 +1,30 @@
 import { conection } from '../connections/cartera'
-import { DataTypes, Model } from "sequelize";
+import { DataTypes, Model, Optional } from "sequelize";
 import { Sellers } from './sellers.model';
 
-class Bases extends Model {}
+export interface BaseAtributes {
+  VINCULADO: string;
+  BASE: number;
+  RASPE: number;
+  EXCP2: number;
+  EXCP3: number;
+  LOGIN: string;
+  OBSERVACION: string;
+  VERSION: string;
+}
+
+type BaseCreationAttributes = Optional<BaseAtributes, 'VINCULADO'>;
+
+class Bases extends Model<BaseAtributes,BaseCreationAttributes> {
+  declare VINCULADO: string;
+  declare BASE: number;
+  declare RASPE: number;
+  declare EXCP2: number;
+  declare EXCP3: number;
+  declare LOGIN: string;
+  declare OBSERVACION: string;
+  declare VERSION: string;
+}
 
 Bases.init({
   VINCULADO: { type: DataTypes.STRING, allowNull: false, primaryKey: true },
@@ -20,6 +42,6 @@ Bases.init({
   timestamps: false
 });
 
-Bases.belongsTo(Sellers, { foreignKey: 'VINCULADO', targetKey: 'DOCUMENTO' });
+Bases.belongsTo(Sellers, { foreignKey: 'VINCULADO', targetKey: 'DOCUMENTO'});
 
 export { Bases }

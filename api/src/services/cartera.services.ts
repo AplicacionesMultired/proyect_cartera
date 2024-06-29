@@ -1,32 +1,21 @@
+import { CarteraAttributes } from '../model/cartera.model';
+import { SellerAttributes } from '../model/sellers.model';
+import { BaseAtributes } from '../model/bases.model';
 import { Bases, Cartera, Sellers } from '../model'
-import { col, fn, where, Op } from 'sequelize';
+import { fn, Op } from 'sequelize';
 
-// TODO: FUNCIONES UTILIZANDAS EN EL SERVICIO DE CARTERA
-function ReturnEmpresa(empresa: string) {
-  if (empresa === '0') {
-    return [101, 102]
-  } else if (empresa === '102') {
-    return [102]
-  } else if (empresa === '101') {
-    return [101]
-  }
-}
-
-function ReturnABS(abs: string) {
-  if (abs === 'true') {
-    return where(fn('ABS', col('SALDO_ANT')), '>', 100)
-  } else {
-    return where(fn('ABS', col('SALDO_ANT')), '<>', 0)
-  }
-}
+const carAttr: (keyof CarteraAttributes)[] = ['EMPRESA', 'VINCULADO', 'SALDO_ANT', 'DEBITO', 'CREDITO', 'NUEVOSALDO', 'RECHAZADOS', 'ACEPTADOS', 'DIGITADOS', 'VTABNET', 'VTASFLEX', 'VTA_S1']
+const sellAttr: (keyof SellerAttributes)[] = ['NOMBRES', 'NOMBRECARGO']
+const baseAttr: (keyof BaseAtributes)[] = ['BASE', 'RASPE']
 
 export async function CarteraDataServices(empresa: string, abs: string): Promise<any> {
+  await Cartera.sync();
   return Cartera.findAll({
-    attributes: ['EMPRESA', 'VINCULADO', 'SALDO_ANT', 'DEBITO', 'CREDITO', 'NUEVOSALDO', 'VTABNET', 'VTASIISS', 'VTASFLEX', 'VTA_S1', 'RECHAZADOS', 'ACEPTADOS', 'DIGITADOS', 'PENDIENTES_CONT'],
+    attributes: carAttr,
     where: {
-      EMPRESA: ReturnEmpresa(empresa),
       FECHA: fn('CURDATE'),
-      [Op.and]: ReturnABS(abs)
+      EMPRESA: empresa === '1' ? { [Op.eq]: '101' } : empresa === '2' ? { [Op.eq]: '102' } : { [Op.in]: ['101', '102'] },
+      SALDO_ANT: abs === 'true' ? { [Op.gt]: 100 } : { [Op.ne]: 0 }
     },
     include: [
       {

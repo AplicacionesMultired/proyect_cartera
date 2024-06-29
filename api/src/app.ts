@@ -7,7 +7,6 @@ import express from 'express'
 import cors from 'cors'
 import 'dotenv/config'
 
-
 const app = express()
 const PORT = process.env.PORT || 4040;
 
@@ -27,7 +26,6 @@ app.use('/api/v1/', CarteraRouter)
 // app.get('/usersSinBase', usersSinBase)
 
 // app.post('/updateBase', updateBase)
-
 
 app.listen(PORT, () => {
   console.log(`Server is running at http://localhost:${PORT}`)
