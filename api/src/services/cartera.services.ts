@@ -8,9 +8,9 @@ const carAttr: (keyof CarteraAttributes)[] = ['EMPRESA', 'VINCULADO', 'SALDO_ANT
 const sellAttr: (keyof SellerAttributes)[] = ['NOMBRES', 'NOMBRECARGO']
 const baseAttr: (keyof BaseAtributes)[] = ['BASE', 'RASPE']
 
-export async function CarteraDataServices(empresa: string, abs: string): Promise<any> {
+export async function CarteraDataServices(empresa: string, abs: string) {
   await Cartera.sync();
-  return Cartera.findAll({
+  return await Cartera.findAll({
     attributes: carAttr,
     where: {
       FECHA: fn('CURDATE'),
@@ -19,15 +19,16 @@ export async function CarteraDataServices(empresa: string, abs: string): Promise
     },
     include: [
       {
-        attributes: ['NOMBRES', 'NOMBRECARGO'],
+        attributes: sellAttr,
         model: Sellers,
-        required: true,
+        required: false,
       },
       {
-        attributes: ['BASE', 'RASPE'],
+        attributes: baseAttr,
         model: Bases,
         required: false,
       }
     ]
   });
+
 }

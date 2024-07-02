@@ -1,21 +1,13 @@
-type EmpresaKey = '102' | '101';
+import { extensions } from "sequelize/types/utils/validator-extras";
+import { Cartera } from "../model";
 
-const empresaMapping = {
-  '102': 'Multired',
-  '101': 'Servired'
-};
-
-export function ReturnEmpresaObj(empresa: EmpresaKey) {
-  return empresaMapping[empresa] || 'N/A';
-}
-
-function calculateCartera(item: any): number {
+function calculateCartera(item): number {
   return item.SALDO_ANT - (item.Basis?.BASE || 0) - item.CREDITO - item.DEBITO;
 }
 
-export function mapCarteraResults(results: any): any {
-  return results.map((item: any )=> ({
-    Empresa: ReturnEmpresaObj(item.EMPRESA),
+export function mapCarteraResults(results: []) {
+  return results.map((item) => ({
+    Empresa: item.EMPRESA === '101' ? 'Multired' : 'Servired',
     Vinculado: item.VINCULADO,
     Nombres: item.Seller?.NOMBRES,
     Cargo: item.Seller.NOMBRECARGO,
