@@ -30,8 +30,8 @@ export const HeaderCompCartera = ({ data, funEmpresa, funABS, funFilter, vincula
       </div>
       <Select defaultValue="0" className='w-60' onValueChange={funEmpresa}>
         <SelectItem value="0">Multired / Servired</SelectItem>
-        <SelectItem value="102">Multired</SelectItem>
         <SelectItem value="101">Servired</SelectItem>
+        <SelectItem value="102">Multired</SelectItem>
       </Select>
       <div className='flex flex-col items-center'>
         <p className='text-center'>Filtro ABS {'>'} 100</p>

@@ -10,16 +10,16 @@ const baseAttr: (keyof BaseAtributes)[] = ['BASE', 'RASPE']
 
 function absfilter(abs: boolean) {
   if (abs === false) {
-    return [where(fn('ABS', col('SALDO_ANT')), { [Op.ne]: 0 })]
+    return [where(fn('ABS', col('SALDO_ANT')), '<>', 0)]
   } else {
     return [where(fn('ABS', col('SALDO_ANT')), { [Op.gt]: 100 })]
   }
 }
 
 function empFilter(empresa: string) {
-  if (empresa === '1') {
+  if (empresa === '101') {
     return { [Op.eq]: '101' }
-  } else if (empresa === '2') {
+  } else if (empresa === '102') {
     return { [Op.eq]: '102' }
   } else {
     return {

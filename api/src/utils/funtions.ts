@@ -1,20 +1,16 @@
-function calculateCartera(item: any): number {
-  return item.SALDO_ANT - (item.Basis?.BASE || 0) - item.CREDITO - item.DEBITO;
+function ReturCargo(seller: string): string {
+  const sellerRoles: { [key: string]: string } = {
+    VENDEDOR: 'Vendedor',
+    CAJERO_COMERCIAL: 'Cajero Comercial',
+    COLOCADOR_INDEPENDIENTE: 'Colocador Independiente',
+    CAJERO_TESORERIA: 'Cajero Tesoreria'
+  };
+
+  return sellerRoles[seller] || 'NO DEFINIDO';
 }
 
-function ReturCargo(seller: any): string {
-  if (seller === 'VENDEDOR') {
-    return 'Vendedor'
-  } else if (seller === 'CAJERO_COMERCIAL') {
-    return 'Cajero Comercial'
-  } else if (seller === 'COLOCADOR_INDEPENDIENTE') {
-    return 'Colocador Independiente'
-  } else if (seller === 'CAJERO_TESORERIA') {
-    return 'Cajero Tesoreria'
-  } else {
-    return 'NO DEFINIDO'
-  }
-
+function calculateCartera(item: any): number {
+  return item.SALDO_ANT - (item.Basis?.BASE || 0) - item.CREDITO - item.DEBITO;
 }
 
 export function mapCarteraResults(results: any) {
