@@ -40,7 +40,7 @@ export const TableDatos = ({ data, funSort, valueOrder }: { data: CarteraI[], fu
             <TableRow key={index}>
               <TableCell>{item.Empresa}</TableCell>
               <TableCell>{item.Vinculado}</TableCell>
-              <TableCell className='text-clip text-[0.7rem]'>{item.Nombres}</TableCell>
+              <TableCell className='text-clip text-[0.7rem]'>{item.Nombres || 'No Registrado Bnet'}</TableCell>
               <TableCell>{item.Cargo}</TableCell>
               <TableCell>{formatPesoColombia(item.Base)}</TableCell>
               <TableCell className={`${item.SaldoAnt > 0

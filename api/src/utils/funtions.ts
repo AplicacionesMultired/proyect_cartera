@@ -14,7 +14,7 @@ function calculateCartera(item: any): number {
 }
 
 function calcularNuevoSaldo(item: any): number {
-  return item.SaldoAnt - item.Credito - item.Debito
+  return item.SALDO_ANT - item.CREDITO - item.DEBITO
 }
 
 export function mapCarteraResults(results: any) {
