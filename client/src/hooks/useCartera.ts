@@ -6,10 +6,10 @@ import { HOST } from '../App'
 export const useCartera = () => {
   const [empresa, setEmpresa] = useState<string>('0')
   const [abs, setAbs] = useState<boolean>(false)
-  const [orden, setOrden] = useState<'asc' | 'desc' | ''>('')
-
   const [data, setData] = useState<CarteraI[]>([])
-  const [vinculado, setVinculado] = useState<string>('')
+
+  // const [orden, setOrden] = useState<'asc' | 'desc' | ''>('')
+  // const [vinculado, setVinculado] = useState<string>('')
 
   useEffect(() => {
     const fetchData = () => {
@@ -26,21 +26,22 @@ export const useCartera = () => {
     return () => clearInterval(interval)
   }, [empresa, abs])
 
-  const handleClickOrden = () => {
-    setOrden(prevOrden => {
-      switch (prevOrden) {
-        case '':
-          return 'asc'
-        case 'asc':
-          return 'desc'
-        case 'desc':
-          return ''
-        default:
-          return ''
-      }
-    })
-  }
+  // const handleClickOrden = () => {
+  //   setOrden(prevOrden => {
+  //     switch (prevOrden) {
+  //       case '':
+  //         return 'asc'
+  //       case 'asc':
+  //         return 'desc'
+  //       case 'desc':
+  //         return ''
+  //       default:
+  //         return ''
+  //     }
+  //   })
+  // }
 
+  /*
   // Paso 2: Crear función de ordenamiento
   const ordenarCartera = (data: CarteraI[]) => {
     if (orden === '') {
@@ -48,9 +49,9 @@ export const useCartera = () => {
     }
     return [...data].sort((a, b) => {
       if (orden === 'asc') {
-        return a.SaldoAnt - b.SaldoAnt
+        return a.Cartera - b.Cartera
       } else {
-        return b.SaldoAnt - a.SaldoAnt
+        return b.Cartera - a.Cartera
       }
     })
   }
@@ -65,6 +66,7 @@ export const useCartera = () => {
   }
 
   const dataOrdenadaYFiltrada = filterVinculado(orden === '' ? data : ordenarCartera(data))
+*/
 
-  return { dataOrdenadaYFiltrada, handleChange, handleClickOrden, orden, setAbs, setEmpresa, vinculado }
+  return { data, setAbs, setEmpresa }
 }

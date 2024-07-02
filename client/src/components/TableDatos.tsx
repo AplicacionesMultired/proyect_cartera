@@ -1,9 +1,8 @@
 import { Card, Table, TableBody, TableCell, TableHead, TableHeaderCell, TableRow } from '@tremor/react'
-import { ArrowDown, ArrowUp, DotsIcon } from './icons/ArrowIcons'
 import { formatPesoColombia } from '../utils/funtions'
 import { CarteraI } from '../types/cartera'
 
-export const TableDatos = ({ data, funSort, valueOrder }: { data: CarteraI[], funSort: () => void, valueOrder: 'asc' | 'desc' | '' }) => {
+export const TableDatos = ({ data }: { data: CarteraI[] }) => {
   return (
     <Card decoration="top" decorationColor="rose" className='p-2 mt-0.5'>
       <Table className='xl:max-h-[80vh] 3xl:max-h-[82vh]'>
@@ -14,18 +13,11 @@ export const TableDatos = ({ data, funSort, valueOrder }: { data: CarteraI[], fu
             <TableHeaderCell>Nombre</TableHeaderCell>
             <TableHeaderCell>Cargo</TableHeaderCell>
             <TableHeaderCell className='text-center'>Base</TableHeaderCell>
-            <TableHeaderCell className='flex items-center gap-2 text-xs cursor-pointer hover:text-blue-400' onClick={funSort}>
-              <span>Saldo Ant</span>
-              { valueOrder === '' ? <ArrowUp /> : valueOrder === 'asc' ? <ArrowDown /> : <DotsIcon />}
-            </TableHeaderCell >
+            <TableHeaderCell className='text-center'>Saldo Ant</TableHeaderCell >
             <TableHeaderCell className='text-center'>Débito</TableHeaderCell>
             <TableHeaderCell className='text-center'>Crédito</TableHeaderCell>
             <TableHeaderCell className='text-center'>Nuevo Saldo</TableHeaderCell>
-            <TableHeaderCell className='flex items-center gap-2 text-xs cursor-pointer hover:text-blue-400'
-              onClick={ev => console.log(ev)}>
-              <span>Cartera</span>
-            { valueOrder === '' ? <ArrowUp /> : valueOrder === 'asc' ? <ArrowDown /> : <DotsIcon />}
-            </TableHeaderCell>
+            <TableHeaderCell className='flex items-center gap-2 text-xs cursor-pointer hover:text-blue-400'>Cartera</TableHeaderCell>
             <TableHeaderCell className='text-center'>Rechazados</TableHeaderCell>
             <TableHeaderCell className='text-center'>Aceptados</TableHeaderCell>
             <TableHeaderCell className='text-center'>Pendiente Conteo</TableHeaderCell>

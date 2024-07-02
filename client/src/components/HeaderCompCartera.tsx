@@ -11,11 +11,9 @@ interface PropsCompo {
   data: CarteraI[]
   funEmpresa: (e: string) => void
   funABS: (e: boolean) => void
-  funFilter: (e: React.ChangeEvent<HTMLInputElement>) => void
-  vinculado: string
 }
 
-export const HeaderCompCartera = ({ data, funEmpresa, funABS, funFilter, vinculado }: PropsCompo) => {
+export const HeaderCompCartera = ({ data, funEmpresa, funABS }: PropsCompo) => {
   return (
     <Card className='flex gap-4 justify-between text-xs py-2 mt-0.5 dark:text-white' decoration="top" decorationColor="rose">
       <div>
@@ -25,7 +23,7 @@ export const HeaderCompCartera = ({ data, funEmpresa, funABS, funFilter, vincula
 
       <div className='flex gap-2 items-center' >
         <Label className='text-sm font-semibold'>Vinculado:</Label>
-        <TextInput name='viculado' placeholder='1118111222 | 669102432' value={vinculado} className='w-52' type='text' onChange={funFilter}/>
+        <TextInput name='viculado' placeholder='1118111222 | 669102432' className='w-52' type='text'/>
 
       </div>
       <Select defaultValue="0" className='w-60' onValueChange={funEmpresa}>
