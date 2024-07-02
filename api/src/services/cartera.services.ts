@@ -8,11 +8,11 @@ const carAttr: (keyof CarteraAttributes)[] = ['EMPRESA', 'VINCULADO', 'SALDO_ANT
 const sellAttr: (keyof SellerAttributes)[] = ['NOMBRES', 'NOMBRECARGO']
 const baseAttr: (keyof BaseAtributes)[] = ['BASE', 'RASPE']
 
-function absfilter(abs: string) {
-  if (abs === 'true') {
-    return [where(fn('ABS', col('SALDO_ANT')), { [Op.gt]: 100 })]
-  } else {
+function absfilter(abs: boolean) {
+  if (abs === false) {
     return [where(fn('ABS', col('SALDO_ANT')), { [Op.ne]: 0 })]
+  } else {
+    return [where(fn('ABS', col('SALDO_ANT')), { [Op.gt]: 100 })]
   }
 }
 
@@ -29,7 +29,7 @@ function empFilter(empresa: string) {
 }
 
 
-export async function CarteraDataServices(empresa: string, abs: string) {
+export async function CarteraDataServices(empresa: string, abs: boolean) {
   await Cartera.sync();
   return await Cartera.findAll({
     attributes: carAttr,
