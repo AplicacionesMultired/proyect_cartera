@@ -28,7 +28,6 @@ function empFilter(empresa: string) {
   }
 }
 
-
 export async function CarteraDataServices(empresa: string, abs: boolean) {
   await Cartera.sync();
   return await Cartera.findAll({

@@ -13,6 +13,10 @@ function calculateCartera(item: any): number {
   return item.SALDO_ANT - (item.Basis?.BASE || 0) - item.CREDITO - item.DEBITO;
 }
 
+function calcularNuevoSaldo(item: any): number {
+  return item.SaldoAnt - item.Credito - item.Debito
+}
+
 export function mapCarteraResults(results: any) {
   return results.map((item: any) => ({
     Empresa: item.EMPRESA === '101' ? 'Servired' : 'Multired',
@@ -24,7 +28,7 @@ export function mapCarteraResults(results: any) {
     SaldoAnt: item.SALDO_ANT,
     Debito: item.DEBITO,
     Credito: item.CREDITO,
-    NuevoSaldo: item.NUEVOSALDO,
+    NuevoSaldo: calcularNuevoSaldo(item),
     Cartera: calculateCartera(item),
     Rechazados: item.RECHAZADOS,
     Aceptados: item.ACEPTADOS,

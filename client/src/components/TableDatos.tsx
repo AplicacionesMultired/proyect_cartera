@@ -55,7 +55,7 @@ export const TableDatos = ({ data, funSort, valueOrder }: { data: CarteraI[], fu
                 {formatPesoColombia(item.Credito)}
               </TableCell>
               <TableCell className='text-center' id='nuevo saldo'>
-                {formatPesoColombia(item.SaldoAnt - item.Credito - item.Debito)}
+                {formatPesoColombia(item.NuevoSaldo)}
               </TableCell>
               <TableCell className='text-center font-semibold text-black dark:text-gray-300' id='cartera'>
                 {formatPesoColombia(item.Cartera)}
