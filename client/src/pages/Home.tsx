@@ -3,13 +3,13 @@ import { TableDatos } from '../components/TableDatos'
 import { useCartera } from '../hooks/useCartera'
 
 export const Home = () => {
-  const { data, setAbs, setEmpresa } = useCartera()
+  const { filterVinculado, handleChange, setAbs, setEmpresa, vinculado, handleClick } = useCartera()
 
   return (
-    data && (
+    filterVinculado && (
       <section className='relative px-1'>
-        <HeaderCompCartera data={data} funEmpresa={setEmpresa} funABS={setAbs} />
-        <TableDatos data={data} />
+        <HeaderCompCartera data={filterVinculado()} funFilter={handleChange} funEmpresa={setEmpresa} funABS={setAbs} vin={vinculado} />
+        <TableDatos funSort={handleClick} data={filterVinculado()} />
       </section>
     )
   )
