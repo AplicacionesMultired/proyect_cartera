@@ -1,21 +1,23 @@
-import { useEffect, useState } from 'react'
+import { fetchCartera } from '../services/carteraSevices'
+import { useEffect, useMemo, useState } from 'react'
 import { CarteraI } from '../types/cartera'
-import axios from 'axios'
-import { HOST } from '../App'
+import { useSort } from './useSort'
 
 export const useCartera = () => {
-  const [empresa, setEmpresa] = useState<string>('0')
   const [abs, setAbs] = useState<boolean>(false)
   const [data, setData] = useState<CarteraI[]>([])
+  const [empresa, setEmpresa] = useState<string>('0')
   const [vinculado, setVinculado] = useState<string>('')
+  const { sortConfig, setSortConfig, ordenarArray } = useSort<CarteraI>()
 
   useEffect(() => {
-    const fetchData = () => {
-      axios.get(`${HOST}/cartera?empresa=${empresa}&abs=${abs}`)
-        .then(res => {
-          setData(res.data)
-        })
-        .catch(err => console.log(err))
+    const fetchData = async () => {
+      try {
+        const data = await fetchCartera(empresa, abs)
+        setData(data)
+      } catch (error) {
+        console.error('Failed to fetch data:', error)
+      }
     }
 
     fetchData()
@@ -28,13 +30,15 @@ export const useCartera = () => {
     setVinculado(e.target.value)
   }
 
-  const filterVinculado = () => {
-    if (!vinculado) return data // Si vinculado está vacío, retorna todos los datos
-    return data.filter(item => item.Vinculado.toLowerCase().includes(vinculado.toLowerCase())) // Usa includes para una búsqueda parcial
-  }
+  const filterVinculado = useMemo(() => data.filter(item => item.Vinculado.toLowerCase().includes(vinculado.toLowerCase())), [data, vinculado])
 
-  const handleClick = (ev: React.MouseEvent<HTMLTableCellElement, MouseEvent>) => {
-    console.log(ev.currentTarget.id)
+  const handleClick = (e: React.MouseEvent<HTMLTableCellElement, MouseEvent>) => {
+    const propiedadActual = e.currentTarget.id as keyof CarteraI
+    const esLaMismaPropiedad = sortConfig.propiedad === propiedadActual
+    const nuevaDireccion = esLaMismaPropiedad ? !sortConfig.ascendente : true
+
+    setSortConfig({ propiedad: propiedadActual, ascendente: nuevaDireccion })
+    setData(prevData => ordenarArray(prevData, propiedadActual, nuevaDireccion))
   }
 
   return { filterVinculado, handleChange, setAbs, setEmpresa, vinculado, handleClick }

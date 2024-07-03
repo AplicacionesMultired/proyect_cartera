@@ -8,8 +8,8 @@ export const Home = () => {
   return (
     filterVinculado && (
       <section className='relative px-1'>
-        <HeaderCompCartera data={filterVinculado()} funFilter={handleChange} funEmpresa={setEmpresa} funABS={setAbs} vin={vinculado} />
-        <TableDatos funSort={handleClick} data={filterVinculado()} />
+        <HeaderCompCartera data={filterVinculado} funFilter={handleChange} funEmpresa={setEmpresa} funABS={setAbs} vin={vinculado} />
+        <TableDatos data={filterVinculado} funClick={handleClick}/>
       </section>
     )
   )

@@ -4,10 +4,10 @@ import { CarteraI } from '../types/cartera'
 
 interface PropsCompo {
   data: CarteraI[]
-  funSort: (e: React.MouseEvent<HTMLTableCellElement, MouseEvent>) => void
+  funClick: (ev: React.MouseEvent<HTMLTableCellElement, MouseEvent>) => void
 }
 
-export const TableDatos = ({ data, funSort }: PropsCompo) => {
+export const TableDatos = ({ data, funClick }: PropsCompo) => {
   return (
     <Card decoration="top" decorationColor="rose" className='p-2 mt-0.5'>
       <Table className='xl:max-h-[80vh] 3xl:max-h-[82vh]'>
@@ -18,21 +18,19 @@ export const TableDatos = ({ data, funSort }: PropsCompo) => {
             <TableHeaderCell>Nombre</TableHeaderCell>
             <TableHeaderCell>Cargo</TableHeaderCell>
             <TableHeaderCell className='text-center'>Base</TableHeaderCell>
-            <TableHeaderCell id={'SaldoAnt'} className='text-center text-xs cursor-pointer hover:text-blue-400'
-              onClick={(ev) => funSort(ev)}>
+            <TableHeaderCell id={'SaldoAnt'} className='text-center text-xs cursor-pointer hover:text-blue-400' onClick={ev => funClick(ev)}>
                 Saldo Ant ...
             </TableHeaderCell >
             <TableHeaderCell className='text-center'>Débito</TableHeaderCell>
             <TableHeaderCell className='text-center'>Crédito</TableHeaderCell>
             <TableHeaderCell className='text-center'>Nuevo Saldo</TableHeaderCell>
-            <TableHeaderCell id={'Cartera'} className='text-center text-xs cursor-pointer hover:text-blue-400'
-              onClick={(ev) => funSort(ev)}>
+            <TableHeaderCell id={'Cartera'} className='text-center text-xs cursor-pointer hover:text-blue-400' onClick={ev => funClick(ev)}>
                 Cartera ...
             </TableHeaderCell>
             <TableHeaderCell className='text-center'>Rechazados</TableHeaderCell>
             <TableHeaderCell className='text-center'>Aceptados</TableHeaderCell>
             <TableHeaderCell className='text-center'>Pendiente Conteo</TableHeaderCell>
-            <TableHeaderCell className='text-center'>Digitados</TableHeaderCell>(ev)
+            <TableHeaderCell className='text-center'>Digitados</TableHeaderCell>
             <TableHeaderCell className='text-center'>Venta Bnet</TableHeaderCell>
             <TableHeaderCell className='text-center'>Cuadre Web</TableHeaderCell>
             <TableHeaderCell className='text-center'>Anulados</TableHeaderCell>
