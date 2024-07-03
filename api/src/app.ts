@@ -15,19 +15,19 @@ app.use(cors())
 
 app.use('/api/v1/', CarteraRouter)
 
-// app.get('/sellers', GetSellers)
+app.get('/api/v1/sellers', GetSellers)
 
-// app.get('/getAllBases', getAllBases)
+app.get('/api/v1/getAllBases', getAllBases)
 
-// app.get('/baseDetalle/:id', getBaseDatalle)
+app.get('/api/v1/baseDetalle/:id', getBaseDatalle)
 
-// app.get('/updatesBases/:id', detalleUpdates)
+// app.get('/api/v1/updatesBases/:id', detalleUpdates)
 
-// app.get('/usersSinBase', usersSinBase)
+app.get('/api/v1/usersSinBase', usersSinBase)
 
-// app.post('/updateBase', updateBase)
+app.post('/api/v1/updateBase', updateBase)
 
 app.listen(PORT, () => {
-  console.log(`Server is running at http://localhost:${PORT}`)
+  console.log(`Server is running at http:ocalhost:${PORT}`)
 })
 
