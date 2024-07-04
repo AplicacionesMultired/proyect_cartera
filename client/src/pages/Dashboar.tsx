@@ -1,9 +1,10 @@
+import { DonutChartHero } from '../components/Donut'
 import { Card } from '@tremor/react'
 
 function Dashboard () {
   return (
     <Card className=''>
-      <h1>Dashboard</h1>
+      <DonutChartHero />
     </Card>
   )
 }
