@@ -13,9 +13,9 @@ app.use(cors())
 
 app.use(v1, CarteraRouter)
 
-app.get(v1, BasesRouter)
+app.use(v1, BasesRouter)
 
-app.get(v1, SellersRouter)
+app.use(v1, SellersRouter)
 
 
 app.listen(PORT, () => {

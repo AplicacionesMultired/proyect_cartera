@@ -22,6 +22,7 @@ interface PropsCrating {
 
 function FormCreate ({ nombres, vinculado, funClose }: PropsCrating) {
   const [base, setBase] = useState<number>(0)
+  const [raspa, setRaspa] = useState<number>(0)
 
   return (
     <section className='flex items-center justify-center w-full h-[99.5vh] bg-slate-900 bg-opacity-50 z-20 absolute top-1'>
@@ -40,6 +41,10 @@ function FormCreate ({ nombres, vinculado, funClose }: PropsCrating) {
           <div className="w-full mb-4">
             <Label>Valor Base</Label>
             <Input type='number' value={base} onChange={ev => setBase(parseInt(ev.target.value))} />
+          </div>
+          <div className="w-full mb-4">
+            <Label>Valor Raspa</Label>
+            <Input type='number' value={raspa} onChange={ev => setRaspa(parseInt(ev.target.value))} />
           </div>
           <Button color='red'>Asignar Base</Button>
         </div>

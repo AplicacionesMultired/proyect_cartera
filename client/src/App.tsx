@@ -15,6 +15,7 @@ export const HOST = 'http://172.20.1.110:4040/api/v1'
 export function App (): JSX.Element {
   const { login, logout, isAuthenticated } = useAuth()
 
+  /*
   useEffect(() => {
     const token = localStorage.getItem('cartera')
     if (token !== null) {
@@ -30,7 +31,7 @@ export function App (): JSX.Element {
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
-
+*/
   return (
     <>
       <Routes>
