@@ -150,3 +150,30 @@ export const usersSinBase = async (req: Request, res: Response) => {
     return res.status(500).json(error)
   }
 }
+
+export const crearBase = async (req: Request, res: Response) => {
+  const { base, raspa, vinculado, login } = req.body
+  
+  try {
+    await Bases.sync()
+    const result = await Bases.create({
+      BASE: base,
+      RASPE: raspa,
+      VINCULADO: vinculado,
+      EXCP2: 0,
+      EXCP3: 0,
+      LOGIN: login,
+      OBSERVACION: 'Primera Asignación',
+      VERSION: '0'
+    })
+
+    if(result === null) {
+      return res.status(400).json('No se pudo crear la base')
+    }
+
+    return res.status(201).json('Base creada correctamente')
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json(error)
+  }
+}
