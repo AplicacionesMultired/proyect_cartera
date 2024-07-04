@@ -10,12 +10,11 @@ import LoginPage from './pages/Login'
 import { Home } from './pages/Home'
 import { useEffect } from 'react'
 
-export const HOST = 'http://172.20.1.110:4040/api/v1'
+export const HOST = 'http://172.20.1.70:4040/api/v1'
 
 export function App (): JSX.Element {
   const { login, logout, isAuthenticated } = useAuth()
 
-  /*
   useEffect(() => {
     const token = localStorage.getItem('cartera')
     if (token !== null) {
@@ -31,7 +30,7 @@ export function App (): JSX.Element {
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
-*/
+
   return (
     <>
       <Routes>
