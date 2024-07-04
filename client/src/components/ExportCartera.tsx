@@ -33,23 +33,23 @@ export const BottonExporCartera = ({ datos }: { datos: CarteraI[] }): JSX.Elemen
     datos.forEach((it) => {
       tabla.push(
         {
-          A: it.EMPRESA === '102' ? 'Multired' : 'Servired',
-          B: it.VINCULADO,
-          C: it.Seller.NOMBRES,
-          D: it.Seller?.NOMBRECARGO !== undefined && it.Seller.NOMBRECARGO !== null ? it.Seller.NOMBRECARGO : 'Sin cargo',
-          E: it.Basis?.BASE !== undefined && it.Basis.BASE > 0 ? it.Basis.BASE.toString() : '0',
-          F: it.SALDO_ANT !== undefined ? it.SALDO_ANT.toString() : '0',
-          G: it.DEBITO.toString(),
-          H: it.CREDITO.toString(),
-          I: (it.SALDO_ANT - it.CREDITO - it.DEBITO).toString(),
-          J: (+it.SALDO_ANT - (it.Basis?.BASE !== undefined && it.Basis.BASE > 0 ? it.Basis.BASE : 0) - it.DEBITO - it.CREDITO).toString(),
-          K: it.RECHAZADOS.toString(),
-          L: it.ACEPTADOS.toString(),
-          M: it.PENDIENTES_CONT.toString(),
-          N: it.DIGITADOS.toString(),
-          O: it.VTABNET.toString(),
-          P: it.VTASIISS.toString(),
-          Q: it.VTA_S1.toString()
+          A: it.Empresa,
+          B: it.Vinculado,
+          C: it.Nombres,
+          D: it.Cargo,
+          E: it.Base.toString(),
+          F: it.SaldoAnt.toString(),
+          G: it.Debito.toString(),
+          H: it.Credito.toString(),
+          I: it.NuevoSaldo.toString(),
+          J: it.Cartera.toString(),
+          K: it.Rechazados.toString(),
+          L: it.Aceptados.toString(),
+          M: it.PendientesCont.toString(),
+          N: it.Digitados.toString(),
+          O: it.Vtabnet.toString(),
+          P: it.CuadreWeb.toString(),
+          Q: it.Anulados.toString()
 
         }
       )
