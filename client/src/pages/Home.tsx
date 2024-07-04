@@ -2,7 +2,7 @@ import { HeaderCompCartera } from '../components/HeaderCompCartera'
 import { TableDatos } from '../components/TableDatos'
 import { useCartera } from '../hooks/useCartera'
 
-export const Home = () => {
+export const Detallado = () => {
   const { filterVinculado, handleChange, setAbs, setEmpresa, vinculado, handleClick } = useCartera()
 
   return (

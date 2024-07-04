@@ -1,4 +1,4 @@
-function ReturCargo(seller: string): string {
+export function ReturCargo(seller: string): string {
   const sellerRoles: { [key: string]: string } = {
     VENDEDOR: 'Vendedor',
     CAJERO_COMERCIAL: 'Cajero Comercial',
@@ -9,11 +9,11 @@ function ReturCargo(seller: string): string {
   return sellerRoles[seller] || 'NO DEFINIDO';
 }
 
-function calculateCartera(item: any): number {
+export function calculateCartera(item: any): number {
   return item.SALDO_ANT - (item.Basis?.BASE || 0) - item.CREDITO - item.DEBITO;
 }
 
-function calcularNuevoSaldo(item: any): number {
+export function calcularNuevoSaldo(item: any): number {
   return item.SALDO_ANT - item.CREDITO - item.DEBITO
 }
 

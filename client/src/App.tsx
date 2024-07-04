@@ -7,8 +7,9 @@ import { BasesPage } from './pages/BasesPage'
 import { useAuth } from './auth/AuthProvider'
 import { NotFound } from './pages/NotFound'
 import LoginPage from './pages/Login'
-import { Home } from './pages/Home'
+import { Detallado } from './pages/Home'
 import { useEffect } from 'react'
+import Dashboard from './pages/Dashboar'
 
 export const HOST = 'http://172.20.1.70:4040/api/v1'
 
@@ -36,7 +37,8 @@ export function App (): JSX.Element {
       <Routes>
         <Route path='/' element={<LoginPage />} index />
         <Route element={<ProtectedRoute isAllowed={!isAuthenticated} redirectTo='/' />}>
-          <Route path="/home" element={<Home />} />
+          <Route path="/home" element={<Dashboard />} />
+          <Route path='/detallado' element={<Detallado />} />
           <Route path='/baseDetalle/:id' element={<BasesDetalle />} />
           <Route path='/Bases' element={<BasesPage />} />
           <Route path='/asignarNuevaBase' element={<AsignarNewBase />} />
