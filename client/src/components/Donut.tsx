@@ -7,7 +7,7 @@ const dataFormatter = (number: number) =>
   `$ ${Intl.NumberFormat('co-ES').format(number).toString()}`
 
 export const DonutChartHero = () => {
-  const [datahero, setDatahero] = useState([])
+  const [datahero, setDatahero] = useState()
 
   useEffect(() => {
     axios.get(`${HOST}/resumenCartera`)

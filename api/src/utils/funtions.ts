@@ -59,7 +59,7 @@ export const sumarCarteraPorEmpresaYCargo = (carteras: ObjectCartera[]): Resumen
     acc[Empresa][Cargo] += Cartera;
 
     return acc;
-  }, {} as Resumen);
+  }, {} as Resumen)
 
   return resumen;
 };
