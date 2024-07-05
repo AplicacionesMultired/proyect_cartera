@@ -41,8 +41,3 @@ export interface ObjectCartera {
   Cargo: string;
 }
 
-export interface Resumen {
-  [key: string]: {
-    [key: string]: number;
-  };
-}

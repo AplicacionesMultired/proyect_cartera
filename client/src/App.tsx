@@ -11,7 +11,7 @@ import { Detallado } from './pages/Home'
 import { useEffect } from 'react'
 import Dashboard from './pages/Dashboar'
 
-export const HOST = 'http://172.20.1.110:4040/api/v1'
+export const HOST = 'http://172.20.1.70:4040/api/v1'
 
 export function App (): JSX.Element {
   const { login, logout, isAuthenticated } = useAuth()

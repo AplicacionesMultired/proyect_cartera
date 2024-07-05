@@ -1,14 +1,14 @@
-import { ObjectCartera, Resumen } from "../types/interface";
+import { ObjectCartera } from "../types/interface";
 
 export function ReturCargo(seller: string): string {
   const sellerRoles: { [key: string]: string } = {
     VENDEDOR: 'Vendedor',
-    CAJERO_COMERCIAL: 'Cajero Comercial',
-    COLOCADOR_INDEPENDIENTE: 'Colocador Independiente',
-    CAJERO_TESORERIA: 'Cajero Tesoreria'
+    CAJERO_COMERCIAL: 'Caj_Comercial',
+    COLOCADOR_INDEPENDIENTE: 'Colo_Independiente',
+    CAJERO_TESORERIA: 'Caj_Tesoreria'
   };
 
-  return sellerRoles[seller] || 'NO DEFINIDO';
+  return sellerRoles[seller] || 'No_Definido';
 }
 
 export function calculateCartera(item: any): number {
@@ -42,24 +42,32 @@ export function mapCarteraResults(results: any) {
   }));
 }
 
+export interface Resumen {
+  [key: string]: {
+    [key: string]: number;
+  };
+}
 
-export const sumarCarteraPorEmpresaYCargo = (carteras: ObjectCartera[]): Resumen => {
+export const sumarCarteraPorEmpresaYCargo = (carteras: ObjectCartera[]) => {
   const resumen = carteras.reduce((acc, { Empresa, Cargo, Cartera }) => {
-    // Inicializar la empresa si no existe
-    if (!acc[Empresa]) {
-      acc[Empresa] = {};
-    }
+    // Verificar si la empresa es "Servired" o "Multired"
+    if (Empresa === "Servired" || Empresa === "Multired") {
+      // Inicializar la empresa si no existe
+      if (!acc[Empresa]) {
+        acc[Empresa] = {};
+      }
 
-    // Inicializar el cargo si no existe dentro de la empresa
-    if (!acc[Empresa][Cargo]) {
-      acc[Empresa][Cargo] = 0;
-    }
+      // Inicializar el cargo si no existe dentro de la empresa
+      if (!acc[Empresa][Cargo]) {
+        acc[Empresa][Cargo] = 0;
+      }
 
-    // Sumar la cartera al cargo correspondiente
-    acc[Empresa][Cargo] += Cartera;
+      // Sumar la cartera al cargo correspondiente
+      acc[Empresa][Cargo] += Cartera;
+    }
 
     return acc;
-  }, {} as Resumen)
+  }, {} as Resumen); // Inicializar el acumulador como un objeto vacío
 
   return resumen;
 };

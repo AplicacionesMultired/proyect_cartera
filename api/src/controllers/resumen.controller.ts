@@ -18,9 +18,12 @@ export const getCarteraResumen = async (req: Request, res: Response) => {
 
     const ReduceCartera = sumarCarteraPorEmpresaYCargo(FilterMayor0)
 
-    const ArrayReturn = Object.entries(ReduceCartera).map(([key, value]) => ({ Empresa: key, ...value }))
-    
-    return res.status(200).json(ArrayReturn)
+    const Array = Object.entries(ReduceCartera).map(([Empresa, Cargo]) => ({
+      Empresa,
+      ...Cargo
+    }))
+
+    return res.status(200).json(Array)
   } catch (error) {
     console.error(error)
     return res.status(500).json({ message: 'Internal server error', error })
