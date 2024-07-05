@@ -1,3 +1,5 @@
+import { ObjectCartera, Resumen } from "../types/interface";
+
 export function ReturCargo(seller: string): string {
   const sellerRoles: { [key: string]: string } = {
     VENDEDOR: 'Vendedor',
@@ -39,3 +41,25 @@ export function mapCarteraResults(results: any) {
     Anulados: item.VTA_S1
   }));
 }
+
+
+export const sumarCarteraPorEmpresaYCargo = (carteras: ObjectCartera[]): Resumen => {
+  const resumen = carteras.reduce((acc, { Empresa, Cargo, Cartera }) => {
+    // Inicializar la empresa si no existe
+    if (!acc[Empresa]) {
+      acc[Empresa] = {};
+    }
+
+    // Inicializar el cargo si no existe dentro de la empresa
+    if (!acc[Empresa][Cargo]) {
+      acc[Empresa][Cargo] = 0;
+    }
+
+    // Sumar la cartera al cargo correspondiente
+    acc[Empresa][Cargo] += Cartera;
+
+    return acc;
+  }, {} as Resumen);
+
+  return resumen;
+};

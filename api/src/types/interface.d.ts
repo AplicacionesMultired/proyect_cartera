@@ -34,3 +34,15 @@ export interface MappedResult {
   CuadreWeb: number;
   Anulados: number;
 }
+
+export interface ObjectCartera {
+  Cartera: number
+  Empresa: "Servired" | "Multired"
+  Cargo: string;
+}
+
+export interface Resumen {
+  [key: string]: {
+    [key: string]: number;
+  };
+}
