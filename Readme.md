@@ -1,8 +1,8 @@
 # Proyecto Cartera Grupo Empresarial Multired/Servired
 
 ## Descripción
- - Este proyecto es una aplicación web que permite gestionar la cartera del Grupo Empresarial Multired/Servired.
-es un proyecto de codigo abierto que se encuentra en el repositorio de GitHub. y utilizamos librerias open source.
+- Este proyecto es una aplicación web que permite gestionar la cartera del Grupo Empresarial Multired/Servired.
+Es un proyecto de código abierto que se encuentra en el repositorio de GitHub y utilizamos librerías open source.
 
 ## Infraestructura
 
@@ -11,15 +11,15 @@ es un proyecto de codigo abierto que se encuentra en el repositorio de GitHub. y
   - Framework: Express
   - Base de datos: MySQL 8.2
   - Servidor: Interno (Empresarial)
-  - Repositorio: https://github.com/llOrtegall/proyect_cartera/api
-  - Librerias: Cors, Dotenv, Express, Mysql2, Nodemon, Typescript, Sequalize
+  - Repositorio: [https://github.com/llOrtegall/proyect_cartera/tree/master/client](https://github.com/llOrtegall/proyect_cartera/tree/master/client)
+  - Librerías: Cors, Dotenv, Express, Mysql2, Nodemon, Typescript, Sequelize
 
 - Frontend:
   - Lenguaje: TypeScript
   - Framework: React
   - Servidor: Interno (Empresarial)
-  - Repositorio:https://github.com/llOrtegall/proyect_cartera/client
-  - Librerias: Axios, React, React-dom, React-router-dom, Typescript, xslx, sonner, tailwindcss, remixicon, tremor, headlessui/react, 
+  - Repositorio: [https://github.com/llOrtegall/proyect_cartera/tree/master/api](https://github.com/llOrtegall/proyect_cartera/tree/master/api)
+  - Librerías: Axios, React, React-dom, React-router-dom, Typescript, xslx, sonner, tailwindcss, remixicon, tremor, headlessui/react
 
 ## Instalación
 
@@ -34,7 +34,7 @@ es un proyecto de codigo abierto que se encuentra en el repositorio de GitHub. y
     npm run build || yarn build
   ```
 
-  * Esto generará una carpeta dist con el código compilado dentro de api, la cual ya esta configurada en el archivo docker-compose.yml en la raiz del proyecto. y el cual se encargara de levantar el contenedor con la imagen de nodejs y ejecutar el comando npm start para levantar el servidor.
+  * Esto generará una carpeta dist con el código compilado dentro de api, la cual ya está configurada en el archivo docker-compose.yml en la raíz del proyecto y se encargará de levantar el contenedor con la imagen de Node.js y ejecutar el comando npm start para levantar el servidor.
 
 - Frontend:
   - Definir las variables de entorno en el archivo .env (ver archivo .env.example)
@@ -47,17 +47,18 @@ es un proyecto de codigo abierto que se encuentra en el repositorio de GitHub. y
     npm run build || yarn build
   ```
 
-  * Esto generará una carpeta build con el código compilado dentro de client, la cual ya esta configurada en el archivo docker-compose.yml en la raiz del proyecto. y el cual se encargara de levantar el contenedor con la imagen de nginx y copiar el contenido de la carpeta build dentro de la carpeta /usr/share/nginx/html/ para servir la aplicación web.
+  * Esto generará una carpeta build con el código compilado dentro de client, la cual ya está configurada en el archivo docker-compose.yml en la raíz del proyecto y se encargará de levantar el contenedor con la imagen de Nginx y copiar el contenido de la carpeta build dentro de la carpeta /usr/share/nginx/html/ para servir la aplicación web.
 
-- config
-  - En el archivo docker-compose.yml se encuentran las configuraciones de los volumenes que se levantarán para la aplicación web de nginx se deja como schema una config ya determinada.
+- Configuración
+  - En el archivo docker-compose.yml se encuentran las configuraciones de los volúmenes que se levantarán para la aplicación web de Nginx. Se deja como esquema una configuración ya determinada.
 
 ## Uso
-  - Para levantar la aplicación se debe ejecutar el comando
+  - Para levantar la aplicación, se debe ejecutar el comando
   ```
     docker-compose up
   ```
-  - La aplicación estará disponible en la dirección http://localhost:8080
-  - La api estará disponible en la dirección http://localhost:3000 por defecto pero esto dependerá de la configuración las variables de entorno dentro de api.
+  - La aplicación estará disponible en la dirección [http://localhost:8080](http://localhost:8080)
+  - La API estará disponible en la dirección [http://localhost:3000](http://localhost:3000) por defecto, pero esto dependerá de la configuración de las variables de entorno dentro de api.
 
-  - Recordar que el client en el archivo App.tsx se encuentra la url de la api que se debe cambiar si se cambia la dirección de la api.
+  - Recordar que en el archivo App.tsx del cliente se encuentra la URL de la API, la cual se debe cambiar si se cambia la dirección de la API.
+
