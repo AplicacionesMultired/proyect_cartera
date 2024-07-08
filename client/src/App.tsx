@@ -10,8 +10,9 @@ import LoginPage from './pages/Login'
 import { Detallado } from './pages/Home'
 import { useEffect } from 'react'
 import Dashboard from './pages/Dashboar'
+import RecaudoDetail from './pages/RecaudoDetail'
 
-export const HOST = 'http://172.20.1.70:4040/api/v1'
+export const HOST = 'http://172.20.1.110:4040/api/v1'
 
 export function App (): JSX.Element {
   const { login, logout, isAuthenticated } = useAuth()
@@ -40,6 +41,7 @@ export function App (): JSX.Element {
           <Route path="/home" element={<Dashboard />} />
           <Route path='/detallado' element={<Detallado />} />
           <Route path='/baseDetalle/:id' element={<BasesDetalle />} />
+          <Route path='/recaudo/:id' element={<RecaudoDetail />} />
           <Route path='/Bases' element={<BasesPage />} />
           <Route path='/asignarNuevaBase' element={<AsignarNewBase />} />
           <Route path='*' element={<NotFound />} />

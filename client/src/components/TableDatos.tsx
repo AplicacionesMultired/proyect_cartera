@@ -1,6 +1,7 @@
 import { Card, Table, TableBody, TableCell, TableHead, TableHeaderCell, TableRow } from '@tremor/react'
 import { formatPesoColombia } from '../utils/funtions'
 import { CarteraI } from '../types/cartera'
+import { useNavigate } from 'react-router-dom'
 
 interface PropsCompo {
   data: CarteraI[]
@@ -8,6 +9,12 @@ interface PropsCompo {
 }
 
 export const TableDatos = ({ data, funClick }: PropsCompo) => {
+  const navigate = useNavigate()
+
+  const handleClick = (id: string) => {
+    return () => navigate(`/recaudo/${id}`)
+  }
+
   return (
     <Card decoration="top" decorationColor="rose" className='p-2 mt-0.5'>
       <Table className='xl:max-h-[80vh] 3xl:max-h-[82vh]'>
@@ -62,7 +69,11 @@ export const TableDatos = ({ data, funClick }: PropsCompo) => {
                 {formatPesoColombia(item.Cartera)}
               </TableCell>
               <TableCell className='text-center font-semibold text-black dark:text-gray-300'>
-                {formatPesoColombia(item.Rechazados)}
+              { item.Rechazados > 0
+                ? <span className='text-xs text-red-500 dark:text-red-400 hover:text-blue-600 cursor-pointer'
+                  onClick={handleClick(item.Vinculado)}> {formatPesoColombia(item.Rechazados)}</span>
+                : <span className='text-xs'> {formatPesoColombia(item.Rechazados)}</span>
+              }
               </TableCell>
               <TableCell className='text-center font-semibold text-black dark:text-gray-300'>
                 {formatPesoColombia(item.Aceptados)}
