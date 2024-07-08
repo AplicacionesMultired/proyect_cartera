@@ -2,7 +2,7 @@ import express from 'express'
 import cors from 'cors'
 import 'dotenv/config'
 
-import { BasesRouter, CarteraRouter, SellersRouter } from './routes'
+import { BasesRouter, CarteraRouter, SellersRouter, recaudoRouter } from './routes'
 
 import { routerResumen } from './routes/resumen.routes'
 
@@ -21,6 +21,7 @@ app.use(v1, SellersRouter)
 
 app.use(v1, routerResumen)
 
+app.use(v1, recaudoRouter)
 
 app.listen(PORT, () => {
   console.log(`Server is running at http:ocalhost:${PORT}`)
