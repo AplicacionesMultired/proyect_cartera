@@ -3,7 +3,7 @@ import { Recaudo } from '../model'
 import { fn } from 'sequelize';
 
 export const getRecaudo = async (req: Request, res: Response) => {
-  const { id } = req.query;
+  const { id } = req.params;
 
   try {
     await Recaudo.sync();
@@ -16,7 +16,7 @@ export const getRecaudo = async (req: Request, res: Response) => {
     })
     
     if(!result) return res.status(404).json({ message: 'No se encontraron datos' });
-
+    
     return res.status(200).json(result);
   } catch (error) {
     console.error('Error en getRecaudo', error);

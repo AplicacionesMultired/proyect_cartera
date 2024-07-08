@@ -71,12 +71,16 @@ export const TableDatos = ({ data, funClick }: PropsCompo) => {
               <TableCell className='text-center font-semibold text-black dark:text-gray-300'>
               { item.Rechazados > 0
                 ? <span className='text-xs text-red-500 dark:text-red-400 hover:text-blue-600 cursor-pointer'
-                  onClick={handleClick(item.Vinculado)}> {formatPesoColombia(item.Rechazados)}</span>
+                  onClick={handleClick(item.Vinculado)}>{formatPesoColombia(item.Rechazados)}</span>
                 : <span className='text-xs'> {formatPesoColombia(item.Rechazados)}</span>
               }
               </TableCell>
               <TableCell className='text-center font-semibold text-black dark:text-gray-300'>
-                {formatPesoColombia(item.Aceptados)}
+                { item.Aceptados > 0
+                  ? <span className='text-xs text-green-500 dark:text-red-400 hover:text-blue-600 cursor-pointer'
+                  onClick={handleClick(item.Vinculado)}>{formatPesoColombia(item.Aceptados)}</span>
+                  : <span className='text-xs'> {formatPesoColombia(item.Aceptados)}</span>
+              }
               </TableCell>
               <TableCell className='text-center font-semibold text-black dark:text-gray-300'>
                 {formatPesoColombia(item.PendientesCont)}
