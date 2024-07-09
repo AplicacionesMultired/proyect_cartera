@@ -12,6 +12,7 @@ const conection = new Sequelize(DB_NAME, DB_USER, DB_PASS, {
   port: DB_PORT,
   dialect: 'mysql',
   timezone: 'America/Bogota', 
+  logging: false
 });
 
 export { conection };

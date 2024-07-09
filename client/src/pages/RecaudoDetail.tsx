@@ -7,22 +7,24 @@ import { HOST } from '../App'
 import axios from 'axios'
 
 function RecaudoDetail () {
-  const { id } = useParams<{ id: string }>()
+  const { id, estado } = useParams<{ id: string, estado: string }>()
 
   const [data, setData] = useState<Recaudo>()
   const navigate = useNavigate()
 
-  useEffect(() => {
-    if (!id) return
+  console.log(estado)
 
-    axios.get(`${HOST}/recaudo/${id}`)
+  useEffect(() => {
+    if (!id || !estado) return
+
+    axios.get(`${HOST}/recaudo/${id}/${estado}`)
       .then(res => {
         setData(res.data)
       })
       .catch(err => {
         console.error('Error en getRecaudo', err)
       })
-  }, [id])
+  }, [id, estado])
 
   return (
     <Card className="p-4 shadow-lg rounded-lg bg-white flex flex-col items-center gap-6">
@@ -37,7 +39,11 @@ function RecaudoDetail () {
                 <p className="font-medium text-gray-700"> <span className="font-bold">Caja:</span> {data.CAJADNO}</p>
                 <p className="font-medium text-gray-700"> <span className="font-bold">Vinculado:</span> {data.VINCULADO}</p>
                 <p className="font-medium text-gray-700"> <span className="font-bold">Valor:</span> {formatPesoColombia(data.VALOR)}</p>
-                <p className="font-medium text-gray-700"> <span className="font-bold">Estado:</span> {data.ESTADO}</p>
+                <p className="font-medium text-gray-700"> <span className="font-bold">Estado:</span>
+                  {
+                    data.ESTADO === 'p' ? ' Pendiente' : data.ESTADO === 'u' ? ' Aceptado' : data.ESTADO === 'c' ? ' Liberado' : ' Rechazado'
+                  }
+                </p>
                 <p className="font-medium text-gray-700"> <span className="font-bold">Respaldo:</span> {data.RESPALDO}</p>
                 <p className="font-medium text-gray-700"> <span className="font-bold">Hora Sync:</span> {data.HORASYNC}</p>
                 <p className="font-medium text-gray-700"> <span className="font-bold">Hora Mov:</span> {data.HORAMOVI}</p>

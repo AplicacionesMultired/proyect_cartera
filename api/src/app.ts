@@ -24,6 +24,6 @@ app.use(v1, routerResumen)
 app.use(v1, recaudoRouter)
 
 app.listen(PORT, () => {
-  console.log(`Server is running at http:ocalhost:${PORT}`)
+  console.log(`Server is running at http:localhost:${PORT}`)
 })
 

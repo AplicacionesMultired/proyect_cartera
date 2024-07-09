@@ -3,15 +3,15 @@ import { Recaudo } from '../model'
 import { fn } from 'sequelize';
 
 export const getRecaudo = async (req: Request, res: Response) => {
-  const { id } = req.params;
-
+  const { id, estado } = req.params;
   try {
     await Recaudo.sync();
 
     const result = await Recaudo.findOne({
       where: {
         VINCULADO: id as string,
-        FECHA: fn('CURDATE')
+        FECHA: fn('CURDATE'),
+        ESTADO: estado as string
       }
     })
     
