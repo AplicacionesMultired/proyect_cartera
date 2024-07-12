@@ -1,5 +1,5 @@
 import { Bases, Cartera, Recaudo, Sellers } from "../model"
-import { fn, Op } from "sequelize"
+import { col, fn, Op } from "sequelize"
 
 // * Constantes para códigos de empresa
 const EMPRESAS_INCLUIDAS = ['101', '102']
@@ -13,6 +13,13 @@ const EMPRESAS_INCLUIDAS = ['101', '102']
 interface CarteraIR extends Cartera {
   Seller: Sellers | null
   Basis: Bases | null
+}
+
+interface DetalleRecaudo {
+  FECHA: string;
+  ESTADO: string;
+  ValorTotal: number;
+  Cantidad: number;
 }
 
 export const getResumenCartera = async (): Promise<CarteraIR[]> => {
@@ -45,15 +52,13 @@ export const getResumenCartera = async (): Promise<CarteraIR[]> => {
 
 export const getDetalleRecaudo = async () => {
   try {
-    // const resulst = await conection.query(`SELECT FECHA, ESTADO, SUM(VALOR) VALOR, COUNT(1) CANT FROM DETALLERECAUDO WHERE FECHA=CURDATE() GROUP BY FECHA,ESTADO`)
-
     const result = await Recaudo.findAll({
-      attributes: ['FECHA', 'ESTADO', [fn('SUM', fn('VALOR')), 'VALOR'], [fn('COUNT', 1), 'CANT']],
+      attributes: ['FECHA', 'ESTADO', [fn('SUM', col('VALOR')), 'ValorTotal'], [fn('COUNT', 1), 'Cantidad'] ],
       where: { FECHA: fn('CURDATE') },
       group: ['FECHA', 'ESTADO']
     })
 
-    return result
+    return result as unknown as DetalleRecaudo[];
   } catch (error) {
     console.error(error)
     throw error
