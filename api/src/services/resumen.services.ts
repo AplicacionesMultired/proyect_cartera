@@ -1,4 +1,4 @@
-import { Bases, Cartera, Sellers } from "../model"
+import { Bases, Cartera, Recaudo, Sellers } from "../model"
 import { fn, Op } from "sequelize"
 
 // * Constantes para códigos de empresa
@@ -37,6 +37,23 @@ export const getResumenCartera = async (): Promise<CarteraIR[]> => {
     const results = await Cartera.findAll(queryOptions)
 
     return results as CarteraIR[]
+  } catch (error) {
+    console.error(error)
+    throw error
+  }
+}
+
+export const getDetalleRecaudo = async () => {
+  try {
+    // const resulst = await conection.query(`SELECT FECHA, ESTADO, SUM(VALOR) VALOR, COUNT(1) CANT FROM DETALLERECAUDO WHERE FECHA=CURDATE() GROUP BY FECHA,ESTADO`)
+
+    const result = await Recaudo.findAll({
+      attributes: ['FECHA', 'ESTADO', [fn('SUM', fn('VALOR')), 'VALOR'], [fn('COUNT', 1), 'CANT']],
+      where: { FECHA: fn('CURDATE') },
+      group: ['FECHA', 'ESTADO']
+    })
+
+    return result
   } catch (error) {
     console.error(error)
     throw error
