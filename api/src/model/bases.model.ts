@@ -1,4 +1,4 @@
-import { conection } from '../connections/cartera'
+import { conection } from '../connections/POWERBI'
 import { DataTypes, Model, Optional } from "sequelize";
 import { Sellers } from './sellers.model';
 

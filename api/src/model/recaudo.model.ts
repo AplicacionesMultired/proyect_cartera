@@ -1,5 +1,5 @@
 import { DataTypes, Model, Optional } from "sequelize";
-import { conection } from '../connections/cartera'
+import { conection } from '../connections/POWERBI'
 
 export interface RecaudoAtributes {
   FECHA: Date;
