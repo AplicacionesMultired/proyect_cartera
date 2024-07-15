@@ -3,11 +3,6 @@ import { formatPesoColombia } from '../utils/funtions'
 import { DataIU } from '../pages/Dashboar'
 
 export function TableInfo ({ data }: {data: DataIU[]}) {
-  const dataUnifi = data.map((item) => ({
-    name: item.Empresa,
-    value: item.Caj_Comercial | 0 + item.Colo_Independiente | 0 + item.Caj_Tesoreria | 0 + item.Vendedor | 0 + item.No_Definido | 0
-  }))
-
   return (
     <Card className='flex flex-col'>
       <Title className='text-center'>Detalle x Cargo Cartera Pendiente</Title>
@@ -36,16 +31,6 @@ export function TableInfo ({ data }: {data: DataIU[]}) {
             ))}
         </TableBody>
       </Table>
-
-      <div>
-        <p></p>
-        <p className='text-center'>Total</p>
-        <p className='text-center'>{formatPesoColombia(dataUnifi[0]?.value)}</p>
-      </div>
-      <div>
-        <p className='text-center'>Total</p>
-        <p className='text-center'>{formatPesoColombia(dataUnifi[1]?.value)}</p>
-      </div>
     </Card>
   )
 }
