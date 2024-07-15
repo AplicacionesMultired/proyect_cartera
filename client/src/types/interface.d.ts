@@ -4,9 +4,13 @@ export interface PropsCrating {
   funClose?: () => void
 }
 
-export interface DatesI {
-  FECHA: string
+interface DatesI {
   ESTADO: string
   ValorTotal: string
   Cantidad: number
+}
+
+export interface RecaudoI {
+  multired: DatesI[]
+  servired: DatesI[]
 }
