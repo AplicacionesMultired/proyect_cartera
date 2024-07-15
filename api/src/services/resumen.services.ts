@@ -18,7 +18,7 @@ interface CarteraIR extends Cartera {
 interface DetalleRecaudo {
   FECHA: string;
   ESTADO: string;
-  ValorTotal: number;
+  Total: number;
   Cantidad: number;
 }
 
@@ -50,12 +50,27 @@ export const getResumenCartera = async (): Promise<CarteraIR[]> => {
   }
 }
 
-export const getDetalleRecaudo = async () => {
+export const getDetalleRecaudoServired = async () => {
   try {
     const result = await Recaudo.findAll({
-      attributes: ['FECHA', 'ESTADO', [fn('SUM', col('VALOR')), 'ValorTotal'], [fn('COUNT', 1), 'Cantidad'] ],
-      where: { FECHA: fn('CURDATE') },
-      group: ['FECHA', 'ESTADO']
+      attributes: ['ESTADO', [fn('SUM', col('VALOR')), 'Total'], [fn('COUNT', 1), 'Cantidad'] ],
+      where: { FECHA: fn('CURDATE'), EMPRESA: 101 },
+      group: ['ESTADO']
+    })
+
+    return result as unknown as DetalleRecaudo[];
+  } catch (error) {
+    console.error(error)
+    throw error
+  }
+}
+
+export const getDetalleRecaudoMultired = async () => {
+  try {
+    const result = await Recaudo.findAll({
+      attributes: ['ESTADO', [fn('SUM', col('VALOR')), 'Total'], [fn('COUNT', 1), 'Cantidad'] ],
+      where: { FECHA: fn('CURDATE'), EMPRESA: 102 },
+      group: ['ESTADO']
     })
 
     return result as unknown as DetalleRecaudo[];

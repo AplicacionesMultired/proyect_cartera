@@ -1,5 +1,5 @@
 import { calculateCartera, ReturCargo, sumarCarteraPorEmpresaYCargo } from '../utils/funtions'
-import { getDetalleRecaudo, getResumenCartera } from '../services/resumen.services'
+import { getDetalleRecaudoMultired, getDetalleRecaudoServired, getResumenCartera } from '../services/resumen.services'
 import { ObjectCartera } from '../types/interface'
 import { Request, Response } from 'express'
 
@@ -32,8 +32,9 @@ export const getCarteraResumen = async (req: Request, res: Response) => {
 
 export const getRecaudoResumen = async (req: Request, res: Response) => {
   try {
-    const results = await getDetalleRecaudo()
-    return res.status(200).json(results)
+    const servired = await getDetalleRecaudoServired()
+    const multired = await getDetalleRecaudoMultired()
+    return res.status(200).json({ multired, servired })
   } catch (error) {
     console.error(error)
     return res.status(500).json({ message: 'Internal server error', error })

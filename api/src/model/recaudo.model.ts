@@ -16,6 +16,7 @@ export interface RecaudoAtributes {
   HORA_CONTEO: string;
   NOTA_CONTEO: string;
   VERSION: string;
+  EMPRESA: string;
 }
 
 type RecaudoCreationAttributes = Optional<RecaudoAtributes, 'VINCULADO'>;
@@ -35,6 +36,7 @@ class Recaudo extends Model<RecaudoAtributes, RecaudoCreationAttributes>{
   declare HORA_CONTEO: string;
   declare NOTA_CONTEO: string;
   declare VERSION: string;
+  declare EMPRESA: string;
 } 
 
 Recaudo.init({
@@ -52,6 +54,7 @@ Recaudo.init({
   HORA_CONTEO: { type: DataTypes.TIME, allowNull: true },
   NOTA_CONTEO: { type: DataTypes.STRING, allowNull: true },
   VERSION: { type: DataTypes.STRING, allowNull: true },
+  EMPRESA: { type: DataTypes.STRING, allowNull: false }
 }, {
   sequelize: conection,
   modelName: 'Recaudo',
