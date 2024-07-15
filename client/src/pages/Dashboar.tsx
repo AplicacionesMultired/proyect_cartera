@@ -1,8 +1,9 @@
+import { Card, Table, TableBody, TableCell, TableHead, TableHeaderCell, TableRow, Title } from '@tremor/react'
+import { formatPesoColombia } from '../utils/funtions'
 import { DonutChartHero } from '../components/Donut'
 import { TableInfo } from '../components/TableInfo'
 import { RecaudoI } from '../types/interface'
 import { useEffect, useState } from 'react'
-import { Card } from '@tremor/react'
 import { HOST } from '../App'
 import axios from 'axios'
 
@@ -13,6 +14,34 @@ export interface DataIU {
   Caj_Tesoreria: number;
   Vendedor: number;
   No_Definido: number;
+}
+
+const estadoMap: { [key: string]: string } = {
+  u: 'Aceptado',
+  r: 'Rechazado',
+  c: 'Liberado',
+  p: 'Pendiente'
+}
+
+const getEstadoClass = (estado: string): string => {
+  switch (estado) {
+    case 'u':
+      return 'text-green-600'
+    case 'r':
+      return 'text-red-600'
+    case 'c':
+      return 'text-blue-600'
+    default:
+      return 'text-yellow-600'
+  }
+}
+
+const RenderEstado = ({ estado }: { estado: string }) => {
+  return (
+    <p className={getEstadoClass(estado)}>
+      {estadoMap[estado] || 'Pendiente'}
+    </p>
+  )
 }
 
 function Dashboard () {
@@ -41,50 +70,69 @@ function Dashboard () {
 
   return (
     <>
-      <Card className='flex w-full gap-4'>
+      <Card className='flex w-full gap-2'>
         <DonutChartHero data={data} />
         <TableInfo data={data} />
       </Card>
-
-      <div className='flex gap-4'>
+      <Card className='flex justify-around'>
         {
           recaudo.multired.length > 0 && (
-            <div>
-              <h1>Multired</h1>
-              {
-                recaudo.multired.map((item, index) => {
-                  return (
-                    <div key={index} className='flex w-full gap-4'>
-                      <p>{item.ESTADO}</p>
-                      <p>{item.Cantidad}</p>
-                      <p>{item.ValorTotal}</p>
-                    </div>
-                  )
-                })
-              }
-            </div>
-          )
-        }
-        {
-          recaudo.servired.length > 0 && (
-            <div>
-              <h1>Servired</h1>
-              {
-                recaudo.servired.map((item, index) => {
-                  return (
-                    <div key={index} className='flex w-full gap-4'>
-                      <p>{item.ESTADO}</p>
-                      <p>{item.Cantidad}</p>
-                      <p>{item.ValorTotal}</p>
-                    </div>
-                  )
-                })
-              }
-            </div>
+            <section className=''>
+              <Title className='text-center py-2'>Resumen Recaudo Multired</Title>
+              <Table className="mt-5">
+                <TableHead>
+                  <TableRow>
+                    <TableHeaderCell>Estado</TableHeaderCell>
+                    <TableHeaderCell>Cantidad Recuado</TableHeaderCell>
+                    <TableHeaderCell className='text-center'>Total</TableHeaderCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {
+                    recaudo.multired.map((item, index) => (
+                      <TableRow key={index}>
+                        <TableCell className='text-center'>
+                          <RenderEstado estado={item.ESTADO} />
+                        </TableCell>
+                        <TableCell className='text-center'>{item.Cantidad}</TableCell>
+                        <TableCell className='text-center'>{formatPesoColombia(item.Total)}</TableCell>
+                      </TableRow>
+                    ))}
+                </TableBody>
+              </Table>
+            </section>
           )
         }
 
-      </div>
+        {
+          recaudo.multired.length > 0 && (
+            <section className=''>
+              <Title className='text-center py-2'>Resumen Recaudo Servired</Title>
+              <Table className="mt-5">
+                <TableHead>
+                  <TableRow>
+                    <TableHeaderCell>Estado</TableHeaderCell>
+                    <TableHeaderCell>Cantidad Recuado</TableHeaderCell>
+                    <TableHeaderCell className='text-center'>Total</TableHeaderCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {
+                    recaudo.servired.map((item, index) => (
+                      <TableRow key={index}>
+                        <TableCell className='text-center'>
+                          <RenderEstado estado={item.ESTADO} />
+                        </TableCell>
+                        <TableCell className='text-center'>{item.Cantidad}</TableCell>
+                        <TableCell className='text-center'>{formatPesoColombia(item.Total)}</TableCell>
+                      </TableRow>
+                    ))}
+                </TableBody>
+              </Table>
+            </section>
+          )
+        }
+      </Card>
 
     </>
   )

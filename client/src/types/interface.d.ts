@@ -6,7 +6,7 @@ export interface PropsCrating {
 
 interface DatesI {
   ESTADO: string
-  ValorTotal: string
+  Total: number
   Cantidad: number
 }
 
