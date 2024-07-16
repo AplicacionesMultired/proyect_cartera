@@ -1,10 +1,10 @@
 import { Button, Card, Table, TableBody, TableCell, TableHead, TableHeaderCell, TableRow, Title } from '@tremor/react'
+import { FormCreate } from '../components/AsignarBase'
 import { PropsCrating } from '../types/interface'
 import { Input, Label } from '../components/ui'
 import { useEffect, useState } from 'react'
 import { HOST } from '../App'
 import axios from 'axios'
-import { FormCreate } from '../components/AsignarBase'
 
 interface UserSinBase {
   EMPRESA: '101' | '102'
