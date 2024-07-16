@@ -20,6 +20,7 @@ export const AsignarNewBase = () => {
   const [data, setData] = useState<UserSinBase[]>([])
   const [showForm, setShowForm] = useState(false)
   const [selectedItem, setSelectedItem] = useState<PropsCrating | null>(null)
+  const [vincualdo, setVinculado] = useState('')
 
   useEffect(() => {
     axios.get(`${HOST}/usersSinBase`)
@@ -40,13 +41,23 @@ export const AsignarNewBase = () => {
     setSelectedItem(null)
   }
 
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setVinculado(e.target.value)
+  }
+
+  const filterVinculado = () => {
+    if (!vincualdo) return data
+    return data.filter(item => item.VINCULADO.toLowerCase().includes(vincualdo.toLowerCase()))
+  }
+
   return (
     <section className=''>
       <section className='flex items-center justify-around py-2 px-4'>
         <Title className='text-center'>Lista vinculados sin base  </Title>
         <div>
           <Label>Buscar Vinculado: </Label>
-          <Input type="text" placeholder="Cédula" className="p-2 border border-gray-300 rounded-md" />
+          <Input type="text" placeholder="Cédula" value={vincualdo}
+            className="p-2 border border-gray-300 rounded-md" onChange={handleChange}/>
         </div>
       </section>
       <Card className='h-[86vh] xl:h-[82vh] overflow-y-auto p-2'>
@@ -61,7 +72,7 @@ export const AsignarNewBase = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {data.map((item, index) => (
+            {filterVinculado().map((item, index) => (
               <TableRow key={index}>
                 <TableCell>{index + 1}</TableCell>
                 <TableCell>{item.Seller.NOMBRES}</TableCell>
