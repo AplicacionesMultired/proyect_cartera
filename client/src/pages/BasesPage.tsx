@@ -11,6 +11,7 @@ import axios from 'axios'
 
 export const BasesPage = () => {
   const [data, setData] = useState<BasesI[]>([])
+  const [asc, setAsc] = useState<boolean>(true)
   const { user } = useAuth()
   const navigate = useNavigate()
 
@@ -41,6 +42,18 @@ export const BasesPage = () => {
 
   const filteredData = filterVinculado(data)
 
+  const handleSort = () => {
+    const sortedData = [...filteredData].sort((a, b) => {
+      if (asc) {
+        return a.BASE - b.BASE
+      } else {
+        return b.BASE - a.BASE
+      }
+    })
+    setAsc(!asc)
+    setData(sortedData)
+  }
+
   return (
     <section className=''>
       <section className='flex justify-around py-2 absolute w-full top-14'>
@@ -61,7 +74,7 @@ export const BasesPage = () => {
               <TableHeaderCell className='text-center'>#</TableHeaderCell>
               <TableHeaderCell className='text-center'>Nombres</TableHeaderCell>
               <TableHeaderCell className='text-center'>N° Cedula</TableHeaderCell>
-              <TableHeaderCell className='text-center'>Base Asignada</TableHeaderCell>
+              <TableHeaderCell className='text-center cursor-pointer hover:text-blue-400' onClick={handleSort}>Base Asignada</TableHeaderCell>
               <TableHeaderCell className='text-center'>Opciones</TableHeaderCell>
             </TableRow>
           </TableHead>
