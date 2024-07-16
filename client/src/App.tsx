@@ -1,5 +1,5 @@
 import { ProtectedRoute } from './components/ProtectedRoutes'
-import { authTokenServices } from './services/tokenServices'
+// import { authTokenServices } from './services/tokenServices'
 import { AsignarNewBase } from './pages/AsignarNewBase'
 import { BasesDetalle } from './pages/BasesDetalle'
 import RecaudoDetail from './pages/RecaudoDetail'
@@ -10,13 +10,14 @@ import { NotFound } from './pages/NotFound'
 import { Detallado } from './pages/Home'
 import Dashboard from './pages/Dashboar'
 import LoginPage from './pages/Login'
-import { useEffect } from 'react'
+// import { useEffect } from 'react'
 
 export const HOST = 'http://172.20.1.110:4040/api/v1'
 
 export function App (): JSX.Element {
   const { login, logout, isAuthenticated } = useAuth()
 
+  /*
   useEffect(() => {
     const token = localStorage.getItem('cartera')
     if (token !== null) {
@@ -32,6 +33,7 @@ export function App (): JSX.Element {
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
+  */
 
   return (
     <>
