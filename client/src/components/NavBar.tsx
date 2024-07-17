@@ -3,9 +3,9 @@ import { NavLink } from 'react-router-dom'
 import { Button } from './ui'
 
 const Links = [
-  { link: '/home', name: 'Inicio' },
-  { link: '/detallado', name: 'Detallado' },
-  { link: '/bases', name: 'Bases' }
+  { link: '/cartera', name: 'Inicio' },
+  { link: '/cartera/detallado', name: 'Detallado' },
+  { link: '/cartera/bases', name: 'Bases' }
 ]
 
 const LinkComponent = ({ link, name }: { link: string, name: string }): JSX.Element => {

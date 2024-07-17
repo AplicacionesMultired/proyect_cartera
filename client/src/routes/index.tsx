@@ -5,20 +5,30 @@ import { Root } from './root'
 // TODO: PAGES
 import NotFound from '../pages/NotFound'
 import Dashboard from '../pages/Dashboar'
+import Detallado from '../pages/Home'
+import { BasesPage } from '../pages/BasesPage'
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <LoginPage />
+    element: <LoginPage />,
+    errorElement: <NotFound />
   },
   {
-    path: '/home',
+    path: '/cartera',
     element: <Root />,
-    errorElement: <NotFound />,
     children: [
       {
         index: true,
         element: <Dashboard />
+      },
+      {
+        path: 'detallado',
+        element: <Detallado />
+      },
+      {
+        path: 'bases',
+        element: <BasesPage />
       }
     ]
   }

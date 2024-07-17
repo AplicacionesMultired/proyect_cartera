@@ -6,7 +6,7 @@ import { useAuth } from '../auth/AuthProvider'
 import { RiLockLine } from '@remixicon/react'
 import { useEffect, useState } from 'react'
 import { BasesI } from '../types/Bases'
-import { HOST } from '../App'
+import { HOST } from '../utils/contanst'
 import axios from 'axios'
 
 export const BasesPage = () => {

@@ -2,9 +2,11 @@ import { authTokenServices } from '../services/tokenServices'
 import { Outlet, useNavigate } from 'react-router-dom'
 import { NavBar } from '../components/NavBar'
 import { useEffect } from 'react'
+import { useAuth } from '../auth/AuthProvider'
 
 export const Root = () => {
   const navigate = useNavigate()
+  const { setUser } = useAuth()
 
   useEffect(() => {
     const token = localStorage.getItem('cartera')
@@ -13,7 +15,8 @@ export const Root = () => {
         .then(res => {
           console.log(res)
           if (res.status === 200) {
-            navigate('/home')
+            setUser(res.data)
+            navigate('/cartera')
           }
         })
         .catch(error => {

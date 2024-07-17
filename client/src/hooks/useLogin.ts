@@ -27,7 +27,7 @@ export function useLogin (): UseLoginReturn {
       .then(res => {
         localStorage.setItem('cartera', res.data.token)
         setIsAuthenticated(true)
-        navigate('/home')
+        navigate('/cartera')
       })
       .catch(error => {
         const errorString: string = error.response.data.message

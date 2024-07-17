@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { HOST } from '../App'
+import { HOST } from '../utils/contanst'
 
 export const fetchCartera = async (empresa: string, abs: boolean) => {
   try {
