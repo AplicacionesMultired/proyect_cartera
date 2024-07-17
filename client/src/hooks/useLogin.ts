@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../auth/AuthProvider'
+import { LOGIN_URL } from '../utils/contanst'
 import { useState } from 'react'
 import type React from 'react'
 import axios from 'axios'
@@ -23,7 +24,7 @@ export function useLogin (): UseLoginReturn {
   const handleSubmit = (ev: React.FormEvent) => {
     ev.preventDefault()
 
-    axios.post('LOGIN_ROUTE/login', { user, password })
+    axios.post(`${LOGIN_URL}/login'`, { user, password })
       .then(res => {
         localStorage.setItem('cartera', res.data.token)
         setIsAuthenticated(true)

@@ -3,6 +3,7 @@ import { FormCreate } from '../components/AsignarBase'
 import { PropsCrating } from '../types/interface'
 import { Input, Label } from '../components/ui'
 import { useEffect, useState } from 'react'
+import { API_URL } from '../utils/contanst'
 import axios from 'axios'
 
 interface UserSinBase {
@@ -22,7 +23,7 @@ const AsignarNewBase = () => {
   const [vincualdo, setVinculado] = useState('')
 
   useEffect(() => {
-    axios.get('API_ROUTE/usersSinBase')
+    axios.get(`${API_URL}/usersSinBase`)
       .then(res => setData(res.data))
       .catch(error => console.error(error))
   }, [])

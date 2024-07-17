@@ -1,10 +1,11 @@
-import { Button, Input, Label } from './ui'
-import { Card } from '@tremor/react'
-import { FormEvent, useState } from 'react'
 import { PropsCrating } from '../types/interface'
-import axios from 'axios'
 import { useAuth } from '../auth/AuthProvider'
 import { useNavigate } from 'react-router-dom'
+import { Button, Input, Label } from './ui'
+import { FormEvent, useState } from 'react'
+import { API_URL } from '../utils/contanst'
+import { Card } from '@tremor/react'
+import axios from 'axios'
 
 export function FormCreate ({ nombres, vinculado, funClose }: PropsCrating) {
   const [base, setBase] = useState<number>(0)
@@ -16,7 +17,7 @@ export function FormCreate ({ nombres, vinculado, funClose }: PropsCrating) {
 
   const handleSubmit = (ev: FormEvent<HTMLFormElement>) => {
     ev.preventDefault()
-    axios.post('API_ROUTE/asignar-base', { base, raspa, vinculado, login: user.username })
+    axios.post(`${API_URL}/asignar-base`, { base, raspa, vinculado, login: user.username })
       .then(res => {
         console.log(res.data)
         if (res.status === 201) {

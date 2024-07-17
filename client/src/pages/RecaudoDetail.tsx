@@ -4,6 +4,7 @@ import { Button, Card, Title } from '@tremor/react'
 import { useEffect, useState } from 'react'
 import { Recaudo } from '../types/Recaudo'
 import axios from 'axios'
+import { API_URL } from '../utils/contanst'
 
 function RecaudoDetail () {
   const { id, estado } = useParams<{ id: string, estado: string }>()
@@ -16,7 +17,7 @@ function RecaudoDetail () {
   useEffect(() => {
     if (!id || !estado) return
 
-    axios.get(`API_ROUTE/recaudo/${id}/${estado}`)
+    axios.get(`${API_URL}/recaudo/${id}/${estado}`)
       .then(res => {
         setData(res.data)
       })

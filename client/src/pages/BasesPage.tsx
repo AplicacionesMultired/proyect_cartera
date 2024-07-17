@@ -7,6 +7,7 @@ import { RiLockLine } from '@remixicon/react'
 import { useEffect, useState } from 'react'
 import { BasesI } from '../types/Bases'
 import axios from 'axios'
+import { API_URL } from '../utils/contanst'
 
 const BasesPage = () => {
   const [data, setData] = useState<BasesI[]>([])
@@ -17,7 +18,7 @@ const BasesPage = () => {
   const [vinculado, setVinculado] = useState<string>('')
 
   useEffect(() => {
-    axios.get('API_ROUTE/getAllBases')
+    axios.get(`${API_URL}/getAllBases`)
       .then(response => setData(response.data))
       .catch(error => console.log(error))
   }, [])

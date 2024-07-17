@@ -5,6 +5,7 @@ import { TableInfo } from '../components/TableInfo'
 import { RecaudoI } from '../types/interface'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
+import { API_URL } from '../utils/contanst'
 
 export interface DataIU {
   Empresa: string;
@@ -48,7 +49,7 @@ function Dashboard () {
   const [recaudo, setRecaudo] = useState<RecaudoI>({ multired: [], servired: [] })
 
   useEffect(() => {
-    axios.get('API_ROUTE/resumenCartera')
+    axios.get(`${API_URL}/resumenCartera`)
       .then((res) => {
         setData(res.data)
       })
@@ -58,7 +59,7 @@ function Dashboard () {
   }, [])
 
   useEffect(() => {
-    axios.get('API_ROUTE/resumenRecaudo')
+    axios.get(`${API_URL}/resumenRecaudo`)
       .then((res) => {
         setRecaudo(res.data)
       })
