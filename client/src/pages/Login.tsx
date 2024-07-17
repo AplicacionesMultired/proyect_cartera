@@ -2,20 +2,13 @@ import { UserIcon, LockIcon } from '../components/icons'
 import { Input, Button, Label } from '../components/ui'
 import { Error } from '../components/ui/Error'
 import { useLogin } from '../hooks/useLogin'
-import { useEffect } from 'react'
 
 function LoginPage (): JSX.Element {
   const { user, setUser, password, setPassword, errorString, handleSubmit } = useLogin()
 
-  useEffect(() => {
-    const token = localStorage.getItem('cartera')
-    console.log(token)
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
-
   return (
     <section className="h-[100vh] flex flex-col items-center justify-center bg-gradient-to-b from-punch-300 to-punch-200">
-      <form className='w-[385px] mb-2 border p-12 rounded-lg bg-white/30 flex flex-col gap-6 shadow-xl' onSubmit={(ev) => { handleSubmit(ev) }}>
+      <form className='w-[385px] mb-2 border p-12 rounded-lg bg-white/30 flex flex-col gap-6 shadow-xl' onSubmit={handleSubmit}>
 
         <figure className='flex items-center justify-center'>
           <img src="/gane.webp" alt="logo de gane" className='w-[160px] ' />

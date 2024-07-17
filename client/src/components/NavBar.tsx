@@ -19,7 +19,7 @@ const LinkComponent = ({ link, name }: { link: string, name: string }): JSX.Elem
 function NavBar (): JSX.Element {
   const handleLogout = () => {
     localStorage.removeItem('cartera')
-    window.location.href = '/login'
+    window.location.href = '/'
   }
 
   return (

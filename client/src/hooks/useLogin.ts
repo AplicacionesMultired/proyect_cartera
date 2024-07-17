@@ -14,25 +14,21 @@ interface UseLoginReturn {
 }
 
 export function useLogin (): UseLoginReturn {
-  const [user, setUser] = useState('')
-  const [password, setPassword] = useState('')
   const [errorString, setErrorString] = useState('')
+  const [password, setPassword] = useState('')
+  const [user, setUser] = useState('')
+  const navigate = useNavigate()
   const { setIsAuthenticated } = useAuth()
 
-  const navigate = useNavigate()
-
-  const handleSubmit = (ev: React.FormEvent): void => {
+  const handleSubmit = (ev: React.FormEvent) => {
     ev.preventDefault()
 
     axios.post('http://172.20.1.216:4000/api/login', { user, password })
       .then(res => {
-        if (res.status === 200 && res.data.auth === true) {
-          localStorage.setItem('cartera', res.data.token)
-          setIsAuthenticated(res.data.auth)
-          navigate('/home')
-        }
-      }
-      )
+        localStorage.setItem('cartera', res.data.token)
+        setIsAuthenticated(true)
+        navigate('/home')
+      })
       .catch(error => {
         const errorString: string = error.response.data.message
         setErrorString(errorString)
