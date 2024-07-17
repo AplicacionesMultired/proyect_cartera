@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components */
 import { createBrowserRouter } from 'react-router-dom'
 import LoginPage from '../pages/Login'
 import { lazy, Suspense } from 'react'
@@ -54,4 +55,4 @@ const router = createBrowserRouter([
   }
 ])
 
-export { router }
+export default router

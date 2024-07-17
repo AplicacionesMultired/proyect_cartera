@@ -3,7 +3,6 @@ import { formatPesoColombia } from '../utils/funtions'
 import { Button, Card, Title } from '@tremor/react'
 import { useEffect, useState } from 'react'
 import { Recaudo } from '../types/Recaudo'
-import { HOST } from '../utils/contanst'
 import axios from 'axios'
 
 function RecaudoDetail () {
@@ -17,7 +16,7 @@ function RecaudoDetail () {
   useEffect(() => {
     if (!id || !estado) return
 
-    axios.get(`${HOST}/recaudo/${id}/${estado}`)
+    axios.get(`API_ROUTE/recaudo/${id}/${estado}`)
       .then(res => {
         setData(res.data)
       })

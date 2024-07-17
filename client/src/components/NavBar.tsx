@@ -8,7 +8,7 @@ const Links = [
   { link: '/cartera/bases', name: 'Bases' }
 ]
 
-const LinkComponent = ({ link, name }: { link: string, name: string }): JSX.Element => {
+const LinkComponent = ({ link, name }: { link: string, name: string }) => {
   return (
     <li className='text-white font-medium hover:text-yellow-200 dark:hover:text-yellow-200'>
       <NavLink to={link}>{name}</NavLink>
@@ -16,7 +16,7 @@ const LinkComponent = ({ link, name }: { link: string, name: string }): JSX.Elem
   )
 }
 
-function NavBar (): JSX.Element {
+export function NavBar () {
   const handleLogout = () => {
     localStorage.removeItem('cartera')
     window.location.href = '/'
@@ -42,5 +42,3 @@ function NavBar (): JSX.Element {
     </>
   )
 }
-
-export { NavBar }

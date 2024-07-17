@@ -4,7 +4,6 @@ import { DonutChartHero } from '../components/Donut'
 import { TableInfo } from '../components/TableInfo'
 import { RecaudoI } from '../types/interface'
 import { useEffect, useState } from 'react'
-import { HOST } from '../utils/contanst'
 import axios from 'axios'
 
 export interface DataIU {
@@ -49,7 +48,7 @@ function Dashboard () {
   const [recaudo, setRecaudo] = useState<RecaudoI>({ multired: [], servired: [] })
 
   useEffect(() => {
-    axios.get(`${HOST}/resumenCartera`)
+    axios.get('API_ROUTE/resumenCartera')
       .then((res) => {
         setData(res.data)
       })
@@ -59,7 +58,7 @@ function Dashboard () {
   }, [])
 
   useEffect(() => {
-    axios.get(`${HOST}/resumenRecaudo`)
+    axios.get('API_ROUTE/resumenRecaudo')
       .then((res) => {
         setRecaudo(res.data)
       })

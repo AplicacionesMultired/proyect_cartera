@@ -3,7 +3,6 @@ import { Card } from '@tremor/react'
 import { FormEvent, useState } from 'react'
 import { PropsCrating } from '../types/interface'
 import axios from 'axios'
-import { HOST } from '../utils/contanst'
 import { useAuth } from '../auth/AuthProvider'
 import { useNavigate } from 'react-router-dom'
 
@@ -17,11 +16,11 @@ export function FormCreate ({ nombres, vinculado, funClose }: PropsCrating) {
 
   const handleSubmit = (ev: FormEvent<HTMLFormElement>) => {
     ev.preventDefault()
-    axios.post(`${HOST}/asignar-base`, { base, raspa, vinculado, login: user.username })
+    axios.post('API_ROUTE/asignar-base', { base, raspa, vinculado, login: user.username })
       .then(res => {
         console.log(res.data)
         if (res.status === 201) {
-          navigate('/bases')
+          navigate('/cartera/bases')
         }
       })
       .catch(err => {

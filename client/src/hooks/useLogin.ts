@@ -1,8 +1,8 @@
 import { useNavigate } from 'react-router-dom'
+import { useAuth } from '../auth/AuthProvider'
 import { useState } from 'react'
 import type React from 'react'
 import axios from 'axios'
-import { useAuth } from '../auth/AuthProvider'
 
 interface UseLoginReturn {
   user: string
@@ -23,7 +23,7 @@ export function useLogin (): UseLoginReturn {
   const handleSubmit = (ev: React.FormEvent) => {
     ev.preventDefault()
 
-    axios.post('http://172.20.1.216:4000/api/login', { user, password })
+    axios.post('LOGIN_ROUTE/login', { user, password })
       .then(res => {
         localStorage.setItem('cartera', res.data.token)
         setIsAuthenticated(true)

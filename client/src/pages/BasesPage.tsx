@@ -6,7 +6,6 @@ import { useAuth } from '../auth/AuthProvider'
 import { RiLockLine } from '@remixicon/react'
 import { useEffect, useState } from 'react'
 import { BasesI } from '../types/Bases'
-import { HOST } from '../utils/contanst'
 import axios from 'axios'
 
 const BasesPage = () => {
@@ -18,7 +17,7 @@ const BasesPage = () => {
   const [vinculado, setVinculado] = useState<string>('')
 
   useEffect(() => {
-    axios.get(`${HOST}/getAllBases`)
+    axios.get('API_ROUTE/getAllBases')
       .then(response => setData(response.data))
       .catch(error => console.log(error))
   }, [])

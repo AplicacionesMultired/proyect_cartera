@@ -5,7 +5,6 @@ import { BasesI, BasesIUpdates } from '../types/Bases'
 import { formatPesoColombia } from '../utils/funtions'
 import { useEffect, useRef, useState } from 'react'
 import { useAuth } from '../auth/AuthProvider'
-import { HOST } from '../utils/contanst'
 import axios from 'axios'
 
 const BasesDetalle = () => {
@@ -27,11 +26,11 @@ const BasesDetalle = () => {
 
   useEffect(() => {
     // Llamada a la API
-    axios.get(`${HOST}/baseDetalle/${id}`)
+    axios.get(`API_ROUTE/baseDetalle/${id}`)
       .then(response => setData(response.data))
       .catch(error => { console.log(error) })
 
-    axios.get(`${HOST}/updatesBases/${id}`)
+    axios.get(`API_ROUTE/updatesBases/${id}`)
       .then(response => setUpdates(response.data))
       .catch(error => { console.log(error) })
   }, [id, pedirData])
@@ -45,7 +44,7 @@ const BasesDetalle = () => {
       OBS: fields.obs as string
     }
 
-    axios.post(`${HOST}/updateBase`, { ...newData, VINCULADO: id, BASE_ACT: data?.BASE, RASPE_ACT: data?.RASPE, LOGIN: user.username })
+    axios.post('API_ROUTE/updateBase', { ...newData, VINCULADO: id, BASE_ACT: data?.BASE, RASPE_ACT: data?.RASPE, LOGIN: user.username })
       .then(response => {
         console.log(response)
         if (response.status === 200) {
