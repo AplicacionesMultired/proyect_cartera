@@ -12,7 +12,7 @@ import Dashboard from './pages/Dashboar'
 import LoginPage from './pages/Login'
 import { useEffect } from 'react'
 
-export const HOST = 'http://172.20.1.70:4040/api/v1'
+export const HOST = 'http://172.20.1.110:4040/api/v1'
 
 export function App (): JSX.Element {
   const { login, logout, isAuthenticated } = useAuth()
@@ -27,7 +27,6 @@ export function App (): JSX.Element {
           logout()
         })
     } else {
-      console.log('No hay token')
       localStorage.removeItem('cartera')
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
