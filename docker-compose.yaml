@@ -2,7 +2,7 @@ version: '3.7'
 
 services:
   web:
-    name: cartera-web
+    container_name: cartera-web
     image: nginx:mainline-alpine3.18-perl
     ports:
       - "8082:80"
@@ -13,7 +13,7 @@ services:
       - TZ=America/Bogota
 
   api:
-    name: cartera-api
+    container_name: cartera-api
     image: node:latest
     working_dir: /app
     volumes:
