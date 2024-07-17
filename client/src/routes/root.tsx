@@ -1,6 +1,6 @@
 import { authTokenServices } from '../services/tokenServices'
-import { NavBar } from '../components/NavBar'
 import { Outlet, useNavigate } from 'react-router-dom'
+import { NavBar } from '../components/NavBar'
 import { useEffect } from 'react'
 
 export const Root = () => {

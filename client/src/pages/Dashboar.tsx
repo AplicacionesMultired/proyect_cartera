@@ -4,7 +4,7 @@ import { DonutChartHero } from '../components/Donut'
 import { TableInfo } from '../components/TableInfo'
 import { RecaudoI } from '../types/interface'
 import { useEffect, useState } from 'react'
-import { HOST } from '../App'
+import { HOST } from '../utils/contanst'
 import axios from 'axios'
 
 export interface DataIU {
