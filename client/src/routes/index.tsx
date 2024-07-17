@@ -1,8 +1,6 @@
 /* eslint-disable react-refresh/only-export-components */
 import { createBrowserRouter } from 'react-router-dom'
-import LoginPage from '../pages/Login'
 import { lazy, Suspense } from 'react'
-import { Root } from './root'
 
 // TODO: PAGES
 const NotFound = lazy(() => import('../pages/NotFound'))
@@ -12,16 +10,18 @@ const BasesPage = lazy(() => import('../pages/BasesPage'))
 const BasesDetalle = lazy(() => import('../pages/BasesDetalle'))
 const AsignarNewBase = lazy(() => import('../pages/AsignarNewBase'))
 const RecaudoDetail = lazy(() => import('../pages/RecaudoDetail'))
+const LoginPage = lazy(() => import('../pages/Login'))
+const Root = lazy(() => import('../routes/root'))
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <LoginPage />,
+    element: <Suspense fallback={<div>Cargando...</div>}><LoginPage /></Suspense>,
     errorElement: <Suspense fallback={<div>Cargando...</div>}><NotFound /></Suspense>
   },
   {
     path: '/cartera',
-    element: <Root />,
+    element: <Suspense fallback={<div>Cargando...</div>}><Root /></Suspense>,
     children: [
       {
         index: true,

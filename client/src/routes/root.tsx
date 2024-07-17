@@ -4,7 +4,7 @@ import { NavBar } from '../components/NavBar'
 import { useEffect } from 'react'
 import { useAuth } from '../auth/AuthProvider'
 
-export const Root = () => {
+const Root = () => {
   const navigate = useNavigate()
   const { setUser } = useAuth()
 
@@ -44,3 +44,5 @@ export const Root = () => {
 
   )
 }
+
+export default Root
