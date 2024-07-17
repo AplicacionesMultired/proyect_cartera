@@ -2,9 +2,10 @@ version: '3.7'
 
 services:
   web:
+    name: cartera-web
     image: nginx:mainline-alpine3.18-perl
     ports:
-      - "8081:80"
+      - "8082:80"
     volumes:
       - ./config:/etc/nginx/conf.d
       - ./client/dist:/usr/share/nginx/html
@@ -12,12 +13,13 @@ services:
       - TZ=America/Bogota
 
   api:
+    name: cartera-api
     image: node:latest
     working_dir: /app
     volumes:
       - ./api:/app
     ports:
-      - "4040:4040"
+      - "4042:4040"
     command: yarn start
     environment:
       - TZ=America/Bogota
