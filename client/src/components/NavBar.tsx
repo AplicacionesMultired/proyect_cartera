@@ -1,5 +1,4 @@
 import { ToggleDarkMode } from './ui/ToggleDarkMode'
-import { useAuth } from '../auth/AuthProvider'
 import { NavLink } from 'react-router-dom'
 import { Button } from './ui'
 
@@ -18,7 +17,10 @@ const LinkComponent = ({ link, name }: { link: string, name: string }): JSX.Elem
 }
 
 function NavBar (): JSX.Element {
-  const { logout } = useAuth()
+  const handleLogout = () => {
+    localStorage.removeItem('cartera')
+    window.location.href = '/login'
+  }
 
   return (
     <>
@@ -35,7 +37,7 @@ function NavBar (): JSX.Element {
           <ToggleDarkMode />
         </div>
 
-        <Button onClick={logout}>Cerrar Sesión</Button>
+        <Button onClick={handleLogout}>Cerrar Sesión</Button>
       </ul>
     </>
   )

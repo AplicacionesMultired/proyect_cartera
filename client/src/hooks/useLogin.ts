@@ -1,9 +1,7 @@
-import { authTokenServices } from '../services/tokenServices'
 import { useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 import type React from 'react'
 import axios from 'axios'
-import { useAuth } from '../auth/AuthProvider'
 
 interface UseLoginReturn {
   user: string
@@ -19,7 +17,6 @@ export function useLogin (): UseLoginReturn {
   const [password, setPassword] = useState('')
   const [errorString, setErrorString] = useState('')
 
-  const { setIsAuthenticated, setUser: userAutenticated } = useAuth()
   const navigate = useNavigate()
 
   const handleSubmit = (ev: React.FormEvent): void => {
@@ -29,15 +26,7 @@ export function useLogin (): UseLoginReturn {
       .then(res => {
         if (res.status === 200 && res.data.auth === true) {
           localStorage.setItem('cartera', res.data.token)
-          authTokenServices({ token: res.data.token })
-            .then(res => {
-              setIsAuthenticated(true)
-              userAutenticated(res.data)
-              navigate('/')
-            })
-            .catch(error => {
-              console.error(error.response.data.message)
-            })
+          navigate('/')
         }
       }
       )

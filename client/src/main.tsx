@@ -24,14 +24,11 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
 import { AuthProvider } from './auth/AuthProvider'
 import { RouterProvider } from 'react-router-dom'
 import { createRoot } from 'react-dom/client'
-import { StrictMode } from 'react'
 import { router } from './routes'
 import './index.css'
 
 createRoot(document.getElementById('root')!).render(
-  <StrictMode>
-    <AuthProvider>
-      <RouterProvider router={router} />
-    </AuthProvider>
-  </StrictMode>
+  <AuthProvider>
+    <RouterProvider router={router} />
+  </AuthProvider>
 )
