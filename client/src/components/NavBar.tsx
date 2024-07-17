@@ -41,4 +41,4 @@ function NavBar (): JSX.Element {
   )
 }
 
-export default NavBar
+export { NavBar }
