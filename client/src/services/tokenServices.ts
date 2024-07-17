@@ -3,7 +3,7 @@ import { LOGIN_URL } from '../utils/contanst'
 
 export const authTokenServices = async ({ token }: { token: string }): Promise<AxiosResponse> => {
   try {
-    const response = await axios.get(`${LOGIN_URL}/profile`, { headers: { Authorization: `Bearer ${token}` } })
+    const response = await axios.get(`${LOGIN_URL}/api/profile`, { headers: { Authorization: `Bearer ${token}` } })
     return response
   } catch (error) {
     console.error(error)
