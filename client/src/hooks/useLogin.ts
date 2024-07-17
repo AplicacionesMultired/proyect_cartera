@@ -2,6 +2,7 @@ import { useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 import type React from 'react'
 import axios from 'axios'
+import { useAuth } from '../auth/AuthProvider'
 
 interface UseLoginReturn {
   user: string
@@ -16,6 +17,7 @@ export function useLogin (): UseLoginReturn {
   const [user, setUser] = useState('')
   const [password, setPassword] = useState('')
   const [errorString, setErrorString] = useState('')
+  const { setIsAuthenticated } = useAuth()
 
   const navigate = useNavigate()
 
@@ -26,7 +28,8 @@ export function useLogin (): UseLoginReturn {
       .then(res => {
         if (res.status === 200 && res.data.auth === true) {
           localStorage.setItem('cartera', res.data.token)
-          navigate('/')
+          setIsAuthenticated(res.data.auth)
+          navigate('/home')
         }
       }
       )

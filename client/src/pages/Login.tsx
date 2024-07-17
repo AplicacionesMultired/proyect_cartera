@@ -1,10 +1,17 @@
-import { Input, Button, Label } from '../components/ui'
 import { UserIcon, LockIcon } from '../components/icons'
+import { Input, Button, Label } from '../components/ui'
 import { Error } from '../components/ui/Error'
 import { useLogin } from '../hooks/useLogin'
+import { useEffect } from 'react'
 
 function LoginPage (): JSX.Element {
   const { user, setUser, password, setPassword, errorString, handleSubmit } = useLogin()
+
+  useEffect(() => {
+    const token = localStorage.getItem('cartera')
+    console.log(token)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   return (
     <section className="h-[100vh] flex flex-col items-center justify-center bg-gradient-to-b from-punch-300 to-punch-200">

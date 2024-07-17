@@ -5,13 +5,12 @@ import { Root } from './root'
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <Root />
+    element: <LoginPage />
   },
   {
-    path: '/login',
-    element: <LoginPage />
+    path: '/home',
+    element: <Root />
   }
-
 ])
 
 export { router }

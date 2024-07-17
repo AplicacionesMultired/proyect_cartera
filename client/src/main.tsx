@@ -1,26 +1,4 @@
-/*
-import { ThemeProvider } from './context/ThemeContext.tsx'
-import ReactDOM from 'react-dom/client'
-import React from 'react'
-import './index.css'
-
-import { AuthProvider } from './auth/AuthProvider.tsx'
-import { App } from './App.tsx'
-import { BrowserRouter } from 'react-router-dom'
-
-ReactDOM.createRoot(document.getElementById('root')!).render(
-  <React.StrictMode>
-    <BrowserRouter>
-        <ThemeProvider>
-          <AuthProvider>
-            <App />
-          </AuthProvider>
-        </ThemeProvider>
-    </BrowserRouter>
-  </React.StrictMode>
-)
-*/
-
+import { ThemeProvider } from './context/ThemeContext'
 import { AuthProvider } from './auth/AuthProvider'
 import { RouterProvider } from 'react-router-dom'
 import { createRoot } from 'react-dom/client'
@@ -29,6 +7,8 @@ import './index.css'
 
 createRoot(document.getElementById('root')!).render(
   <AuthProvider>
-    <RouterProvider router={router} />
+    <ThemeProvider>
+      <RouterProvider router={router} />
+    </ThemeProvider>
   </AuthProvider>
 )
