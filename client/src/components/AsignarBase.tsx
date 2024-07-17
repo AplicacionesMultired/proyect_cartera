@@ -3,7 +3,7 @@ import { Card } from '@tremor/react'
 import { FormEvent, useState } from 'react'
 import { PropsCrating } from '../types/interface'
 import axios from 'axios'
-import { HOST } from '../App'
+import { HOST } from '../utils/contanst'
 import { useAuth } from '../auth/AuthProvider'
 import { useNavigate } from 'react-router-dom'
 

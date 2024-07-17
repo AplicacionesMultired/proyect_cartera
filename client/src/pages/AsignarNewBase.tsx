@@ -3,7 +3,7 @@ import { FormCreate } from '../components/AsignarBase'
 import { PropsCrating } from '../types/interface'
 import { Input, Label } from '../components/ui'
 import { useEffect, useState } from 'react'
-import { HOST } from '../App'
+import { HOST } from '../utils/contanst'
 import axios from 'axios'
 
 interface UserSinBase {
@@ -16,7 +16,7 @@ interface UserSinBase {
   Basis: null
 }
 
-export const AsignarNewBase = () => {
+const AsignarNewBase = () => {
   const [data, setData] = useState<UserSinBase[]>([])
   const [showForm, setShowForm] = useState(false)
   const [selectedItem, setSelectedItem] = useState<PropsCrating | null>(null)
@@ -91,3 +91,5 @@ export const AsignarNewBase = () => {
     </section>
   )
 }
+
+export default AsignarNewBase

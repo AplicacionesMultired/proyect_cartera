@@ -6,7 +6,9 @@ import { Root } from './root'
 import NotFound from '../pages/NotFound'
 import Dashboard from '../pages/Dashboar'
 import Detallado from '../pages/Home'
-import { BasesPage } from '../pages/BasesPage'
+import BasesPage from '../pages/BasesPage'
+import BasesDetalle from '../pages/BasesDetalle'
+import AsignarNewBase from '../pages/AsignarNewBase'
 
 const router = createBrowserRouter([
   {
@@ -29,6 +31,14 @@ const router = createBrowserRouter([
       {
         path: 'bases',
         element: <BasesPage />
+      },
+      {
+        path: 'base/:id',
+        element: <BasesDetalle />
+      },
+      {
+        path: 'asignarNuevaBase',
+        element: <AsignarNewBase />
       }
     ]
   }

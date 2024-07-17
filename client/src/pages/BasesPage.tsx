@@ -9,7 +9,7 @@ import { BasesI } from '../types/Bases'
 import { HOST } from '../utils/contanst'
 import axios from 'axios'
 
-export const BasesPage = () => {
+const BasesPage = () => {
   const [data, setData] = useState<BasesI[]>([])
   const [asc, setAsc] = useState<boolean>(true)
   const { user } = useAuth()
@@ -24,11 +24,11 @@ export const BasesPage = () => {
   }, [])
 
   const handleClick = (id: string) => {
-    return () => navigate(`/baseDetalle/${id}`)
+    return () => navigate(`/cartera/base/${id}`)
   }
 
   const handleCreateBase = () => {
-    return navigate('/asignarNuevaBase')
+    return navigate('/cartera/asignarNuevaBase')
   }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -103,3 +103,5 @@ export const BasesPage = () => {
     </section>
   )
 }
+
+export default BasesPage

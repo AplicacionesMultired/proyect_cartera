@@ -5,10 +5,10 @@ import { BasesI, BasesIUpdates } from '../types/Bases'
 import { formatPesoColombia } from '../utils/funtions'
 import { useEffect, useRef, useState } from 'react'
 import { useAuth } from '../auth/AuthProvider'
-import { HOST } from '../App'
+import { HOST } from '../utils/contanst'
 import axios from 'axios'
 
-export const BasesDetalle = () => {
+const BasesDetalle = () => {
   const { id } = useParams()
   const [data, setData] = useState<BasesI>()
   const [updates, setUpdates] = useState<BasesIUpdates[]>([])
@@ -74,7 +74,7 @@ export const BasesDetalle = () => {
       <section className='flex'>
         <Card className='flex flex-col gap-2'>
           <div className='flex justify-end'>
-            <Button variant='primary' color='red' onClick={() => navigate('/Bases')}>Volver Bases</Button>
+            <Button variant='primary' color='red' onClick={() => navigate('/cartera/bases')}>Volver Bases</Button>
           </div>
           <Title className='text-center'>Datos De Vinculado</Title>
           <p><span className='font-semibold'>Nombres: </span>{data?.Seller.NOMBRES}</p>
@@ -134,3 +134,5 @@ export const BasesDetalle = () => {
     </>
   )
 }
+
+export default BasesDetalle
