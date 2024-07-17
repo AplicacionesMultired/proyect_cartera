@@ -1,14 +1,14 @@
 import { Navigate, Outlet } from 'react-router-dom'
 import { NavBar } from '../components/NavBar'
+import { useAuth } from '../auth/AuthProvider'
 
-interface ProtectedRouteProps {
-  redirectTo?: string
-  isAllowed: boolean
-}
+export const Root = () => {
+  const { isAuthenticated } = useAuth()
 
-export const Root = ({ isAllowed, redirectTo = '/' }: ProtectedRouteProps) => {
-  if (isAllowed) {
-    return <Navigate to={redirectTo} />
+  console.log(isAuthenticated)
+
+  if (!isAuthenticated) {
+    return <Navigate to='/login' />
   }
 
   return (
