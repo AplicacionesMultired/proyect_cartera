@@ -3,7 +3,7 @@ import { formatPesoColombia } from '../utils/funtions'
 import { Button, Card, Title } from '@tremor/react'
 import { useEffect, useState } from 'react'
 import { Recaudo } from '../types/Recaudo'
-import { HOST } from '../App'
+import { HOST } from '../utils/contanst'
 import axios from 'axios'
 
 function RecaudoDetail () {
@@ -59,7 +59,7 @@ function RecaudoDetail () {
             <h1 className="font-medium text-center text-gray-700">Cargando...</h1>
             )
       }
-      <Button color='red' onClick={() => navigate('/detallado')}>
+      <Button color='red' onClick={() => navigate('/cartera/detallado')}>
         Volver a Reportes
       </Button>
     </Card>

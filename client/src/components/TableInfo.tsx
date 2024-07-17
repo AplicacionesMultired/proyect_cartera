@@ -1,6 +1,6 @@
 import { Card, Table, TableBody, TableCell, TableHead, TableHeaderCell, TableRow, Title } from '@tremor/react'
 import { formatPesoColombia } from '../utils/funtions'
-import { DataIU } from '../pages/Dashboar'
+import { DataIU } from '../pages/Dashboard'
 
 export function TableInfo ({ data }: {data: DataIU[]}) {
   return (

@@ -1,20 +1,22 @@
 import { createBrowserRouter } from 'react-router-dom'
 import LoginPage from '../pages/Login'
+import { lazy, Suspense } from 'react'
 import { Root } from './root'
 
 // TODO: PAGES
-import NotFound from '../pages/NotFound'
-import Dashboard from '../pages/Dashboar'
-import Detallado from '../pages/Home'
-import BasesPage from '../pages/BasesPage'
-import BasesDetalle from '../pages/BasesDetalle'
-import AsignarNewBase from '../pages/AsignarNewBase'
+const NotFound = lazy(() => import('../pages/NotFound'))
+const Dashboard = lazy(() => import('../pages/Dashboard'))
+const Detallado = lazy(() => import('../pages/Home'))
+const BasesPage = lazy(() => import('../pages/BasesPage'))
+const BasesDetalle = lazy(() => import('../pages/BasesDetalle'))
+const AsignarNewBase = lazy(() => import('../pages/AsignarNewBase'))
+const RecaudoDetail = lazy(() => import('../pages/RecaudoDetail'))
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: <LoginPage />,
-    errorElement: <NotFound />
+    errorElement: <Suspense fallback={<div>Cargando...</div>}><NotFound /></Suspense>
   },
   {
     path: '/cartera',
@@ -22,23 +24,31 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <Dashboard />
+        element: <Suspense fallback={<div>Cargando...</div>}><Dashboard /></Suspense>
       },
       {
         path: 'detallado',
-        element: <Detallado />
+        element: <Suspense fallback={<div>Cargando...</div>}><Detallado /></Suspense>
       },
       {
         path: 'bases',
-        element: <BasesPage />
+        element: <Suspense fallback={<div>Cargando...</div>}><BasesPage /></Suspense>
       },
       {
         path: 'base/:id',
-        element: <BasesDetalle />
+        element: <Suspense fallback={<div>Cargando...</div>}><BasesDetalle /></Suspense>
       },
       {
         path: 'asignarNuevaBase',
-        element: <AsignarNewBase />
+        element: <Suspense fallback={<div>Cargando...</div>}><AsignarNewBase /></Suspense>
+      },
+      {
+        path: 'recaudo/:id/:estado',
+        element: <Suspense fallback={<div>Cargando...</div>}><RecaudoDetail /></Suspense>
+      },
+      {
+        path: '*',
+        element: <Suspense fallback={<div>Cargando...</div>}><NotFound /></Suspense>
       }
     ]
   }

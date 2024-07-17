@@ -1,5 +1,5 @@
 import { Card, DonutChart, Table, TableBody, TableCell, TableHead, TableHeaderCell, TableRow } from '@tremor/react'
-import { DataIU } from '../pages/Dashboar'
+import { DataIU } from '../pages/Dashboard'
 import { formatPesoColombia } from '../utils/funtions'
 
 const dataFormatter = (number: number) =>
