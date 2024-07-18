@@ -31,6 +31,11 @@ export function useLogin (): UseLoginReturn {
         navigate('/cartera')
       })
       .catch(error => {
+        console.log(error)
+        if (error.message === 'Network Error') {
+          setErrorString('Error de conexión, y/o Red, contacte al administrador del sistema')
+          return
+        }
         const errorString: string = error.response.data.message
         setErrorString(errorString)
       })
