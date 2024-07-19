@@ -11,12 +11,12 @@ export function ReturCargo(seller: string): string {
   return sellerRoles[seller] || 'No_Definido';
 }
 
-export function calculateCartera(item: any): number {
-  return item.SALDO_ANT - (item.Basis?.BASE || 0) - item.CREDITO - item.DEBITO;
-}
-
 export function calcularNuevoSaldo(item: any): number {
   return item.SALDO_ANT - item.CREDITO - item.DEBITO
+}
+
+export function calculateCartera(item: any): number {
+  return item.SALDO_ANT - (item.Basis?.BASE || 0) - item.CREDITO + item.DEBITO;
 }
 
 export function mapCarteraResults(results: any) {
