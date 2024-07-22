@@ -15,13 +15,12 @@ services:
 
   api:
     container_name: cartera-api
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: cartera-api:1.0
     restart: always
-    image: node:latest
-    working_dir: /app
-    volumes:
-      - ./api:/app
     ports:
       - "4040:4040"
-    command: yarn start
     environment:
       - TZ=America/Bogota
