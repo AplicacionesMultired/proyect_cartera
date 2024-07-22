@@ -1,4 +1,4 @@
-import { Card, DonutChart, Table, TableBody, TableCell, TableHead, TableHeaderCell, TableRow } from '@tremor/react'
+import { Card, DonutChart, Table, TableBody, TableCell, TableHead, TableHeaderCell, TableRow, Title } from '@tremor/react'
 import { formatPesoColombia } from '../utils/funtions'
 import { DataIU } from '../pages/Dashboard'
 
@@ -11,24 +11,23 @@ export function TableInfo ({ data }: { data: DataIU[] }) {
     value: item.Caj_Comercial | 0 + item.Colo_Independiente | 0 + item.Caj_Tesoreria | 0 + item.Vendedor | 0 + item.No_Definido | 0
   }))
 
-  return (
-    <Card className='flex justify-around items-center'>
-      <div className="space-y-4">
-        <h2 className="text-center block font-mono text-tremor-default text-tremor-content dark:text-dark-tremor-content">
-          Gráfica Cartera Pendiente
-        </h2>
-        <DonutChart
-          colors={['yellow', 'blue']}
-          data={dataUnifi}
-          variant="pie"
-          valueFormatter={dataFormatter}
-          onValueChange={(v) => console.log(v)}
-        />
-      </div>
+  const total = dataUnifi.reduce((acc, item) => acc + item.value, 0)
 
-      <Table className="">
+  return (
+    <Card className='grid grid-cols-12 place-content-between gap-2'>
+      <section className='col-span-3 3xl:col-span-3'>
+        <DonutChart colors={['yellow', 'blue']} data={dataUnifi} className=''
+          variant="pie" valueFormatter={dataFormatter} onValueChange={(v) => console.log(v)} />
+        <Title className='text-center pt-2 text-xs xl:text-sm 2xl:text-base'>Cartera Pendiente</Title>
+        <p className='text-center text-xs xl:text-sm 2xl:text-base'>
+          <span>Total Servired + Multired: </span>
+          <span className='font-medium'>{formatPesoColombia(total)}</span>
+        </p>
+      </section>
+
+      <Table className='col-span-9 3xl:col-span-6 flex flex-col justify-center'>
         <TableHead>
-          <TableRow>
+          <TableRow className='text-xs 2xl:text-base'>
             <TableHeaderCell>Empresa</TableHeaderCell>
             <TableHeaderCell>Caj comercial</TableHeaderCell>
             <TableHeaderCell>Col Independiente</TableHeaderCell>
@@ -40,29 +39,30 @@ export function TableInfo ({ data }: { data: DataIU[] }) {
         <TableBody>
           {
             data.map((item, index) => (
-              <TableRow key={index}>
+              <TableRow key={index} className='text-xs 2xl:text-base'>
                 <TableCell>{item.Empresa}</TableCell>
                 <TableCell>{formatPesoColombia(item.Caj_Comercial)}</TableCell>
                 <TableCell>{formatPesoColombia(item.Colo_Independiente)}</TableCell>
-                <TableCell>{formatPesoColombia(item.Caj_Tesoreria)}</TableCell>
+                <TableCell>{formatPesoColombia(item.Caj_Tesoreria | 0)}</TableCell>
                 <TableCell>{formatPesoColombia(item.Vendedor)}</TableCell>
-                <TableCell>{formatPesoColombia(item.No_Definido)}</TableCell>
+                <TableCell>{formatPesoColombia(item.No_Definido | 0)}</TableCell>
               </TableRow>
             ))}
         </TableBody>
       </Table>
 
-      <section className='flex flex-col gap-6 text-xl'>
+      <section className='col-span-full 3xl:col-span-3 flex 2xl:flex-col 2xl:items-center 2xl:justify-center 2xl:gap-2 justify-around pt-4 2xl:text-base'>
         {dataUnifi.map((item, index) => {
           return (
-            <div key={index} className='flex items-center'>
+            <section key={index} className='flex items-center'>
               <p className={`w-4 h-4 p-2 rounded-full ${item.name === 'Multired' ? 'bg-blue-500' : 'bg-yellow-500'} `}></p>
               <p className='px-2'>Total <span className='font-medium'>{item.name}:</span></p>
               <p>{formatPesoColombia(item.value)}</p>
-            </div>
+            </section>
           )
         })}
       </section>
+
     </Card>
   )
 }
