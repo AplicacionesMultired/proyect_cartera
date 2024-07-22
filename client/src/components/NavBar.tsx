@@ -1,5 +1,5 @@
 import { ToggleDarkMode } from './ui/ToggleDarkMode'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 import { Button } from './ui'
 
 const Links = [
@@ -17,9 +17,10 @@ const LinkComponent = ({ link, name }: { link: string, name: string }) => {
 }
 
 export function NavBar () {
+  const navigate = useNavigate()
   const handleLogout = () => {
     localStorage.removeItem('cartera')
-    window.location.href = '/'
+    navigate('/')
   }
 
   return (

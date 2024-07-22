@@ -1,11 +1,10 @@
 import { Card, Table, TableBody, TableCell, TableHead, TableHeaderCell, TableRow, Title } from '@tremor/react'
 import { formatPesoColombia } from '../utils/funtions'
-import { DonutChartHero } from '../components/Donut'
 import { TableInfo } from '../components/TableInfo'
 import { RecaudoI } from '../types/interface'
 import { useEffect, useState } from 'react'
-import axios from 'axios'
 import { API_URL } from '../utils/contanst'
+import axios from 'axios'
 
 export interface DataIU {
   Empresa: string;
@@ -71,9 +70,9 @@ function Dashboard () {
   return (
     <>
       <Card className='flex w-full gap-2'>
-        <DonutChartHero data={data} />
         <TableInfo data={data} />
       </Card>
+
       <Card className='flex justify-around'>
         {
           recaudo.multired.length > 0 && (
