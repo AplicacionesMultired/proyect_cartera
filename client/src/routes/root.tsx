@@ -1,8 +1,8 @@
 import { authTokenServices } from '../services/tokenServices'
 import { Outlet, useNavigate } from 'react-router-dom'
-import { NavBar } from '../components/NavBar'
-import { useEffect } from 'react'
 import { useAuth } from '../auth/AuthProvider'
+import { NavBar } from '../components/NavBar'
+import { Suspense, useEffect } from 'react'
 
 const Root = () => {
   const navigate = useNavigate()
@@ -29,7 +29,7 @@ const Root = () => {
     } else {
       navigate('/')
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (
@@ -37,9 +37,11 @@ const Root = () => {
       <section className='fixed top-0 z-50 w-full bg-punch-400 dark:bg-dark-tremor-brand-muted h-14'>
         <NavBar />
       </section>
-      <section className='h-[93vh] xl:h-[92vh] overflow-auto mt-14'>
-        <Outlet />
-      </section>
+      <Suspense fallback={<div>Cargando ...</div>}>
+        <section className='h-[93vh] xl:h-[92vh] overflow-auto mt-14'>
+          <Outlet />
+        </section>
+      </Suspense>
     </>
 
   )
