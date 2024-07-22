@@ -1,2 +1,2 @@
-export const API_URL = 'http://172.20.1.70:4040/api/v1'
-export const LOGIN_URL = 'http://172.20.1.216:4002'
+export const API_URL = import.meta.env.VITE_API_URL
+export const LOGIN_URL = import.meta.env.VITE_LOGIN_URL

@@ -12,6 +12,8 @@ services:
       - ./client/dist:/usr/share/nginx/html
     environment:
       - TZ=America/Bogota
+    networks:
+      - internal_cartera
 
   api:
     container_name: cartera-api
@@ -20,7 +22,11 @@ services:
       dockerfile: Dockerfile
     image: cartera-api:1.0
     restart: always
-    ports:
-      - "4040:4040"
     environment:
       - TZ=America/Bogota
+    networks:
+      - internal_cartera
+
+networks:
+  internal_cartera:
+    driver: bridge
