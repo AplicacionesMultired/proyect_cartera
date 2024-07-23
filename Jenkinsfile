@@ -47,14 +47,18 @@ pipeline {
           }
         }
         stage('Remove Containers'){
-          steps {
-            sh '''
-              sudo docker stop cartera-web cartera-api
-            '''
-            sh '''
-              sudo docker rm cartera-web cartera-api
-            '''
-          }
+            steps {
+                sh '''
+                    if sudo docker ps -a | grep -q cartera-web; then
+                        sudo docker stop cartera-web
+                        sudo docker rm cartera-web
+                    fi
+                    if sudo docker ps -a | grep -q cartera-api; then
+                        sudo docker stop cartera-api
+                        sudo docker rm cartera-api
+                    fi
+                '''
+            }
         }
         stage('Build Docker Images') {
             steps {
