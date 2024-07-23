@@ -18,7 +18,6 @@ ENV PATH="/opt/node-v22.5.1-linux-x64/bin:${PATH}"
 #delete node-v22.5.1-linux-x64.tar.xz
 RUN rm node-v22.5.1-linux-x64.tar.xz
 
-# Copy the source code
 COPY ./api .
 
 RUN npm install -g yarn
