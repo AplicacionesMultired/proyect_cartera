@@ -25,6 +25,10 @@ pipeline {
                     echo "VITE_LOGIN_URL=${VITE_LOGIN_URL}" >> client/.env
                 '''
                 sh '''
+                    echo "VITE_API_URL=/api" > client/dist .env
+                    echo "VITE_LOGIN_URL=${VITE_LOGIN_URL}" >> client/dist .env
+                '''
+                sh '''
                     cd client
                     yarn install
                 '''
@@ -56,6 +60,15 @@ pipeline {
                     if sudo docker ps -a | grep -q cartera-api; then
                         sudo docker stop cartera-api
                         sudo docker rm cartera-api
+                    fi
+                '''
+            }
+        }
+        stage('Remove Images'){
+            steps {
+                sh '''
+                    if sudo docker images | grep -q cartera-api:1.0; then
+                        sudo docker rmi cartera-api:1.0
                     fi
                 '''
             }
