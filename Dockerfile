@@ -30,8 +30,6 @@ RUN yarn
 # Build the application
 RUN yarn build
 
-# Expose the port
 EXPOSE 4040
 
-# Start the application
 CMD ["yarn", "start"]
