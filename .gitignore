@@ -1,5 +1,5 @@
 node_modules
 dist
 .env
-yarn.lock
 node-v22.5.1-linux-x64.tar.xz
+Jenkinsfile
