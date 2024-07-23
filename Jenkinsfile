@@ -42,17 +42,17 @@ pipeline {
         stage('Remove Containers'){
           steps {
             sh '''
-              docker stop cartera-web cartera-api
+              sudo docker stop cartera-web cartera-api
             '''
             sh '''
-              docker rm cartera-web cartera-api
+              sudo docker rm cartera-web cartera-api
             '''
           }
         }
         stage('Build Docker Images') {
             steps {
               sh '''
-                docker compose up -d
+                sudo docker compose up -d
               '''
             }
         }
