@@ -46,11 +46,11 @@ pipeline {
           steps {
             sh '''
               echo "PORT=4040" > api/.env
-              echo "DB_USER=${DB_USER}" >> api/.env
-              echo "DB_PASS=${DB_PASS}" >> api/.env
-              echo "DB_HOST=${DB_HOST}" >> api/.env
-              echo "DB_PORT=${DB_PORT}" >> api/.env
-              echo "DB_NAME=${DB_NAME}" >> api/.env
+              echo "DB_USER='${DB_USER}'" >> api/.env
+              echo "DB_PASS='${DB_PASS}'" >> api/.env
+              echo "DB_HOST='${DB_HOST}'" >> api/.env
+              echo "DB_PORT='${DB_PORT}'" >> api/.env
+              echo "DB_NAME='${DB_NAME}'" >> api/.env
             '''
           }
         }
@@ -68,15 +68,15 @@ pipeline {
                 '''
             }
         }
-        stage('Remove Images'){
-            steps {
-                sh '''
-                    if sudo docker images | grep -q cartera-api:1.0; then
-                        sudo docker rmi cartera-api:1.0
-                    fi
-                '''
-            }
-        }
+        // stage('Remove Images'){
+        //     steps {
+        //         sh '''
+        //             if sudo docker images | grep -q cartera-api:1.0; then
+        //                 sudo docker rmi cartera-api:1.0
+        //             fi
+        //         '''
+        //     }
+        // }
         stage('Build Docker Images') {
             steps {
               sh '''
