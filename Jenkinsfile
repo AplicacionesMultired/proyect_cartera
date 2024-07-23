@@ -32,11 +32,15 @@ pipeline {
                     cd client
                     yarn build
                 '''
-                sh '''
-                    echo "VITE_API_URL=/api" > client/dist .env
-                    echo "VITE_LOGIN_URL=${VITE_LOGIN_URL}" >> client/dist .env
-                '''
             }
+        }
+        stage('copy .env dist'){
+          steps{
+                sh '''
+                    echo "VITE_API_URL=/api" > client/dist/.env
+                    echo "VITE_LOGIN_URL=${VITE_LOGIN_URL}" >> client/dist/.env
+                '''
+          }
         }
         stage('generate .env /api'){
           steps {
