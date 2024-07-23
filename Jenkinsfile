@@ -25,16 +25,16 @@ pipeline {
                     echo "VITE_LOGIN_URL=${VITE_LOGIN_URL}" >> client/.env
                 '''
                 sh '''
-                    echo "VITE_API_URL=/api" > client/dist .env
-                    echo "VITE_LOGIN_URL=${VITE_LOGIN_URL}" >> client/dist .env
-                '''
-                sh '''
                     cd client
                     yarn install
                 '''
                 sh '''
                     cd client
                     yarn build
+                '''
+                sh '''
+                    echo "VITE_API_URL=/api" > client/dist .env
+                    echo "VITE_LOGIN_URL=${VITE_LOGIN_URL}" >> client/dist .env
                 '''
             }
         }
