@@ -24,10 +24,8 @@ COPY ./api .
 # install yarn package manager
 RUN npm install -g yarn
 
-# Install the dependencies
 RUN yarn
 
-# Build the application
 RUN yarn build
 
 EXPOSE 4040
