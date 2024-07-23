@@ -11,6 +11,13 @@ pipeline {
     }
 
     stages {
+        stage('copy node for dockerfile'){
+            steps {
+                sh '''
+                    sudo cp -r /home/desarrollo/dependencies/node-v22.5.1-linux-x64.tar.xz .
+                '''
+            }
+        }
         stage('generate .env file and install dependencies and build') {
             steps {
                 sh '''
