@@ -11,6 +11,13 @@ pipeline {
     }
 
     stages {
+        stage('Delete all'){
+            steps {
+                sh '''
+                    sudo rm -rf ./*
+                '''
+            }
+        }
         stage('copy node for dockerfile'){
             steps {
                 sh '''
