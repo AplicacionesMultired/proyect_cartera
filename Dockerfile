@@ -21,7 +21,6 @@ RUN rm node-v22.5.1-linux-x64.tar.xz
 # Copy the source code
 COPY ./api .
 
-# install yarn package manager
 RUN npm install -g yarn
 
 RUN yarn
