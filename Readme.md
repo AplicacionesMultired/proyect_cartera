@@ -61,4 +61,3 @@ Es un proyecto de código abierto que se encuentra en el repositorio de GitHub y
   - La API estará disponible en la dirección [http://localhost:3000](http://localhost:3000) por defecto, pero esto dependerá de la configuración de las variables de entorno dentro de api.
 
   - Recordar que en el archivo App.tsx del cliente se encuentra la URL de la API, la cual se debe cambiar si se cambia la dirección de la API.
-
