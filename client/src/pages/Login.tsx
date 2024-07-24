@@ -7,7 +7,7 @@ function LoginPage (): JSX.Element {
   const { user, setUser, password, setPassword, errorString, handleSubmit } = useLogin()
 
   return (
-    <section className="h-[100vh] flex flex-col items-center justify-center bg-gradient-to-b from-blue-300 to-blue-200">
+    <section className="h-[100vh] flex flex-col items-center justify-center bg-gradient-to-b from-punch-300 to-punch-200">
       <form className='w-[385px] mb-2 border p-12 rounded-lg bg-white/30 flex flex-col gap-6 shadow-xl' onSubmit={handleSubmit}>
         <figure className='flex items-center justify-center'>
           <img src="/gane.webp" alt="logo de gane" className='w-[160px] ' />
