@@ -2,6 +2,7 @@ pipeline {
     agent any
 
     environment {
+        PATH = "/opt/dependencies/node-v22/bin:${PATH}"
         DB_USER = credentials('DB_PB_USER')
         DB_PASS = credentials('DB_PB_PASS')
         DB_HOST = credentials('DB_PB_HOST')
@@ -16,11 +17,6 @@ pipeline {
                 sh '''
                     sudo cp -r /opt/dependencies/node-v22.5.1-linux-x64.tar.xz .
                 '''
-            }
-        }
-        stage('Install Yarn') {
-            steps {
-                sh 'npm install -g yarn'
             }
         }
         stage('generate .env file and install dependencies and build') {
@@ -73,15 +69,6 @@ pipeline {
                 '''
             }
         }
-        // stage('Remove Images'){
-        //     steps {
-        //         sh '''
-        //             if sudo docker images | grep -q cartera-api:1.0; then
-        //                 sudo docker rmi cartera-api:1.0
-        //             fi
-        //         '''
-        //     }
-        // }
         stage('Build Docker Images') {
             steps {
               sh '''
