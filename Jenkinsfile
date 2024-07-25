@@ -18,6 +18,11 @@ pipeline {
                 '''
             }
         }
+        stage('Install Yarn') {
+            steps {
+                sh 'npm install -g yarn'
+            }
+        }
         stage('generate .env file and install dependencies and build') {
             steps {
                 sh '''
