@@ -2,12 +2,12 @@ pipeline {
     agent any
 
     environment {
-        DB_USER = credentials('DB_USER')
-        DB_PASS = credentials('DB_PASS')
-        DB_HOST = credentials('DB_HOST')
-        DB_PORT = credentials('DB_PORT')
-        DB_NAME = credentials('DB_NAME')
-        VITE_LOGIN_URL = credentials('VITE_LOGIN_URL')
+        DB_USER = credentials('DB_PB_USER')
+        DB_PASS = credentials('DB_PB_PASS')
+        DB_HOST = credentials('DB_PB_HOST')
+        DB_PORT = credentials('DB_PB_PORT')
+        DB_NAME = credentials('DB_PB_NAME')
+        VITE_LOGIN_URL = credentials('VITE_LOGIN_URL_CARTERA_APP')
     }
 
     stages {
