@@ -4,8 +4,8 @@ pipeline{
         stage('Install dependencies Client And Build'){
             steps{
                 script{
-                    sh 'npm install'
-                    sh 'npm run build'
+                    sh 'cd client && yarn'
+                    sh 'cd client && yarn build'
                 }
             }
 
