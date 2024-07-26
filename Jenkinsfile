@@ -28,7 +28,6 @@ pipeline{
                     sh 'cd client && yarn build'
                 }
             }
-
         }
         stage('Stop and delete containers if exist'){
             steps{
