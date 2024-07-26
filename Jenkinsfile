@@ -39,8 +39,10 @@ pipeline{
         }
         stage('generate .env /client'){
           steps {
-              sh "echo 'VITE_API_URL=/api' > client/.env"
-              sh "echo 'VITE_LOGIN_URL=${VITE_LOGIN_URL}' >> client/.env"
+              sh '''
+                echo "VITE_API_URL=/api" > client/.env
+                echo "VITE_LOGIN_URL='${VITE_LOGIN_URL}'" >> client/.env              
+              '''
           }
         }
         stage('Install Dependecies Client'){
