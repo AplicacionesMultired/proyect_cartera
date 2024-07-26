@@ -21,7 +21,7 @@ services:
       context: .
       dockerfile: Dockerfile
     image: cartera-api:1.0
-    restart: always
+    restart: always 
     environment:
       - TZ=America/Bogota
     networks:

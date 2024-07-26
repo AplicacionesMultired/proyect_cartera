@@ -8,7 +8,7 @@ import { routerResumen } from './routes/resumen.routes'
 
 const v1 = '/api/v1/'
 const app = express()
-const PORT = process.env.PORT || 4040;
+const PORT = process.env.PORT || 3000;
 
 app.use(express.json())
 app.use(cors())
