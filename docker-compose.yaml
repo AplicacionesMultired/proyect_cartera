@@ -3,16 +3,11 @@ version: '3.7'
 services:
   web:
     container_name: cartera-web
+    build: ./client
     image: nginx:latest
     restart: always
     ports:
       - "8081:80"
-    volumes:
-      - ./client/dist:/usr/share/nginx/html:ro
-    environment:
-      - TZ=America/Bogota
-    networks:
-      - internal_cartera
 
   api:
     container_name: cartera-api
