@@ -1,8 +1,6 @@
-pipeline {
+pipeline{
     agent any
-
     environment {
-        PATH = "/opt/dependencies/node-v22/bin:${PATH}"
         DB_USER = credentials('DB_PB_USER')
         DB_PASS = credentials('DB_PB_PASS')
         DB_HOST = credentials('DB_PB_HOST')
@@ -10,38 +8,16 @@ pipeline {
         DB_NAME = credentials('DB_PB_NAME')
         VITE_LOGIN_URL = credentials('VITE_LOGIN_URL_CARTERA_APP')
     }
-
-    stages {
-        stage('copy node for dockerfile'){
-            steps {
-                sh '''
-                    sudo cp -r /opt/dependencies/node-v22.5.1-linux-x64.tar.xz .
-                '''
+    stages{
+        stage('Delete the workspace'){
+            steps{
+                deleteDir()
             }
         }
-        stage('generate .env file and install dependencies and build') {
-            steps {
-                sh '''
-                    echo "VITE_API_URL=/api" > client/.env
-                    echo "VITE_LOGIN_URL=${VITE_LOGIN_URL}" >> client/.env
-                '''
-                sh '''
-                    cd client
-                    yarn install
-                '''
-                sh '''
-                    cd client
-                    yarn build
-                '''
+        stage('Clone Repository'){
+            steps{
+                git 'https://github.com/llOrtegall/proyect_cartera.git'
             }
-        }
-        stage('copy .env dist'){
-          steps{
-                sh '''
-                    echo "VITE_API_URL=/api" > client/dist/.env
-                    echo "VITE_LOGIN_URL=${VITE_LOGIN_URL}" >> client/dist/.env
-                '''
-          }
         }
         stage('generate .env /api'){
           steps {
@@ -55,25 +31,41 @@ pipeline {
             '''
           }
         }
-        stage('Remove Containers'){
+        stage('Install Dependecies API'){
+            steps{
+                sh 'cd api && yarn'
+                sh 'cd api && yarn build'
+            }
+        }
+        stage('generate .env /client'){
+          steps {
+              sh "echo 'VITE_API_URL=/api' > client/.env"
+              sh "echo 'VITE_LOGIN_URL=${VITE_LOGIN_URL}' >> client/.env"
+          }
+        }
+        stage('Install Dependecies Client'){
+            steps{
+                sh 'cd client && yarn'
+                sh 'cd client && yarn build'
+            }
+        }
+        stage('Remove Containers if exist') {
             steps {
                 sh '''
-                    if sudo docker ps -a | grep -q cartera-web; then
-                        sudo docker stop cartera-web
-                        sudo docker rm cartera-web
+                    if docker ps -a | grep -q cartera-web; then
+                        docker stop cartera-web
+                        docker rm cartera-web
                     fi
-                    if sudo docker ps -a | grep -q cartera-api; then
-                        sudo docker stop cartera-api
-                        sudo docker rm cartera-api
+                    if docker ps -a | grep -q cartera-api; then
+                        docker stop cartera-api
+                        docker rm cartera-api
                     fi
                 '''
             }
         }
         stage('Build Docker Images') {
             steps {
-              sh '''
-                sudo docker compose up -d
-              '''
+              sh "docker compose up -d"
             }
         }
     }
