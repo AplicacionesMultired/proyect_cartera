@@ -30,5 +30,19 @@ pipeline{
             }
 
         }
+        stage('Stop and delete containers if exist'){
+            steps{
+                script{
+                    sh 'docker-compose down'
+                }
+            }
+        }
+        stage('Build and run containers'){
+            steps{
+                script{
+                    sh 'docker-compose up --build -d'
+                }
+            }
+        }
     }
 }
