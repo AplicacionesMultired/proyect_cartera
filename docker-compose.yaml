@@ -3,7 +3,7 @@ version: '3.7'
 services:
   web:
     container_name: cartera-web
-    image: nginx:mainline-alpine3.18-perl
+    image: nginx:latest
     restart: always
     ports:
       - "8081:80"
