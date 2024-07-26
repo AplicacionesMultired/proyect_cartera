@@ -4,10 +4,10 @@ FROM ubuntu:24.10
 WORKDIR /app
 
 # Update system and add xz-utils
-RUN apt-get update && apt-get install -y xz-utils
+RUN apt-get update && apt-get install -y xz-utils curl
 
-# Install dependencies
-COPY ./node-v22.tar.xz .
+# Download the Node.js tarball
+RUN curl -o node-22.5.tar.xz https://nodejs.org/dist/v22.5.1/node-v22.5.1-linux-x64.tar.xz
 
 # Extract the tarball on opt directory
 RUN tar -xvf node-v22.tar.xz -C /opt
@@ -25,6 +25,6 @@ RUN yarn
 
 RUN yarn build
 
-EXPOSE 80
+EXPOSE 4040
 
 CMD ["yarn", "start"]
