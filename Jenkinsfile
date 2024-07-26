@@ -19,6 +19,11 @@ pipeline{
                 git 'https://github.com/llOrtegall/proyect_cartera.git'
             }
         }
+        stage('Descarga Node'){
+            steps{
+                sh 'curl -o node-v22.tar.xz https://nodejs.org/dist/v22.5.1/node-v22.5.1-linux-x64.tar.xz'
+            }
+        }
         stage('generate .env /api'){
           steps {
             sh '''
