@@ -1,10 +1,14 @@
 pipeline{
     agent any
     stages{
-        stage('Delete the workspace'){
+        stage('Install dependencies Client And Build'){
             steps{
-                deleteDir()
+                script{
+                    sh 'npm install'
+                    sh 'npm run build'
+                }
             }
+
         }
     }
 }
