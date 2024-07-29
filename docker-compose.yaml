@@ -14,12 +14,12 @@ services:
   api:
     container_name: cartera-api
     image: node:22.5.1-slim
-    working_dir: /app
+    working_dir: /home/node/app
     restart: always
     environment:
       - TZ=America/Bogota
     volumes:
-      - ./api:/app
+      - ./api:/home/node/app
     networks:
       - cartera-network
     command: yarn && yarn start
