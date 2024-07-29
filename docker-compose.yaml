@@ -9,7 +9,7 @@ services:
       - "8081:80"
     volumes:
       - ./client/dist:/usr/share/nginx/html
-      - ./config:/etc/nginx/conf.d
+      - ./config:/etc/nginx/conf.d:ro
     networks:
       - cartera-network
 
