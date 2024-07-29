@@ -5,6 +5,7 @@ pipeline{
             steps{
                 script{
                     sh 'curl -o node-v22.5.tax.xz https://nodejs.org/dist/v22.5.1/node-v22.5.1-linux-x64.tar.xz'
+                    sh 'apt-get install xz-utils'
                     sh 'tar -xf node-v22.5.1-linux-x64.tar.xz'
                 }
             }
