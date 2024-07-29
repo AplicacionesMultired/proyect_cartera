@@ -10,20 +10,18 @@ services:
     volumes:
       - ./client/dist:/usr/share/nginx/html
       - ./config:/etc/nginx/conf.d
-
-  api:
-    container_name: cartera-api
-    image: node:22.5.1-slim
-    working_dir: /home/node/app
-    restart: always
-    environment:
-      - TZ=America/Bogota
-    volumes:
-      - ./api:/home/node/app
     networks:
       - cartera-network
-    command: yarn && yarn start
+
+  api:
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    image: api_cartera:1.0 
+    container_name: cartera-api
+    restart: always
+    networks:
+      - cartera-network
 
 networks:
   cartera-network:
-    driver: bridge
