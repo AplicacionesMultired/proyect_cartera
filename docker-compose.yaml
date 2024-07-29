@@ -2,27 +2,28 @@ version: '3.7'
 
 services:
   web:
+    image: nginx:stable-alpine3.19-slim
     container_name: cartera-web
-    build: ./client
-    image: nginx:latest
     restart: always
     ports:
       - "8081:80"
-    networks:
-      - internal_cartera
+    volumes:
+      - ./client/dist:/usr/share/nginx/html
+      - ./config:/etc/nginx/conf.d
 
   api:
     container_name: cartera-api
-    build:
-      context: .
-      dockerfile: Dockerfile
-    image: cartera-api:1.0
-    restart: always 
+    image: node:22.5.1-slim
+    working_dir: /app
+    restart: always
     environment:
       - TZ=America/Bogota
+    volumes:
+      - ./api:/app
     networks:
-      - internal_cartera
+      - cartera-network
+    command: yarn && yarn start
 
 networks:
-  internal_cartera:
+  cartera-network:
     driver: bridge
