@@ -1,53 +1,80 @@
-pipeline{
+pipeline {
     agent any
-    environment {
-        ENV_FILE_API = credentials('ENV_API_CARTERA')
-        ENV_FILE_CLIENT = credentials('ENV_CLIENT_CARTERA')
+    
+    tools {
+        nodejs 'node-v22' // Asegúrate de que el nombre coincide con la configuración en Jenkins
     }
-    stages{
-        stage('Copy Environment Variables Client') {
+
+    environment {
+        ENV_API = credentials('ENV_API_CARTERA')
+        ENV_CLIENT_CARTERA = credentials('ENV_CLIENT_CARTERA')
+    }
+    
+    stages {
+        stage('delete workspace') {
+            steps {
+                dir('proyect_cartera') {
+                    deleteDir()
+                }
+            }
+        }
+        stage('clone repository') {
             steps {
                 script {
-                    // Copiar el archivo de variables de entorno al directorio del cliente
-                    sh 'cp $ENV_FILE_CLIENT client/.env'
+                    sh 'git clone https://github.com/AplicacionesMultired/proyect_cartera.git'
                 }
             }
         }
-        stage('Copy Environment Variables Api') {
+        stage('install dependencies') {
             steps {
                 script {
-                    // Copiar el archivo de variables de entorno al directorio del cliente
-                    sh 'cp $ENV_FILE_API api/.env'
+                    sh 'cd ./proyect_cartera/client && yarn'
+                    sh 'cd ./proyect_cartera/api && yarn'
                 }
             }
         }
-        stage('Install dependencies Client And Build'){
-            steps{
-                script{
-                    sh 'cd client && yarn'
-                    sh 'cd client && yarn build'
+        stage('copy env') {
+            steps {
+                script {
+                    // Escribir el contenido de las credenciales en los archivos .env
+                    writeFile file: './proyect_cartera/api/.env', text: "${ENV_API}"
+                    writeFile file: './proyect_cartera/client/.env', text: "${ENV_CLIENT_CARTERA}"
                 }
             }
         }
-        stage('Install dependencies Api And Build'){
-            steps{
-                script{
-                    sh 'cd api && yarn'
-                    sh 'cd api && yarn build'
+        stage('build client') {
+            steps {
+                script {
+                    sh 'cd ./proyect_cartera/client && yarn build'
+                    sh 'cd ./proyect_cartera/api && yarn build'
                 }
             }
         }
-        stage('Stop and delete containers if exist'){
-            steps{
-                script{
-                    sh 'docker compose down'
+        stage('down docker compose'){
+            steps {
+                script {
+                    sh 'docker-compose -f ./proyect_cartera/docker-compose.yaml down'
                 }
             }
         }
-        stage('Build and run containers'){
-            steps{
-                script{
-                    sh 'docker compose up -d'
+        stage('run docker compose'){
+            steps {
+                script {
+                    sh 'docker-compose -f ./proyect_cartera/docker-compose.yaml up -d'
+                }
+            }
+        }
+        stage('copy dist to server'){
+            steps {
+                script {
+                    sh 'sudo cp -r ./proyect_cartera/client/dist/* /home/containers/Nginx/html/cartera'
+                }
+          }
+        }
+        stage('reset container nginx'){
+            steps {
+                script {
+                    sh 'sudo docker restart nginx_proxy'
                 }
             }
         }
