@@ -6,7 +6,7 @@ services:
     container_name: cartera-web
     restart: always
     ports:
-      - "8090:80"
+      - "8081:80"
     volumes:
         # path to docker jenkins container = /var/jenkins_home/workspace/prueba_containers
         # path to host = /home/containers/Jenkins/jenkins_home/workspace/prueba_containers
