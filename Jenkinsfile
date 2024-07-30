@@ -1,8 +1,8 @@
 pipeline{
     agent any
     environment {
-        ENV_FILE_CLIENT = credentials('ENV_CLIENT_CARTERA')
         ENV_FILE_API = credentials('ENV_API_CARTERA')
+        ENV_FILE_CLIENT = credentials('ENV_CLIENT_CARTERA')
     }
     stages{
         stage('Copy Environment Variables Client') {
@@ -29,17 +29,17 @@ pipeline{
                 }
             }
         }
-        stage('Stop and delete containers if exist'){
-            steps{
-                script{
-                    sh 'docker-compose down'
-                }
-            }
-        }
+        // stage('Stop and delete containers if exist'){
+        //     steps{
+        //         script{
+        //             sh 'docker-compose down'
+        //         }
+        //     }
+        // }
         stage('Build and run containers'){
             steps{
                 script{
-                    sh 'docker-compose up -d'
+                    sh 'docker compose up -d'
                 }
             }
         }
