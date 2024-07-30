@@ -29,7 +29,7 @@ pipeline{
                 }
             }
         }
-        stage('Install dependencies Client And Build'){
+        stage('Install dependencies Api And Build'){
             steps{
                 script{
                     sh 'cd api && yarn'
