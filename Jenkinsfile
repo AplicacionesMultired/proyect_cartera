@@ -29,6 +29,14 @@ pipeline{
                 }
             }
         }
+        stage('Install dependencies Client And Build'){
+            steps{
+                script{
+                    sh 'cd api && yarn'
+                    sh 'cd api && yarn build'
+                }
+            }
+        }
         // stage('Stop and delete containers if exist'){
         //     steps{
         //         script{

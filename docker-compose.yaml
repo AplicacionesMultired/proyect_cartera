@@ -22,7 +22,7 @@ services:
     working_dir: /app
     volumes:
       - /home/containers/Jenkins/jenkins_home/workspace/prueba_containers/api:/app
-    command: yarn && yarn start
+    command: npm run start
     networks:
       - cartera-network
 
