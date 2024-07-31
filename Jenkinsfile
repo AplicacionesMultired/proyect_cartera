@@ -33,12 +33,16 @@ pipeline {
                 }
             }
         }
-        stage('copy env') {
+        stage('Copy .env files') {
             steps {
                 script {
-                    // Escribir el contenido de las credenciales en los archivos .env
-                    writeFile file: './proyect_cartera/api/.env', text: "${ENV_API}"
-                    writeFile file: './proyect_cartera/client/.env', text: "${ENV_CLIENT_CARTERA}"
+                    // Read the content of the credential files
+                    def envApiContent = readFile(ENV_API)
+                    def envClientContent = readFile(ENV_CLIENT_CARTERA)
+                    
+                    // Write the content to the respective .env files
+                    writeFile file: './api/.env', text: envApiContent
+                    writeFile file: './client/.env', text: envClientContent
                 }
             }
         }

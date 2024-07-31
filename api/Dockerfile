@@ -8,6 +8,8 @@ RUN yarn
 
 COPY ./dist /app
 
+COPY .env /app
+
 EXPOSE 4040
 
 CMD ["yarn", "start"]
