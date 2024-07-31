@@ -56,7 +56,7 @@ const BasesPage = () => {
 
   return (
     <section className=''>
-      <section className='flex justify-around py-2 absolute w-full top-14'>
+      <section className='flex justify-around py-2 w-full'>
         <div className='flex items-center gap-2 w-96'>
           <Label>Vinculado: </Label>
           <Input type="text" placeholder="Buscar por cédula" onChange={handleChange}
@@ -68,7 +68,7 @@ const BasesPage = () => {
             : <Button variant="secondary" color='red' size="sm" icon={RiLockLine}></Button>
         }
       </section>
-        <Table className='mt-14 xl:max-h-[82vh] 3xl:max-h-[85vh]'>
+        <Table className='xl:max-h-[82vh] 3xl:max-h-[85vh]'>
           <TableHead>
             <TableRow className='border-b-2 border-punch-300 sticky top-0 bg-punch-200'>
               <TableHeaderCell className='text-center'>#</TableHeaderCell>

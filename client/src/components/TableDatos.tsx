@@ -20,7 +20,6 @@ export const TableDatos = ({ data, funClick }: PropsCompo) => {
       <Table className='xl:max-h-[80vh] 3xl:max-h-[82vh]'>
         <TableHead className='border-b-2 border-punch-300 sticky top-0 bg-white dark:bg-dark-tremor-brand-muted'>
           <TableRow className='text-xs'>
-            <TableHeaderCell>Empresa</TableHeaderCell>
             <TableHeaderCell>N° Cédula</TableHeaderCell>
             <TableHeaderCell>Nombre</TableHeaderCell>
             <TableHeaderCell>Cargo</TableHeaderCell>
@@ -37,7 +36,6 @@ export const TableDatos = ({ data, funClick }: PropsCompo) => {
             <TableHeaderCell className='text-center'>Rechazados</TableHeaderCell>
             <TableHeaderCell className='text-center'>Aceptados</TableHeaderCell>
             <TableHeaderCell className='text-center'>Pendiente Conteo</TableHeaderCell>
-            <TableHeaderCell className='text-center'>Digitados</TableHeaderCell>
             <TableHeaderCell className='text-center'>Venta Bnet</TableHeaderCell>
             <TableHeaderCell className='text-center'>Cuadre Web</TableHeaderCell>
             <TableHeaderCell className='text-center'>Anulados</TableHeaderCell>
@@ -46,7 +44,6 @@ export const TableDatos = ({ data, funClick }: PropsCompo) => {
         <TableBody className='text-xs'>
           {data.map((item, index) => (
             <TableRow key={index}>
-              <TableCell>{item.Empresa}</TableCell>
               <TableCell>{item.Vinculado}</TableCell>
               <TableCell className='text-clip text-[0.7rem]'>{item.Nombres || 'No Registrado Bnet'}</TableCell>
               <TableCell>{item.Cargo}</TableCell>
@@ -84,9 +81,6 @@ export const TableDatos = ({ data, funClick }: PropsCompo) => {
               </TableCell>
               <TableCell className='text-center font-semibold text-black dark:text-gray-300'>
                 {formatPesoColombia(item.PendientesCont)}
-              </TableCell>
-              <TableCell className='text-center font-semibold text-black dark:text-gray-300'>
-                {formatPesoColombia(item.Digitados)}
               </TableCell>
               <TableCell className='text-center font-semibold text-black dark:text-gray-300'>
                 {formatPesoColombia(item.Vtabnet)}

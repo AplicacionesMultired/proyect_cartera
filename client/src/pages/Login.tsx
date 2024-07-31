@@ -7,7 +7,7 @@ function LoginPage (): JSX.Element {
   const { user, setUser, password, setPassword, errorString, handleSubmit } = useLogin()
 
   return (
-    <section className="w-screen h-screen flex bg-gradient-to-t from-punch-200 to-gray-100 relative">
+    <section className="w-screen h-screen flex bg-gradient-to-b from-punch-400 to-punch-200 relative">
       <figure className='w-full'>
         <img src="logo.webp" alt="logo para cartera" className='h-full' />
       </figure>

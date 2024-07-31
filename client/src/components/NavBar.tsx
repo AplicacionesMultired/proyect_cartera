@@ -10,7 +10,7 @@ const Links = [
 
 const LinkComponent = ({ link, name }: { link: string, name: string }) => {
   return (
-    <li className='text-white font-medium hover:text-yellow-200 dark:hover:text-yellow-200'>
+    <li className='dark:text-white font-medium hover:text-yellow-200 dark:hover:text-yellow-200 text-md xl:text-lg '>
       <NavLink to={link}>{name}</NavLink>
     </li>
   )
@@ -25,9 +25,9 @@ export function NavBar () {
 
   return (
     <>
-      <ul className='flex justify-around items-center mt-1'>
+      <ul className='flex items-center justify-around py-1'>
         <figure className=''>
-          <img src="/gane.webp" alt="logo de gane" className='w-20 py-2 lg:w-22 ' loading='lazy' />
+          <img src="/gane.webp" alt="logo de gane" className='w-24 py-2 lg:w-22 ' loading='lazy' />
         </figure>
 
         <div className='flex gap-4'>
@@ -38,7 +38,7 @@ export function NavBar () {
           <ToggleDarkMode />
         </div>
 
-        <Button onClick={handleLogout}>Cerrar Sesión</Button>
+        <Button onClick={handleLogout}>Sing out</Button>
       </ul>
     </>
   )

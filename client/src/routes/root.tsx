@@ -34,11 +34,11 @@ const Root = () => {
 
   return (
     <>
-      <section className='fixed top-0 z-50 w-full bg-punch-400 dark:bg-dark-tremor-brand-muted h-14'>
+      <section className='bg-punch-300 dark:bg-dark-tremor-brand-faint'>
         <NavBar />
       </section>
       <Suspense fallback={<div>Cargando ...</div>}>
-        <section className='h-[93vh] xl:h-[92vh] overflow-auto mt-14'>
+        <section className='pt-1'>
           <Outlet />
         </section>
       </Suspense>
