@@ -53,14 +53,14 @@ pipeline {
         stage('down docker compose'){
             steps {
                 script {
-                    sh 'docker-compose -f ./proyect_cartera/docker-compose.yaml down'
+                    sh 'docker compose -f ./proyect_cartera/docker-compose.yaml down'
                 }
             }
         }
         stage('run docker compose'){
             steps {
                 script {
-                    sh 'docker-compose -f ./proyect_cartera/docker-compose.yaml up -d'
+                    sh 'docker compose -f ./proyect_cartera/docker-compose.yaml up -d'
                 }
             }
         }
@@ -71,12 +71,6 @@ pipeline {
                 }
           }
         }
-        stage('reset container nginx'){
-            steps {
-                script {
-                    sh 'sudo docker restart nginx_proxy'
-                }
-            }
-        }
+
     }
 }
