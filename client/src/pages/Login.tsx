@@ -7,7 +7,7 @@ function LoginPage (): JSX.Element {
   const { user, setUser, password, setPassword, errorString, handleSubmit } = useLogin()
 
   return (
-    <section className="w-screen h-screen flex bg-gradient-to-t from-punch-200 to-gray-100">
+    <section className="w-screen h-screen flex bg-gradient-to-t from-punch-200 to-gray-100 relative">
       <figure className='w-full'>
         <img src="logo.webp" alt="logo para cartera" className='h-full' />
       </figure>
@@ -42,9 +42,9 @@ function LoginPage (): JSX.Element {
         </form >
       </section>
 
-      {errorString && toast.error(errorString)}
+      {errorString && toast.error(errorString, { description: 'Error al Iniciar Sesion', id: ' ', duration: 5000 })}
 
-      <Toaster />
+      <Toaster position='top-right' duration={3000} />
 
     </section >
   )
