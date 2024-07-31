@@ -16,8 +16,6 @@ services:
     image: api-cartera:v1
     container_name: api-cartera
     restart: always
-    ports:
-      - "4040:4040"
     networks:
       - cartera-network
   
