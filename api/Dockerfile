@@ -2,13 +2,9 @@ FROM node:lts-slim
 
 WORKDIR /app
 
-COPY package.json /app/package.json
+COPY . /app
 
-RUN yarn
-
-COPY ./dist /app
-
-COPY .env /app/dist/.env
+RUN yarn && yarn build
 
 EXPOSE 4040
 
