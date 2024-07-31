@@ -1,13 +1,24 @@
 version: '3.7'
 
 services:
-  api:
-    image: node:lts-slim
-    container_name: cartera-api
-    ports:
-      - "3010:4040"
+  web:
+    build: ./client
+    image: client:v1
+    container_name: web-cartera
     restart: always
-    working_dir: /app
-    volumes:
-      - /home/containers/Jenkins/jenkins_home/workspace/prueba_containers/api:/app
-    command: npm run start
+    ports:
+      - "8081:80"
+    networks:
+      - cartera-network
+
+  api:
+    build: ./api
+    image: api-cartera:v1
+    container_name: api-cartera
+    restart: always
+    networks:
+      - cartera-network
+  
+networks:
+  cartera-network:
+    driver: bridge

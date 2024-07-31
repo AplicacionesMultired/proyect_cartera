@@ -64,13 +64,5 @@ pipeline {
                 }
             }
         }
-        stage('copy dist to server'){
-            steps {
-                script {
-                    sh 'sudo cp -r ./proyect_cartera/client/dist/* /home/containers/Nginx/html/cartera'
-                }
-          }
-        }
-
     }
 }
