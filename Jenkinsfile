@@ -11,28 +11,6 @@ pipeline {
     }
     
     stages {
-        stage('delete workspace') {
-            steps {
-                dir('proyect_cartera') {
-                    deleteDir()
-                }
-            }
-        }
-        stage('clone repository') {
-            steps {
-                script {
-                    sh 'git clone https://github.com/AplicacionesMultired/proyect_cartera.git'
-                }
-            }
-        }
-        stage('install dependencies') {
-            steps {
-                script {
-                    sh 'cd ./proyect_cartera/client && yarn'
-                    sh 'cd ./proyect_cartera/api && yarn'
-                }
-            }
-        }
         stage('Copy .env files') {
             steps {
                 script {
@@ -46,18 +24,18 @@ pipeline {
                 }
             }
         }
-        stage('build client') {
+        stage('install dependencies') {
             steps {
                 script {
-                    sh 'cd ./proyect_cartera/client && yarn build'
-                    sh 'cd ./proyect_cartera/api && yarn build'
+                    sh 'cd ./client && yarn'
+                    sh 'cd ./client && yarn build'
                 }
             }
         }
         stage('down docker compose'){
             steps {
                 script {
-                    sh 'docker compose -f ./proyect_cartera/docker-compose.yaml down'
+                    sh 'docker compose down'
                 }
             }
         }
@@ -78,7 +56,7 @@ pipeline {
         stage('run docker compose'){
             steps {
                 script {
-                    sh 'docker compose -f ./proyect_cartera/docker-compose.yaml up -d'
+                    sh 'docker compose up -d'
                 }
             }
         }
