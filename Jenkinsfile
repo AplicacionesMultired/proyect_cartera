@@ -61,6 +61,13 @@ pipeline {
                 }
             }
         }
+        stage('delete images'){
+            steps {
+                script {
+                    sh 'docker rmi client:v1 api-cartera:v1'
+                }
+            }
+        }
         stage('run docker compose'){
             steps {
                 script {
