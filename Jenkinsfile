@@ -62,13 +62,15 @@ pipeline {
             }
         }
         stage('delete images'){
-            script {
-                def images = ['client:v1', 'api-cartera:v1']
-                images.each { image ->
-                    if (sh(script: "docker images -q ${image}", returnStdout: true).trim()) {
-                        sh "docker rmi ${image}"
-                    } else {
-                        echo "Image ${image} does not exist."
+            steps{
+                script {
+                    def images = ['client:v1', 'api-cartera:v1']
+                    images.each { image ->
+                        if (sh(script: "docker images -q ${image}", returnStdout: true).trim()) {
+                            sh "docker rmi ${image}"
+                        } else {
+                            echo "Image ${image} does not exist."
+                        }
                     }
                 }
             }
