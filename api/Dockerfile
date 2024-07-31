@@ -8,7 +8,7 @@ RUN yarn
 
 COPY ./dist /app
 
-COPY .env /app
+COPY .env /app/dist/.env
 
 EXPOSE 4040
 
