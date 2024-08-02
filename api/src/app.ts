@@ -1,4 +1,5 @@
 import express from 'express'
+import morgan from 'morgan'
 import cors from 'cors'
 import 'dotenv/config'
 
@@ -6,10 +7,11 @@ import { BasesRouter, CarteraRouter, SellersRouter, recaudoRouter } from './rout
 
 import { routerResumen } from './routes/resumen.routes'
 
-const v1 = '/api/v1/'
+const v1 = '/api/cartera/v1'
 const app = express()
 const PORT = process.env.PORT || 3000;
 
+app.use(morgan('dev'))
 app.use(express.json())
 app.use(cors())
 

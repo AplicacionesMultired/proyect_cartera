@@ -24,7 +24,7 @@ export function useLogin (): UseLoginReturn {
   const handleSubmit = (ev: React.FormEvent) => {
     ev.preventDefault()
 
-    axios.post(`${LOGIN_URL}/api/login`, { user, password })
+    axios.post(`${LOGIN_URL}/login`, { user, password })
       .then(res => {
         localStorage.setItem('cartera', res.data.token)
         setIsAuthenticated(true)
