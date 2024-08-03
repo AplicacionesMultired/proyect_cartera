@@ -59,7 +59,7 @@ function RecaudoDetail () {
             <h1 className="font-medium text-center text-gray-700">Cargando...</h1>
             )
       }
-      <Button color='red' onClick={() => navigate('/cartera/detallado')}>
+      <Button color='red' onClick={() => navigate('/detallado')}>
         Volver a Reportes
       </Button>
     </Card>

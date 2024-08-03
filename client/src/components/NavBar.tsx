@@ -4,9 +4,9 @@ import { Button } from './ui'
 import axios from 'axios'
 
 const Links = [
-  { link: '/cartera', name: 'Inicio' },
-  { link: '/cartera/detallado', name: 'Detallado' },
-  { link: '/cartera/bases', name: 'Bases' }
+  { link: '/', name: 'Inicio' },
+  { link: '/detallado', name: 'Detallado' },
+  { link: '/bases', name: 'Bases' }
 ]
 
 const LinkComponent = ({ link, name }: { link: string, name: string }) => {

@@ -12,7 +12,7 @@ export const TableDatos = ({ data, funClick }: PropsCompo) => {
   const navigate = useNavigate()
 
   const handleClick = (id: string, estado: string) => {
-    return () => navigate(`/cartera/recaudo/${id}/${estado}`)
+    return () => navigate(`/recaudo/${id}/${estado}`)
   }
 
   return (

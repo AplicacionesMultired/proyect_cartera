@@ -1,13 +1,11 @@
 import { useAuth } from '../auth/AuthProvider'
 import { NavBar } from '../components/NavBar'
 import { Outlet } from 'react-router-dom'
-import { Suspense } from 'react'
 import LoginPage from '../pages/Login'
+import { Suspense } from 'react'
 
 const Root = () => {
   const { isAuthenticated } = useAuth()
-
-  console.log(isAuthenticated)
 
   if (!isAuthenticated) {
     return <LoginPage />
