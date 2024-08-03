@@ -32,6 +32,23 @@ pipeline {
                 }
             }
         }
+
+        stage('delete files on nginx'){
+            steps {
+                script {
+                    sh 'rm -r ./* /home/containers/nginx-proxy/html/cartera'
+                }
+            }
+        }
+
+        stage('copy files to nginx'){
+            steps {
+                script {
+                    sh 'cp -r ./client/dist/* /home/containers/nginx-proxy/html/cartera'
+                }
+            }
+        }
+
         stage('down docker compose'){
             steps {
                 script {
@@ -42,14 +59,20 @@ pipeline {
         stage('delete images'){
             steps{
                 script {
-                    def images = ['client:v1', 'api-cartera:v1.1']
-                    images.each { image ->
-                        if (sh(script: "docker images -q ${image}", returnStdout: true).trim()) {
-                            sh "docker rmi ${image}"
-                        } else {
-                            echo "Image ${image} does not exist."
-                        }
+                    def images = 'api-cartera:v1.1'
+                    if (sh(script: "docker images -q ${images}", returnStdout: true).trim()) {
+                        sh "docker rmi ${images}"
+                    } else {
+                        echo "Image ${images} does not exist."
+                        echo "continuing..."
                     }
+                    // images.each { image ->
+                    //     if (sh(script: "docker images -q ${image}", returnStdout: true).trim()) {
+                    //         sh "docker rmi ${image}"
+                    //     } else {
+                    //         echo "Image ${image} does not exist."
+                    //     }
+                    // }
                 }
             }
         }
