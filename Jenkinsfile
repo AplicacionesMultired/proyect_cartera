@@ -33,18 +33,28 @@ pipeline {
             }
         }
 
-        stage('delete files on nginx'){
+        stage('delete files on nginx if exist'){
             steps {
                 script {
-                    sh "sudo rm -r ./* /home/containers/nginx-proxy/html/cartera"
+                    if (sh(script: "sudo ls /home/containers/nginx-proxy/html/cartera", returnStatus: true) == 0) {
+                        sh "sudo rm -r /home/containers/nginx-proxy/html/cartera"
+                    } else {
+                        echo "Folder does not exist."
+                        echo "continuing..."
+                    }
                 }
             }
         }
 
-        stage('create folder on nginx'){
+        stage('create folder on nginx if not exist'){
             steps {
                 script {
-                    sh "sudo mkdir /home/containers/nginx-proxy/html/cartera"
+                    if (sh(script: "sudo ls /home/containers/nginx-proxy/html/cartera", returnStatus: true) != 0) {
+                        sh "sudo mkdir /home/containers/nginx-proxy/html/cartera"
+                    } else {
+                        echo "Folder already exists."
+                        echo "continuing..."
+                    }
                 }
             }
         }
