@@ -59,10 +59,10 @@ pipeline {
             }
         }
 
-        stage('copy files to nginx'){
+        stage('copy files to nginx') {
             steps {
                 script {
-                    sh "sudo cp -r ./client/dist /home/containers/nginx-proxy/html/cartera"
+                    sh "sudo cp -r ./client/dist/* /home/containers/nginx-proxy/html/cartera"
                 }
             }
         }
