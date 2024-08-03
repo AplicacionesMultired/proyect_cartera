@@ -11,7 +11,7 @@ const conection = new Sequelize(DB_NAME, DB_USER, DB_PASS, {
   host: DB_HOST,
   port: DB_PORT,
   dialect: 'mysql',
-  timezone: 'America/Bogota', 
+  timezone: '-05:00', 
   logging: false
 });
 

@@ -1,35 +1,16 @@
-import { authTokenServices } from '../services/tokenServices'
-import { Outlet, useNavigate } from 'react-router-dom'
-import { useAuth } from '../auth/AuthProvider'
 import { NavBar } from '../components/NavBar'
+import { Outlet } from 'react-router-dom'
 import { Suspense, useEffect } from 'react'
+import axios from 'axios'
 
 const Root = () => {
-  const navigate = useNavigate()
-  const { setUser } = useAuth()
-
   useEffect(() => {
-    const token = localStorage.getItem('cartera')
-    if (token) {
-      authTokenServices({ token })
-        .then(res => {
-          console.log(res)
-          if (res.status === 200) {
-            setUser(res.data)
-            navigate('/cartera')
-          }
-        })
-        .catch(error => {
-          console.error(error)
-          if (error.response.status === 401) {
-            localStorage.removeItem('cartera')
-            navigate('/')
-          }
-        })
-    } else {
-      navigate('/')
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    axios.get('/profile', { withCredentials: true })
+      .then(res => {
+        console.log(res)
+      }).catch(error => {
+        console.log(error)
+      })
   }, [])
 
   return (

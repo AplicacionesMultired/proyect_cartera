@@ -1,6 +1,5 @@
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../auth/AuthProvider'
-import { LOGIN_URL } from '../utils/contanst'
 import { useState } from 'react'
 import type React from 'react'
 import axios from 'axios'
@@ -17,18 +16,19 @@ interface UseLoginReturn {
 export function useLogin (): UseLoginReturn {
   const [errorString, setErrorString] = useState('')
   const [password, setPassword] = useState('')
+  const { setIsAuthenticated } = useAuth()
   const [user, setUser] = useState('')
   const navigate = useNavigate()
-  const { setIsAuthenticated } = useAuth()
 
   const handleSubmit = (ev: React.FormEvent) => {
     ev.preventDefault()
 
-    axios.post(`${LOGIN_URL}/login`, { user, password })
+    axios.post('/login', { username: user, password })
       .then(res => {
-        localStorage.setItem('cartera', res.data.token)
-        setIsAuthenticated(true)
-        navigate('/cartera')
+        if (res.status === 200) {
+          setIsAuthenticated(true)
+          navigate('/cartera')
+        }
       })
       .catch(error => {
         console.log(error)

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { UserIcon, LockIcon } from '../components/icons'
 import { Input, Button, Label } from '../components/ui'
 import { useLogin } from '../hooks/useLogin'
