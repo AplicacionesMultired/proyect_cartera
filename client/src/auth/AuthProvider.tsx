@@ -1,4 +1,5 @@
 import { createContext, useContext, useEffect, useState } from 'react'
+import { LOGIN_URL } from '../utils/contanst'
 import { type User } from '../types/user'
 import axios from 'axios'
 
@@ -18,7 +19,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }): JSX.E
   const [user, setUser] = useState<User>(InitialUser)
 
   useEffect(() => {
-    axios.get('/profile', { withCredentials: true })
+    axios.get(`${LOGIN_URL}/profile`, { withCredentials: true })
       .then(res => {
         if (res.status === 200) { setIsAuthenticated(true) }
       })

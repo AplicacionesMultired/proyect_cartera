@@ -7,6 +7,8 @@ import { toast, Toaster } from 'sonner'
 import { useState } from 'react'
 import axios from 'axios'
 
+import { LOGIN_URL } from '../utils/contanst'
+
 function LoginPage (): JSX.Element {
   const [errorString, setErrorString] = useState('')
   const { setIsAuthenticated, setUser: setUserContext } = useAuth()
@@ -17,7 +19,7 @@ function LoginPage (): JSX.Element {
   const handleSubmit = (ev: React.FormEvent) => {
     ev.preventDefault()
 
-    axios.post('/login', { username: user, password })
+    axios.post(`${LOGIN_URL}/login`, { username: user, password })
       .then(res => {
         if (res.status === 200) {
           setIsAuthenticated(true)
