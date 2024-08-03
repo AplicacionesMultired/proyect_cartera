@@ -84,13 +84,6 @@ pipeline {
                         echo "Image ${images} does not exist."
                         echo "continuing..."
                     }
-                    // images.each { image ->
-                    //     if (sh(script: "docker images -q ${image}", returnStdout: true).trim()) {
-                    //         sh "docker rmi ${image}"
-                    //     } else {
-                    //         echo "Image ${image} does not exist."
-                    //     }
-                    // }
                 }
             }
         }
@@ -98,6 +91,13 @@ pipeline {
             steps {
                 script {
                     sh 'docker compose up -d'
+                }
+            }
+        }
+        stage('restart nginx container'){
+            steps {
+                script {
+                    sh 'docker restart nginx-proxy'
                 }
             }
         }
