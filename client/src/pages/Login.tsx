@@ -19,7 +19,7 @@ function LoginPage (): JSX.Element {
   const handleSubmit = (ev: React.FormEvent) => {
     ev.preventDefault()
 
-    axios.post(`${LOGIN_URL}/login`, { username: user, password })
+    axios.post(`${LOGIN_URL}/api/v1/login`, { username: user, password })
       .then(res => {
         if (res.status === 200) {
           setIsAuthenticated(true)
