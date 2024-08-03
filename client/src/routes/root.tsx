@@ -1,17 +1,17 @@
+import { useAuth } from '../auth/AuthProvider'
 import { NavBar } from '../components/NavBar'
 import { Outlet } from 'react-router-dom'
-import { Suspense, useEffect } from 'react'
-import axios from 'axios'
+import { Suspense } from 'react'
+import LoginPage from '../pages/Login'
 
 const Root = () => {
-  useEffect(() => {
-    axios.get('/profile', { withCredentials: true })
-      .then(res => {
-        console.log(res)
-      }).catch(error => {
-        console.log(error)
-      })
-  }, [])
+  const { isAuthenticated } = useAuth()
+
+  console.log(isAuthenticated)
+
+  if (!isAuthenticated) {
+    return <LoginPage />
+  }
 
   return (
     <>

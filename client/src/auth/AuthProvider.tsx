@@ -1,5 +1,6 @@
-import { createContext, useContext, useState } from 'react'
+import { createContext, useContext, useEffect, useState } from 'react'
 import { type User } from '../types/user'
+import axios from 'axios'
 
 interface IAuthContext {
   isAuthenticated: boolean
@@ -15,6 +16,19 @@ const AuthContext = createContext<IAuthContext | undefined>(undefined)
 export const AuthProvider = ({ children }: { children: React.ReactNode }): JSX.Element => {
   const [isAuthenticated, setIsAuthenticated] = useState(false)
   const [user, setUser] = useState<User>(InitialUser)
+
+  useEffect(() => {
+    axios.get('/profile', { withCredentials: true })
+      .then(res => {
+        if (res.status === 200) { setIsAuthenticated(true) }
+      })
+      .catch(error => {
+        if (error.response.status === 401) {
+          setIsAuthenticated(false)
+          setUser(InitialUser)
+        }
+      })
+  }, [setIsAuthenticated])
 
   return (
     <AuthContext.Provider value={{ isAuthenticated, setIsAuthenticated, user, setUser }}>

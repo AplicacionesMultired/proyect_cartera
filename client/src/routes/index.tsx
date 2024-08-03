@@ -11,16 +11,10 @@ const BasesPage = lazy(() => import('../pages/BasesPage'))
 const BasesDetalle = lazy(() => import('../pages/BasesDetalle'))
 const AsignarNewBase = lazy(() => import('../pages/AsignarNewBase'))
 const RecaudoDetail = lazy(() => import('../pages/RecaudoDetail'))
-const LoginPage = lazy(() => import('../pages/Login'))
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <LoginPage />,
-    errorElement: <NotFound />
-  },
-  {
-    path: '/cartera',
     element: <Root />,
     children: [
       {

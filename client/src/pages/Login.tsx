@@ -1,11 +1,44 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { UserIcon, LockIcon } from '../components/icons'
 import { Input, Button, Label } from '../components/ui'
-import { useLogin } from '../hooks/useLogin'
+import { useNavigate } from 'react-router-dom'
+import { useAuth } from '../auth/AuthProvider'
 import { toast, Toaster } from 'sonner'
+import { useState } from 'react'
+import axios from 'axios'
 
 function LoginPage (): JSX.Element {
-  const { user, setUser, password, setPassword, errorString, handleSubmit } = useLogin()
+  const [errorString, setErrorString] = useState('')
+  const [password, setPassword] = useState('')
+  const { setIsAuthenticated } = useAuth()
+  const [user, setUser] = useState('')
+  const navigate = useNavigate()
+
+  const handleSubmit = (ev: React.FormEvent) => {
+    ev.preventDefault()
+
+    axios.post('/login', { username: user, password })
+      .then(res => {
+        if (res.status === 200) {
+          setIsAuthenticated(true)
+          navigate('/')
+        }
+      })
+      .catch(error => {
+        console.log(error)
+        if (error.message === 'Network Error') {
+          setErrorString('Error de conexión, y/o Red, contacte al administrador del sistema')
+          return
+        }
+        const errorString: string = error.response.data.message
+        setErrorString(errorString)
+      })
+      .finally(() => {
+        setTimeout(() => {
+          setErrorString('')
+        }, 5000)
+      })
+  }
 
   return (
     <section className="w-screen h-screen flex bg-gradient-to-b from-punch-400 to-punch-200 relative">

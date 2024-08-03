@@ -1,6 +1,7 @@
 import { ToggleDarkMode } from './ui/ToggleDarkMode'
-import { NavLink, useNavigate } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import { Button } from './ui'
+import axios from 'axios'
 
 const Links = [
   { link: '/cartera', name: 'Inicio' },
@@ -17,10 +18,13 @@ const LinkComponent = ({ link, name }: { link: string, name: string }) => {
 }
 
 export function NavBar () {
-  const navigate = useNavigate()
   const handleLogout = () => {
-    localStorage.removeItem('cartera')
-    navigate('/')
+    axios.get('/logout')
+      .then((res) => {
+        if (res.status === 200) {
+          window.location.reload()
+        }
+      })
   }
 
   return (
