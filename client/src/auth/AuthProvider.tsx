@@ -9,7 +9,7 @@ interface IAuthContext {
   setIsAuthenticated: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-const InitialUser: User = { apellidos: '', correo: '', id: '', nombres: '', rol: '', username: '', empresa: 'Multired y Servired' }
+const InitialUser: User = { apellidos: '', correo: '', empresa: '', id: '', nombres: '', proceso: '', rol: '', username: '' }
 
 const AuthContext = createContext<IAuthContext | undefined>(undefined)
 
@@ -29,6 +29,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }): JSX.E
         }
       })
   }, [setIsAuthenticated])
+
+  console.log(user)
 
   return (
     <AuthContext.Provider value={{ isAuthenticated, setIsAuthenticated, user, setUser }}>

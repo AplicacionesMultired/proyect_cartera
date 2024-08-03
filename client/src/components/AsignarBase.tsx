@@ -21,7 +21,7 @@ export function FormCreate ({ nombres, vinculado, funClose }: PropsCrating) {
       .then(res => {
         console.log(res.data)
         if (res.status === 201) {
-          navigate('/cartera/bases')
+          navigate('/bases')
         }
       })
       .catch(err => {

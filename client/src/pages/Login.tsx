@@ -9,8 +9,8 @@ import axios from 'axios'
 
 function LoginPage (): JSX.Element {
   const [errorString, setErrorString] = useState('')
+  const { setIsAuthenticated, setUser: setUserContext } = useAuth()
   const [password, setPassword] = useState('')
-  const { setIsAuthenticated } = useAuth()
   const [user, setUser] = useState('')
   const navigate = useNavigate()
 
@@ -21,6 +21,7 @@ function LoginPage (): JSX.Element {
       .then(res => {
         if (res.status === 200) {
           setIsAuthenticated(true)
+          setUserContext(res.data.usuario)
           navigate('/')
         }
       })

@@ -24,11 +24,11 @@ const BasesPage = () => {
   }, [])
 
   const handleClick = (id: string) => {
-    return () => navigate(`/cartera/base/${id}`)
+    return () => navigate(`/base/${id}`)
   }
 
   const handleCreateBase = () => {
-    return navigate('/cartera/asignarNuevaBase')
+    return navigate('/asignarNuevaBase')
   }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {

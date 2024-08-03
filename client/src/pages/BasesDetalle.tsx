@@ -74,7 +74,7 @@ const BasesDetalle = () => {
       <section className='flex'>
         <Card className='flex flex-col gap-2'>
           <div className='flex justify-end'>
-            <Button variant='primary' color='red' onClick={() => navigate('/cartera/bases')}>Volver Bases</Button>
+            <Button variant='primary' color='red' onClick={() => navigate('/bases')}>Volver Bases</Button>
           </div>
           <Title className='text-center'>Datos De Vinculado</Title>
           <p><span className='font-semibold'>Nombres: </span>{data?.Seller.NOMBRES}</p>
