@@ -36,7 +36,15 @@ pipeline {
         stage('delete files on nginx'){
             steps {
                 script {
-                    sh 'rm -r ./* /home/containers/nginx-proxy/html/cartera'
+                    sh "sudo rm -r ./* /home/containers/nginx-proxy/html/cartera"
+                }
+            }
+        }
+
+        stage('create folder on nginx'){
+            steps {
+                script {
+                    sh "sudo mkdir /home/containers/nginx-proxy/html/cartera"
                 }
             }
         }
@@ -44,7 +52,7 @@ pipeline {
         stage('copy files to nginx'){
             steps {
                 script {
-                    sh 'cp -r ./client/dist/* /home/containers/nginx-proxy/html/cartera'
+                    sh "sudo cp -r ./client/dist /home/containers/nginx-proxy/html/cartera"
                 }
             }
         }
