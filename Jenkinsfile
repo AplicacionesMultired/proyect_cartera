@@ -6,7 +6,7 @@ pipeline {
     }
 
     environment {
-        ENV_API = credentials('ENV_API_CARTERA')
+        ENV_API_CARTERA = credentials('ENV_API_CARTERA')
         ENV_CLIENT_CARTERA = credentials('ENV_CLIENT_CARTERA')
     }
     
@@ -15,7 +15,7 @@ pipeline {
             steps {
                 script {
                     // Read the content of the credential files
-                    def envApiContent = readFile(ENV_API)
+                    def envApiContent = readFile(ENV_API_CARTERA)
                     def envClientContent = readFile(ENV_CLIENT_CARTERA)
                     
                     // Write the content to the respective .env files
@@ -39,20 +39,20 @@ pipeline {
                 }
             }
         }
-        stage('delete images'){
-            steps{
-                script {
-                    def images = ['client:v1', 'api-cartera:v1']
-                    images.each { image ->
-                        if (sh(script: "docker images -q ${image}", returnStdout: true).trim()) {
-                            sh "docker rmi ${image}"
-                        } else {
-                            echo "Image ${image} does not exist."
-                        }
-                    }
-                }
-            }
-        }
+        // stage('delete images'){
+        //     steps{
+        //         script {
+        //             def images = ['client:v1', 'api-cartera:v1']
+        //             images.each { image ->
+        //                 if (sh(script: "docker images -q ${image}", returnStdout: true).trim()) {
+        //                     sh "docker rmi ${image}"
+        //                 } else {
+        //                     echo "Image ${image} does not exist."
+        //                 }
+        //             }
+        //         }
+        //     }
+        // }
         stage('run docker compose'){
             steps {
                 script {

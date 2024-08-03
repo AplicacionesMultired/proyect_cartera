@@ -1,13 +1,10 @@
 version: '3.7'
 
 services:
-
-  # TODO: solo se necesita desplegar la api en un contenedor el fron jenkins se desplegara en un servidor de aplicaciones con ginx
-
   api:
     build: ./api
-    image: api-cartera:v1
-    container_name: api-cartera
+    image: api-cartera:v1.1
+    container_name: api_cartera_v1
     restart: always
-    networks:
-      - cartera-network
+    ports:
+      - "4001:80"
