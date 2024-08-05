@@ -19,12 +19,9 @@ const LinkComponent = ({ link, name }: { link: string, name: string }) => {
 
 export function NavBar () {
   const handleLogout = () => {
-    axios.get('/logout')
-      .then((res) => {
-        if (res.status === 200) {
-          window.location.reload()
-        }
-      })
+    axios.post('/logout')
+      .then(() => console.log('logout'))
+      .catch(err => console.log(err))
   }
 
   return (
