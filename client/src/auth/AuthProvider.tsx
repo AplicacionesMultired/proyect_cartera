@@ -19,9 +19,12 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }): JSX.E
   const [user, setUser] = useState<User>(InitialUser)
 
   useEffect(() => {
-    axios.get(`${LOGIN_URL}/profile`, { withCredentials: true })
+    axios.get(`${LOGIN_URL}/profile`, { params: { app: 'cartera' } })
       .then(res => {
-        if (res.status === 200) { setIsAuthenticated(true) }
+        if (res.status === 200) {
+          setIsAuthenticated(true)
+          setUser(res.data)
+        }
       })
       .catch(error => {
         if (error.response.status === 401) {
@@ -30,8 +33,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }): JSX.E
         }
       })
   }, [setIsAuthenticated])
-
-  console.log(user)
 
   return (
     <AuthContext.Provider value={{ isAuthenticated, setIsAuthenticated, user, setUser }}>

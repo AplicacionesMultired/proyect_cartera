@@ -3,6 +3,7 @@ import { LOGIN_URL } from '../utils/contanst'
 import { NavLink } from 'react-router-dom'
 import { Button } from './ui'
 import axios from 'axios'
+import { useAuth } from '../auth/AuthProvider'
 
 const Links = [
   { link: '/', name: 'Inicio' },
@@ -19,9 +20,14 @@ const LinkComponent = ({ link, name }: { link: string, name: string }) => {
 }
 
 export function NavBar () {
+  const { setIsAuthenticated } = useAuth()
+
   const handleLogout = () => {
-    axios.post(`${LOGIN_URL}/logout`)
-      .then(() => console.log('logout'))
+    const token = document.cookie
+    axios.post(`${LOGIN_URL}/logout`, { token })
+      .then((res) => {
+        if (res.status === 200) setIsAuthenticated(false)
+      })
       .catch(err => console.log(err))
   }
 
