@@ -1,4 +1,5 @@
 import { ToggleDarkMode } from './ui/ToggleDarkMode'
+import { LOGIN_URL } from '../utils/contanst'
 import { NavLink } from 'react-router-dom'
 import { Button } from './ui'
 import axios from 'axios'
@@ -19,7 +20,7 @@ const LinkComponent = ({ link, name }: { link: string, name: string }) => {
 
 export function NavBar () {
   const handleLogout = () => {
-    axios.post('/logout')
+    axios.post(`${LOGIN_URL}/logout`)
       .then(() => console.log('logout'))
       .catch(err => console.log(err))
   }
