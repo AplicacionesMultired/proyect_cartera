@@ -19,7 +19,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }): JSX.E
   const [user, setUser] = useState<User>(InitialUser)
 
   useEffect(() => {
-    axios.get(`${LOGIN_URL}/api/v1/profile`, { withCredentials: true })
+    axios.get(`${LOGIN_URL}/profile`, { withCredentials: true })
       .then(res => {
         if (res.status === 200) { setIsAuthenticated(true) }
       })
