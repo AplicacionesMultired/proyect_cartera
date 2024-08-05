@@ -1,3 +1,4 @@
+import { ThemeProvider } from '../context/ThemeContext'
 import { useAuth } from '../auth/AuthProvider'
 import { NavBar } from '../components/NavBar'
 import { Outlet } from 'react-router-dom'
@@ -12,7 +13,7 @@ const Root = () => {
   }
 
   return (
-    <>
+    <ThemeProvider>
       <section className='bg-punch-300 dark:bg-dark-tremor-brand-faint'>
         <NavBar />
       </section>
@@ -21,7 +22,7 @@ const Root = () => {
           <Outlet />
         </section>
       </Suspense>
-    </>
+    </ThemeProvider>
 
   )
 }

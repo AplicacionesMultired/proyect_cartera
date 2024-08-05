@@ -11,16 +11,10 @@ const v1 = '/api/cartera/v1'
 const app = express()
 const PORT = process.env.PORT || 3000;
 
-const URL1 = process.env.URL_1 as string
-const URL2 = process.env.URL_2 as string
-const URL3 = process.env.URL_3 as string
-
-console.log(URL1, URL2, URL3);
-
 app.use(morgan('dev'))
 app.use(express.json())
 app.use(cors({
-  origin: [URL1, URL2, URL3],
+  origin: process.env.CARTERA_FRONTEND as string,
   credentials: true,
 }))
 

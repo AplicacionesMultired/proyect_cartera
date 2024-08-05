@@ -1,7 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { UserIcon, LockIcon } from '../components/icons'
 import { Input, Button, Label } from '../components/ui'
-import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../auth/AuthProvider'
 import { toast, Toaster } from 'sonner'
 import { useState } from 'react'
@@ -10,11 +9,10 @@ import axios from 'axios'
 import { LOGIN_URL } from '../utils/contanst'
 
 function LoginPage (): JSX.Element {
-  const [errorString, setErrorString] = useState('')
   const { setIsAuthenticated, setUser: setUserContext } = useAuth()
+  const [errorString, setErrorString] = useState('')
   const [password, setPassword] = useState('')
   const [user, setUser] = useState('')
-  const navigate = useNavigate()
 
   const handleSubmit = (ev: React.FormEvent) => {
     ev.preventDefault()
@@ -24,7 +22,6 @@ function LoginPage (): JSX.Element {
         if (res.status === 200) {
           setIsAuthenticated(true)
           setUserContext(res.data.usuario)
-          navigate('/')
         }
       })
       .catch(error => {
@@ -43,9 +40,9 @@ function LoginPage (): JSX.Element {
   }
 
   return (
-    <section className="w-screen h-screen flex bg-gradient-to-b from-punch-400 to-punch-200 relative">
+    <section className="w-screen h-screen flex bg-gradient-to-b from-punch-200 to-punch-300 relative">
       <figure className='w-full'>
-        <img src="logo.webp" alt="logo para cartera" className='h-full' />
+        <img src="logo.webp" alt="logo para cartera" className='h-full' loading='lazy'/>
       </figure>
 
       <section className='w-full grid place-content-center'>

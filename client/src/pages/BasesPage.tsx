@@ -63,7 +63,7 @@ const BasesPage = () => {
             className="w-full p-2 border border-gray-300 rounded-md" value={vinculado} />
         </div>
         {
-          user.rol === 'Administrador'
+          user.sub_process === 'cartera'
             ? <Button color='red' onClick={handleCreateBase}>Asignar Nueva Base</Button>
             : <Button variant="secondary" color='red' size="sm" icon={RiLockLine}></Button>
         }
@@ -91,7 +91,7 @@ const BasesPage = () => {
                 </TableCell>
                 <TableCell className='text-center'>
                   {
-                    user.rol === 'Administrador'
+                    user.sub_process === 'cartera'
                       ? <Button variant="secondary" color='yellow' size="sm" onClick={handleClick(item.VINCULADO)}>Actualizar</Button>
                       : <Button variant="secondary" color='red' size="sm" icon={RiLockLine}></Button>
                   }

@@ -10,7 +10,7 @@ interface IAuthContext {
   setIsAuthenticated: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-const InitialUser: User = { apellidos: '', correo: '', empresa: '', id: '', nombres: '', proceso: '', rol: '', username: '' }
+const InitialUser: User = { username: '', email: '', names: '', lastnames: '', company: '', process: '', sub_process: '', id: '' }
 
 const AuthContext = createContext<IAuthContext | undefined>(undefined)
 
