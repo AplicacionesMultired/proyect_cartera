@@ -7,7 +7,7 @@ const Detallado = () => {
 
   return (
     filterVinculado && (
-      <section className='relative px-1'>
+      <section className=''>
         <HeaderCompCartera data={filterVinculado} funFilter={handleChange} funEmpresa={setEmpresa} funABS={setAbs} vin={vinculado} />
         <TableDatos data={filterVinculado} funClick={handleClick}/>
       </section>

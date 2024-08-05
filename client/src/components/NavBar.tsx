@@ -1,9 +1,8 @@
 import { ToggleDarkMode } from './ui/ToggleDarkMode'
-import { LOGIN_URL } from '../utils/contanst'
 import { NavLink } from 'react-router-dom'
-import { Button } from './ui'
-import axios from 'axios'
+import UserInfo from './ui/UserInfo'
 import { useAuth } from '../auth/AuthProvider'
+import { useState } from 'react'
 
 const Links = [
   { link: '/', name: 'Inicio' },
@@ -20,19 +19,11 @@ const LinkComponent = ({ link, name }: { link: string, name: string }) => {
 }
 
 export function NavBar () {
-  const { setIsAuthenticated } = useAuth()
-
-  const handleLogout = () => {
-    const token = document.cookie
-    axios.post(`${LOGIN_URL}/logout`, { token })
-      .then((res) => {
-        if (res.status === 200) setIsAuthenticated(false)
-      })
-      .catch(err => console.log(err))
-  }
+  const { setIsAuthenticated, user } = useAuth()
+  const [visible, setVisible] = useState(false)
 
   return (
-    <>
+    <nav className='bg-punch-300 dark:bg-dark-tremor-brand-faint relative'>
       <ul className='flex items-center justify-around py-1'>
         <figure className=''>
           <img src="/gane.webp" alt="logo de gane" className='w-24 py-2 lg:w-22 ' loading='lazy' />
@@ -45,9 +36,21 @@ export function NavBar () {
         <div className='flex flex-col items-center'>
           <ToggleDarkMode />
         </div>
-
-        <Button onClick={handleLogout}>Sing out</Button>
+        <button className='bg-punch-700 rounded-full h-10 w-10 text-xl flex items-center justify-center cursor-pointer
+           hover:bg-punch-600 dark:hover:bg-dark-tremor-brand-faint dark:bg-dark-tremor-brand-faint'
+          onClick={() => setVisible(!visible)} >
+          <article className='font-semibold text-white flex gap-0.5'>
+            <p>{user.names.split(' ')[0].slice(0, 1).toUpperCase()}</p>
+            <p>{user.lastnames.split(' ')[0].slice(0, 1).toUpperCase()}</p>
+          </article>
+        </button>
       </ul>
-    </>
+
+      {visible && (
+        <div className='absolute z-20 bg-punch-300 right-2 top-16 px-5 py-2 mt-1 rounded-md flex flex-col items-center gap-1'>
+          <UserInfo key={user.id} user={user} stateAuth={setIsAuthenticated} />
+        </div>
+      )}
+    </nav>
   )
 }

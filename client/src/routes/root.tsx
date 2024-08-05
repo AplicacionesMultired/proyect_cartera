@@ -14,9 +14,7 @@ const Root = () => {
 
   return (
     <ThemeProvider>
-      <section className='bg-punch-300 dark:bg-dark-tremor-brand-faint'>
-        <NavBar />
-      </section>
+      <NavBar />
       <Suspense fallback={<div>Cargando ...</div>}>
         <section className='pt-1'>
           <Outlet />
