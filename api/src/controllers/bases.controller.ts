@@ -46,8 +46,6 @@ export const getBaseDatalle = async (req: Request, res: Response) => {
 }
 
 export const updateBase = async (req: Request, res: Response) => {
-  console.log(req.body);
-
   const { BASE, RASPE, OBS, VINCULADO, BASE_ACT, RASPE_ACT, LOGIN } = req.body
 
   if (BASE === null && RASPE === null) {
@@ -83,7 +81,7 @@ export const updateBase = async (req: Request, res: Response) => {
 
     await Aud_Bases.sync()
 
-    const result2 = await Aud_Bases.create({
+    await Aud_Bases.create({
       VINCULADO: VINCULADO,
       BASE_ANT: BASE_ACT === null ? BASE : BASE_ACT,
       BASE_NEW: BASE === null ? BASE_ACT : BASE,
@@ -93,9 +91,6 @@ export const updateBase = async (req: Request, res: Response) => {
       OBSERVACION: OBS,
       VERSION: '1'
     })
-
-    console.log(result2);
-    
 
     return res.status(200).json('Base actualizada correctamente')
   } catch (error) {
@@ -116,7 +111,7 @@ export const basesInfoUpdates = async (req: Request, res: Response) => {
       },
       limit: 20,
     })
-
+    
     return res.status(200).json(result)
   } catch (error) {
     console.log(error);

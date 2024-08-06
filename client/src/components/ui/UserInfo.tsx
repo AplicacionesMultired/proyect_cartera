@@ -22,8 +22,8 @@ function UserInfo ({ user, stateAuth }: Props) {
   return (
     <>
       <h2 className='text-center font-semibold border-b mb-2 pb-1 text-lg'>Información Usuario</h2>
+      <p className='font-medium text-center'>User: {user.username}</p>
       <article className='mb-2 flex flex-col gap-1'>
-        <p className='font-medium text-center'>User: {user.username}</p>
         <p className='font-medium text-center'><span>{user.names} {user.lastnames}</span></p>
         <p className='font-medium'>{user.email}</p>
       </article>

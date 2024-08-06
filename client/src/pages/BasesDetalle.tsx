@@ -7,6 +7,7 @@ import { useEffect, useRef, useState } from 'react'
 import { useAuth } from '../auth/AuthProvider'
 import { API_URL } from '../utils/contanst'
 import axios from 'axios'
+import UpdatesBasesInfo from '../components/UpdateBasesInfo'
 
 const BasesDetalle = () => {
   const { id } = useParams()
@@ -112,22 +113,10 @@ const BasesDetalle = () => {
           </form>
         </Card>
       </section>
-      <Card className=''>
-        <Title className='text-center'>Historial de Actualizaciones</Title>
-        <div className='overflow-y-auto max-h-96 flex flex-col gap-2'>
-          {updates.map((update, index) => (
-            <div key={index} className='grid grid-cols-2 gap-1 px-4 py-2 bg-slate-200 rounded-md'>
-              <p><span className='font-semibold'>Fecha: </span>{update.FECHA}</p>
-              <p><span className='font-semibold'>Observación: </span>{update.OBSERVACION}</p>
-              <p><span className='font-semibold'>Base Nueva: </span>{formatPesoColombia(update.BASE_NEW)}</p>
-              <p><span className='font-semibold'>Raspe Anterior: </span>{formatPesoColombia(update.RASPE_ANT)}</p>
-              <p><span className='font-semibold'>Base Anterior: </span>{formatPesoColombia(update.BASE_ANT)}</p>
-              <p><span className='font-semibold'>Raspe Nuevo: </span>{formatPesoColombia(update.RASPE_NEW)}</p>
-              <p><span className='font-semibold'>Responsable: </span>{update.LOGIN}</p>
-            </div>
-          ))}
-        </div>
-      </Card>
+
+      {
+        updates && <UpdatesBasesInfo data={updates} />
+      }
 
       {error && <p className='text-red-500 p-4 bg-slate-100 text-center'>{error}</p>}
       {message && <p className='text-green-500 p-4 bg-slate-100 text-center'>{message}</p>}
