@@ -1,6 +1,7 @@
 import { utils, ColInfo, writeFile } from 'xlsx'
 import { CarteraI } from '../types/cartera'
 import { Button } from './ui'
+import { toast } from 'sonner'
 
 export const BottonExporCartera = ({ datos }: { datos: CarteraI[] }): JSX.Element => {
   const titulo = [{ A: 'Reporte Cartera ' }]
@@ -57,9 +58,22 @@ export const BottonExporCartera = ({ datos }: { datos: CarteraI[] }): JSX.Elemen
 
     const dataFinal = [...titulo, ...tabla]
 
+    const promises = new Promise((resolve) => setTimeout(() => resolve({ name: 'sonner' }
+    ), 4000))
+
+    toast.promise(promises, {
+      loading: 'Generando Archivo ...',
+      description: 'Espere un momento',
+      style: { background: '#fcd34d' },
+      success: () => {
+        return 'Archivo Generado Correctamente'
+      },
+      error: 'Error al Generar Archivo'
+    })
+
     setTimeout(() => {
       creandoArchivo(dataFinal)
-    }, 3000)
+    }, 4000)
   }
 
   const creandoArchivo = (data: unknown[]): void => {
