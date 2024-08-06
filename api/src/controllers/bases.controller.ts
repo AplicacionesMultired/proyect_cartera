@@ -111,8 +111,10 @@ export const basesInfoUpdates = async (req: Request, res: Response) => {
       },
       limit: 20,
     })
+
+    const reverseResult = result.reverse()
     
-    return res.status(200).json(result)
+    return res.status(200).json(reverseResult)
   } catch (error) {
     console.log(error);
     return res.status(500).json(error)

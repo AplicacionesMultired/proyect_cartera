@@ -4,6 +4,7 @@ import { NavBar } from '../components/NavBar'
 import { Outlet } from 'react-router-dom'
 import LoginPage from '../pages/Login'
 import { Suspense } from 'react'
+import { Toaster } from 'sonner'
 
 const Root = () => {
   const { isAuthenticated } = useAuth()
@@ -20,6 +21,7 @@ const Root = () => {
           <Outlet />
         </section>
       </Suspense>
+      <Toaster position='top-right' duration={3000} />
     </ThemeProvider>
 
   )

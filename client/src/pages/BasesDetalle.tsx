@@ -7,7 +7,9 @@ import { useEffect, useRef, useState } from 'react'
 import { useAuth } from '../auth/AuthProvider'
 import { API_URL } from '../utils/contanst'
 import axios from 'axios'
+
 import UpdatesBasesInfo from '../components/UpdateBasesInfo'
+import { toast } from 'sonner'
 
 const BasesDetalle = () => {
   const { id } = useParams()
@@ -114,12 +116,10 @@ const BasesDetalle = () => {
         </Card>
       </section>
 
-      {
-        updates && <UpdatesBasesInfo data={updates} />
-      }
+      { updates && <UpdatesBasesInfo data={updates} /> }
 
-      {error && <p className='text-red-500 p-4 bg-slate-100 text-center'>{error}</p>}
-      {message && <p className='text-green-500 p-4 bg-slate-100 text-center'>{message}</p>}
+      {error && toast.error(error, { description: 'Error al actualizar base ', id: ' ', duration: 5000, style: { background: '#ef4444', color: 'white' } })}
+      {message && toast.success(message, { description: 'Base actualizada correctamente', id: ' ', duration: 5000, style: { background: '#22c55e', color: 'white' } })}
     </>
   )
 }
