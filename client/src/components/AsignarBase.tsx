@@ -6,10 +6,13 @@ import { FormEvent, useState } from 'react'
 import { API_URL } from '../utils/contanst'
 import { Card } from '@tremor/react'
 import axios from 'axios'
+import { toast } from 'sonner'
 
 export function FormCreate ({ nombres, vinculado, funClose }: PropsCrating) {
   const [base, setBase] = useState<number>(0)
   const [raspa, setRaspa] = useState<number>(0)
+  const [error, setError] = useState('')
+  const [message, setMessage] = useState('')
 
   const navigate = useNavigate()
 
@@ -21,11 +24,23 @@ export function FormCreate ({ nombres, vinculado, funClose }: PropsCrating) {
       .then(res => {
         console.log(res.data)
         if (res.status === 201) {
-          navigate('/bases')
+          setMessage(res.data)
+          setTimeout(() => {
+            navigate('/bases')
+          }, 3000)
         }
       })
       .catch(err => {
         console.log(err)
+        setError('Error al asignar nueva base')
+      })
+      .finally(() => {
+        setTimeout(() => {
+          setError('')
+          setMessage('')
+          setBase(0)
+          setRaspa(0)
+        }, 4000)
       })
   }
 
@@ -55,6 +70,9 @@ export function FormCreate ({ nombres, vinculado, funClose }: PropsCrating) {
           <Button color='red'>Asignar Base</Button>
         </form>
       </Card>
+
+      {error && toast.error(error, { description: 'Error al asignar nueva base', id: ' ', duration: 5000, style: { background: '#ef4444', color: 'white' } })}
+      {message && toast.success(message, { description: 'Base asignada correctamente', id: ' ', duration: 5000, style: { background: '#22c55e', color: 'white' } })}
 
     </section>
   )
