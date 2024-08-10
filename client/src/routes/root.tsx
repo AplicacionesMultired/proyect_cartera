@@ -1,4 +1,3 @@
-import { ThemeProvider } from '../context/ThemeContext'
 import { useAuth } from '../auth/AuthProvider'
 import { NavBar } from '../components/NavBar'
 import { Outlet } from 'react-router-dom'
@@ -14,7 +13,7 @@ const Root = () => {
   }
 
   return (
-    <ThemeProvider>
+    <>
       <NavBar />
       <Suspense fallback={<div>Cargando ...</div>}>
         <section className='pt-1'>
@@ -22,8 +21,7 @@ const Root = () => {
         </section>
       </Suspense>
       <Toaster position='top-right' duration={3000} />
-    </ThemeProvider>
-
+    </>
   )
 }
 

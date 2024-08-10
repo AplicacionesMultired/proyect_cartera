@@ -35,7 +35,7 @@ function LoginPage (): JSX.Element {
       .finally(() => {
         setTimeout(() => {
           setErrorString('')
-        }, 5000)
+        }, 4000)
       })
   }
 
@@ -77,7 +77,7 @@ function LoginPage (): JSX.Element {
 
       {errorString && toast.error(errorString, { description: 'Error al Iniciar Sesion', id: ' ', duration: 5000 })}
 
-      <Toaster position='top-right' duration={3000} />
+      <Toaster position='top-right' duration={4000} />
 
     </section >
   )

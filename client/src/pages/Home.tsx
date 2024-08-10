@@ -2,7 +2,7 @@ import { Card, Select, SelectItem, Switch, TextInput } from '@tremor/react'
 import { BottonExporCartera } from '../components/ExportCartera'
 import { TableDatos } from '../components/TableDatos'
 import { useCartera } from '../hooks/useCartera'
-import { Label } from '../components/ui/Label'
+import { Label } from '../components/ui'
 import { useState } from 'react'
 
 const fecha = new Intl.DateTimeFormat('es-ES', {
@@ -23,7 +23,7 @@ const Detallado = () => {
   return (
     filterVinculado && (
       <section className=''>
-         <Card className='flex gap-4 justify-between text-xs py-2 mt-0.5 dark:text-white' decoration="top" decorationColor="rose">
+         <Card className='flex gap-4 justify-between text-xs py-2 mt-0.5' decoration="top" decorationColor="rose">
           <div>
             <p className='text-center'>Fecha:</p>
             <p className='font-semibold'>{fecha}</p>
@@ -43,7 +43,7 @@ const Detallado = () => {
             <p className='text-center'>Filtro ABS {'>'} 100</p>
             <Switch color='red' id="switch" name="switch" onChange={setAbs} />
           </div>
-          <p className='flex text-center items-center text-gray-600 dark:text-white'>N° Datos Mostrados:<span className='font-semibold pl-1'>{filterVinculado.length}</span></p>
+          <p className='flex text-center items-center text-gray-600'>N° Datos Mostrados:<span className='font-semibold pl-1'>{filterVinculado.length}</span></p>
           <BottonExporCartera datos={filterVinculado} />
         </Card>
         <TableDatos data={filterVinculado} funClick={handleClick} />

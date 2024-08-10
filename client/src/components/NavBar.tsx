@@ -1,4 +1,3 @@
-import { ToggleDarkMode } from './ui/ToggleDarkMode'
 import { NavLink } from 'react-router-dom'
 import UserInfo from './ui/UserInfo'
 import { useAuth } from '../auth/AuthProvider'
@@ -51,9 +50,6 @@ export function NavBar () {
           {Links.map((link, index) => <LinkComponent key={index} link={link.link} name={link.name} />)}
         </div>
 
-        <div className='flex flex-col items-center'>
-          <ToggleDarkMode />
-        </div>
         <button className='bg-punch-700 rounded-full h-10 w-10 text-xl flex items-center justify-center cursor-pointer
            hover:bg-punch-600 dark:hover:bg-dark-tremor-brand-faint dark:bg-dark-tremor-brand-faint' ref={buttonRef}
           onClick={() => setVisible(!visible)} >
