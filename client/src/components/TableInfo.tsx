@@ -1,6 +1,6 @@
 import { DonutChart, Title } from '@tremor/react'
 import { formatPesoColombia } from '../utils/funtions'
-import { DataIU } from '../pages/Dashboard'
+import { DataIU } from '../types/interface'
 
 const dataFormatter = (number: number) =>
   `$ ${Intl.NumberFormat('co-ES').format(number).toString()}`
