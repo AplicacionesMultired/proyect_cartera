@@ -1,6 +1,5 @@
-/* eslint-disable react-refresh/only-export-components */
 import { createBrowserRouter } from 'react-router-dom'
-import { lazy } from 'react'
+import { lazy, Suspense } from 'react'
 import Root from './root'
 
 // TODO: PAGES
@@ -20,34 +19,62 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <Dashboard />
+        element: (
+          <Suspense fallback={<div>Loading...</div>}>
+            <Dashboard />
+          </Suspense>
+        )
       },
       {
         path: 'detallado',
-        element: <Detallado />
+        element: (
+          <Suspense fallback={<div>Loading...</div>}>
+            <Detallado />
+          </Suspense>
+        )
       },
       {
         path: 'bases',
-        element: <BasesPage />
+        element: (
+          <Suspense fallback={<div>Loading...</div>}>
+            <BasesPage />
+          </Suspense>
+        )
       },
       {
         path: 'base/:id',
-        element: <BasesDetalle />
+        element: (
+          <Suspense fallback={<div>Loading...</div>}>
+            <BasesDetalle />
+          </Suspense>
+        )
       },
       {
         path: 'asignarNuevaBase',
-        element: <AsignarNewBase />
+        element: (
+          <Suspense fallback={<div>Loading...</div>}>
+            <AsignarNewBase />
+          </Suspense>
+        )
       },
       {
         path: 'recaudo/:id/:estado',
-        element: <RecaudoDetail />
+        element: (
+          <Suspense fallback={<div>Loading...</div>}>
+            <RecaudoDetail />
+          </Suspense>
+        )
       },
       {
         path: '*',
-        element: <NotFound />
+        element: (
+          <Suspense fallback={<div>Loading...</div>}>
+            <NotFound />
+          </Suspense>
+        )
       }
     ]
   }
 ])
 
-export default router
+export { router }

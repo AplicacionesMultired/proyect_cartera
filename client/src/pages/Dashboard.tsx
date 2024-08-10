@@ -69,9 +69,9 @@ function Dashboard () {
 
   return (
     <>
-      <Card className='flex w-full gap-2'>
+      <section className='flex w-full gap-2'>
         <TableInfo data={data} />
-      </Card>
+      </section>
 
       <Card className='flex justify-around'>
         {
