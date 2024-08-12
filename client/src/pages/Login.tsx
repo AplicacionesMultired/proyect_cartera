@@ -55,8 +55,7 @@ function LoginPage (): JSX.Element {
             <div className='flex items-center gap-2 w-full justify-around px-2'>
               <UserIcon />
               <Input name='username' type='text' placeholder='CP1118342523' required
-                autoComplete='username' value={user}
-                onChange={(ev) => { setUser(ev.target.value) }} />
+                autoComplete='username' value={user} onChange={(ev) => { setUser(ev.target.value) }} />
             </div>
           </article>
 
@@ -65,8 +64,7 @@ function LoginPage (): JSX.Element {
             <div className='flex items-center gap-2 w-full justify-around px-2'>
               <LockIcon />
               <Input name='contraseña' type='password' placeholder='***********' required
-                autoComplete='contraseña' value={password}
-                onChange={(ev) => { setPassword(ev.target.value) }} />
+                autoComplete='contraseña' value={password} onChange={(ev) => { setPassword(ev.target.value) }} />
             </div>
           </article>
 
