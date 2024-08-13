@@ -33,39 +33,39 @@ pipeline {
             }
         }
 
-        stage('delete files on nginx if exist'){
-            steps {
-                script {
-                    if (sh(script: "sudo ls /home/containers/nginx-proxy/html/cartera", returnStatus: true) == 0) {
-                        sh "sudo rm -r /home/containers/nginx-proxy/html/cartera"
-                    } else {
-                        echo "Folder does not exist."
-                        echo "continuing..."
-                    }
-                }
-            }
-        }
+        // stage('delete files on nginx if exist'){
+        //     steps {
+        //         script {
+        //             if (sh(script: "sudo ls /home/containers/nginx-proxy/html/cartera", returnStatus: true) == 0) {
+        //                 sh "sudo rm -r /home/containers/nginx-proxy/html/cartera"
+        //             } else {
+        //                 echo "Folder does not exist."
+        //                 echo "continuing..."
+        //             }
+        //         }
+        //     }
+        // }
 
-        stage('create folder on nginx if not exist'){
-            steps {
-                script {
-                    if (sh(script: "sudo ls /home/containers/nginx-proxy/html/cartera", returnStatus: true) != 0) {
-                        sh "sudo mkdir /home/containers/nginx-proxy/html/cartera"
-                    } else {
-                        echo "Folder already exists."
-                        echo "continuing..."
-                    }
-                }
-            }
-        }
+        // stage('create folder on nginx if not exist'){
+        //     steps {
+        //         script {
+        //             if (sh(script: "sudo ls /home/containers/nginx-proxy/html/cartera", returnStatus: true) != 0) {
+        //                 sh "sudo mkdir /home/containers/nginx-proxy/html/cartera"
+        //             } else {
+        //                 echo "Folder already exists."
+        //                 echo "continuing..."
+        //             }
+        //         }
+        //     }
+        // }
 
-        stage('copy files to nginx') {
-            steps {
-                script {
-                    sh "sudo cp -r ./client/dist/* /home/containers/nginx-proxy/html/cartera"
-                }
-            }
-        }
+        // stage('copy files to nginx') {
+        //     steps {
+        //         script {
+        //             sh "sudo cp -r ./client/dist/* /home/containers/nginx-proxy/html/cartera"
+        //         }
+        //     }
+        // }
 
         stage('down docker compose'){
             steps {
@@ -94,12 +94,12 @@ pipeline {
                 }
             }
         }
-        stage('restart nginx container'){
-            steps {
-                script {
-                    sh 'docker restart nginx-proxy'
-                }
-            }
-        }
+        // stage('restart nginx container'){
+        //     steps {
+        //         script {
+        //             sh 'docker restart nginx-proxy'
+        //         }
+        //     }
+        // }
     }
 }
