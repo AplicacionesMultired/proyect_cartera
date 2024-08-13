@@ -20,8 +20,3 @@ services:
     restart: always
     # ports:
     #   - "4001:80"
-
-networks:
-  default:
-    external: true
-    name: gane-multired
