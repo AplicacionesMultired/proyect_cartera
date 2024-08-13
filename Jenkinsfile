@@ -2,7 +2,7 @@ pipeline {
     agent any
     
     tools {
-        nodejs 'node-v22' // Asegúrate de que el nombre coincide con la configuración en Jenkins
+        nodejs 'node-v22'
     }
 
     environment {
@@ -14,11 +14,9 @@ pipeline {
         stage('Copy .env files') {
             steps {
                 script {
-                    // Read the content of the credential files
                     def envApiContent = readFile(ENV_API_CARTERA)
                     def envClientContent = readFile(ENV_CLIENT_CARTERA)
                     
-                    // Write the content to the respective .env files
                     writeFile file: './api/.env', text: envApiContent
                     writeFile file: './client/.env', text: envClientContent
                 }
@@ -32,40 +30,6 @@ pipeline {
                 }
             }
         }
-
-        // stage('delete files on nginx if exist'){
-        //     steps {
-        //         script {
-        //             if (sh(script: "sudo ls /home/containers/nginx-proxy/html/cartera", returnStatus: true) == 0) {
-        //                 sh "sudo rm -r /home/containers/nginx-proxy/html/cartera"
-        //             } else {
-        //                 echo "Folder does not exist."
-        //                 echo "continuing..."
-        //             }
-        //         }
-        //     }
-        // }
-
-        // stage('create folder on nginx if not exist'){
-        //     steps {
-        //         script {
-        //             if (sh(script: "sudo ls /home/containers/nginx-proxy/html/cartera", returnStatus: true) != 0) {
-        //                 sh "sudo mkdir /home/containers/nginx-proxy/html/cartera"
-        //             } else {
-        //                 echo "Folder already exists."
-        //                 echo "continuing..."
-        //             }
-        //         }
-        //     }
-        // }
-
-        // stage('copy files to nginx') {
-        //     steps {
-        //         script {
-        //             sh "sudo cp -r ./client/dist/* /home/containers/nginx-proxy/html/cartera"
-        //         }
-        //     }
-        // }
 
         stage('down docker compose'){
             steps {
@@ -94,12 +58,5 @@ pipeline {
                 }
             }
         }
-        // stage('restart nginx container'){
-        //     steps {
-        //         script {
-        //             sh 'docker restart nginx-proxy'
-        //         }
-        //     }
-        // }
     }
 }
