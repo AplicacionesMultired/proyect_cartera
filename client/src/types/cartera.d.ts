@@ -17,4 +17,5 @@ export interface CarteraI {
   Vtabnet: number;
   CuadreWeb: number;
   Anulados: number;
+  Zona: string;
 }

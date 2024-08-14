@@ -8,6 +8,7 @@ export type SellerAttributes = {
     CARGO: string
     VERSION: string
     NOMBRECARGO: 'COLOCADOR_INDEPENDIENTE' | 'VENDEDOR' | 'CAJERO_RESORERIA' | null
+    CCOSTO: string
 }
 
 type UserCreationAttributes = Optional<SellerAttributes, 'DOCUMENTO'>
@@ -19,6 +20,7 @@ class Sellers extends Model<SellerAttributes, UserCreationAttributes> {
     declare CARGO: string
     declare VERSION: string
     declare NOMBRECARGO: 'COLOCADOR_INDEPENDIENTE' | 'VENDEDOR' | 'CAJERO_RESORERIA' | null
+    declare CCOSTO: string
 }
 
 Sellers.init({
@@ -28,6 +30,7 @@ Sellers.init({
     NOMBRES: { type: DataTypes.STRING, allowNull: true },
     VERSION: { type: DataTypes.STRING, allowNull: true },
     NOMBRECARGO: { type: DataTypes.STRING, allowNull: true },
+    CCOSTO: { type: DataTypes.STRING, allowNull: true }
 }, {
     sequelize: conection,
     modelName: 'Seller',

@@ -38,7 +38,8 @@ export function mapCarteraResults(results: any) {
     Digitados: item.DIGITADOS,
     Vtabnet: item.VTABNET,
     CuadreWeb: item.VTASIISS,
-    Anulados: item.VTA_S1
+    Anulados: item.VTA_S1,
+    Zona: ReturnZona(item.Seller?.CCOSTO)
   }));
 }
 
@@ -71,3 +72,14 @@ export const sumarCarteraPorEmpresaYCargo = (carteras: ObjectCartera[]) => {
 
   return resumen;
 };
+
+export function ReturnZona (zona: string): string {
+  const zonas: { [key: string]: string } = {
+    '39629': 'Yumbo',
+    '39630': 'Vijes',
+    '39631': 'La Cumbre',
+    '39632': 'Jamundi'
+  };
+
+  return zonas[zona] || 'No_Definido';
+}
