@@ -23,4 +23,4 @@ services:
 
 networks:
   red-gane-int:
-    external: true
+    driver: bridge
