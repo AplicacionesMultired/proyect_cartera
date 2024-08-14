@@ -23,7 +23,8 @@ const generateExcelData = (datos: CarteraI[]): unknown[] => {
       N: 'DIGITADOS',
       O: 'VENTA BNET',
       P: 'CUADRE WEB',
-      Q: 'ANULADOS'
+      Q: 'ANULADOS',
+      R: 'ZONA'
     }
   ]
 
@@ -44,7 +45,8 @@ const generateExcelData = (datos: CarteraI[]): unknown[] => {
     N: it.Digitados.toString(),
     O: it.Vtabnet.toString(),
     P: it.CuadreWeb.toString(),
-    Q: it.Anulados.toString()
+    Q: it.Anulados.toString(),
+    R: it.Zona
   }))
 
   return [...titulo, ...headers, ...rows]
