@@ -11,7 +11,7 @@ function UpdatesBasesInfo ({ data }: { data: BasesIUpdates[] }) {
         {
           data && (
             data.map((update, index) => (
-              <div key={index} className='grid grid-cols-3 gap-1 px-4 py-2 bg-slate-200 rounded-md'>
+              <div key={index} className='grid grid-cols-3 gap-1 px-4 py-2 border rounded-md'>
                 <p><span>Fecha: </span>{new Date(update.FECHA).toLocaleDateString()} <span>{new Date(update.FECHA).toLocaleTimeString()}</span></p>
                 <p>Base Nueva: <Badge color='green'>{formatPesoColombia(update.BASE_NEW)}</Badge></p>
                 <p>Base Anterior: <Badge color='red'>{formatPesoColombia(update.BASE_ANT)}</Badge> </p>
