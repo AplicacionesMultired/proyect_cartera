@@ -1,7 +1,7 @@
 import { PropsCrating } from '../types/interface'
 import { useAuth } from '../auth/AuthProvider'
 import { useNavigate } from 'react-router-dom'
-import { Button, Input, Label } from './ui'
+import { Button, CloseIcon, Input, Label } from './ui'
 import { FormEvent, useState } from 'react'
 import { API_URL } from '../utils/contanst'
 import { Card } from '@tremor/react'
@@ -46,9 +46,11 @@ export function FormCreate ({ nombres, vinculado, funClose }: PropsCrating) {
 
   return (
     <section className='flex items-center justify-center w-full h-[99.5vh] bg-slate-900 bg-opacity-50 z-20 absolute top-1'>
-      <Card className="z-30 xl:w-[650px] max-w-[720px] px-5 flex flex-col items-center justify-center bg-punch-300">
-        <Button onClick={funClose} color='red'>Cancelar</Button>
-        <h3 className='text-center text-xl font-semibold my-4'>Asignación Nueva Base a Vinculado</h3>
+      <Card className="z-30 xl:w-[650px] max-w-[720px] px-5 flex flex-col items-center justify-center bg-gray-300">
+        <button onClick={funClose} className='absolute top-0 right-0 p-2 hover:text-red-500'>
+          <CloseIcon />
+        </button>
+        <h3 className='text-center text-xl font-semibold pb-2'>Asignación Nueva Base a Vinculado</h3>
         <form className='grid grid-cols-2 gap-4' onSubmit={ev => handleSubmit(ev)}>
           <div className="">
             <Label>Nombres</Label>
