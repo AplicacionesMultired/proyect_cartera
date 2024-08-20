@@ -10,23 +10,33 @@ function Dashboard () {
   const [recaudo, setRecaudo] = useState<RecaudoI>({ multired: [], servired: [] })
 
   useEffect(() => {
-    axios.get(`${API_URL}/resumenCartera`)
-      .then((res) => {
+    const fetchData = async () => {
+      try {
+        const res = await axios.get(`${API_URL}/resumenCartera`)
         setData(res.data)
-      })
-      .catch((err) => {
+      } catch (err) {
         console.error(err)
-      })
-  }, [])
+      }
+    }
 
-  useEffect(() => {
-    axios.get(`${API_URL}/resumenRecaudo`)
-      .then((res) => {
+    const fetchRecaudo = async () => {
+      try {
+        const res = await axios.get(`${API_URL}/resumenRecaudo`)
         setRecaudo(res.data)
-      })
-      .catch((err) => {
+      } catch (err) {
         console.error(err)
-      })
+      }
+    }
+
+    fetchData()
+    fetchRecaudo()
+
+    const interval = setInterval(() => {
+      fetchData()
+      fetchRecaudo()
+    }, 900000) // 15 minutes in milliseconds
+
+    return () => clearInterval(interval)
   }, [])
 
   return (
