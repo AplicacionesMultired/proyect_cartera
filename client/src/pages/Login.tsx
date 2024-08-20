@@ -40,7 +40,7 @@ function LoginPage (): JSX.Element {
   }
 
   return (
-    <section className="w-screen h-screen flex bg-gradient-to-b from-blue-200 to-blue-300 relative">
+    <section className="w-screen h-screen flex bg-gradient-to-b from-punch-200 to-punch-300 relative">
       <figure className='w-full'>
         <img src="logo.webp" alt="logo para cartera" className='h-full' loading='lazy'/>
       </figure>
