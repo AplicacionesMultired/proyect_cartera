@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState } from 'react'
-import { LOGIN_URL } from '../utils/contanst'
+import { APP_NAME, LOGIN_URL } from '../utils/contanst'
 import { type User } from '../types/user'
 import axios from 'axios'
 
@@ -19,7 +19,15 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }): JSX.E
   const [user, setUser] = useState<User>(InitialUser)
 
   useEffect(() => {
-    axios.get(`${LOGIN_URL}/profile`, { params: { app: 'cartera' } })
+    const cookie = document.cookie
+
+    if (!cookie && cookie.split('=')[0] !== APP_NAME) {
+      setIsAuthenticated(false)
+      setUser(InitialUser)
+      return
+    }
+
+    axios.get(`${LOGIN_URL}/profile`, { params: { app: APP_NAME } })
       .then(res => {
         if (res.status === 200) {
           setIsAuthenticated(true)
@@ -32,7 +40,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }): JSX.E
           setUser(InitialUser)
         }
       })
-  }, [setIsAuthenticated])
+  }, [isAuthenticated])
 
   return (
     <AuthContext.Provider value={{ isAuthenticated, setIsAuthenticated, user, setUser }}>

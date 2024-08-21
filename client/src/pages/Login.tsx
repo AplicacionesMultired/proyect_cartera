@@ -1,27 +1,27 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { UserIcon, LockIcon } from '../components/icons'
 import { Input, Button, Label } from '../components/ui'
-import { useAuth } from '../auth/AuthProvider'
 import { toast, Toaster } from 'sonner'
 import { useState } from 'react'
 import axios from 'axios'
 
-import { LOGIN_URL } from '../utils/contanst'
+import { LOGIN_URL, APP_NAME } from '../utils/contanst'
+import { useAuth } from '../auth/AuthProvider'
 
 function LoginPage (): JSX.Element {
-  const { setIsAuthenticated, setUser: setUserContext } = useAuth()
   const [errorString, setErrorString] = useState('')
   const [password, setPassword] = useState('')
   const [user, setUser] = useState('')
+  const { setIsAuthenticated } = useAuth()
 
   const handleSubmit = (ev: React.FormEvent) => {
     ev.preventDefault()
 
-    axios.post(`${LOGIN_URL}/login`, { username: user, password, app: 'cartera' })
+    axios.post(`${LOGIN_URL}/login`, { username: user, password, app: APP_NAME })
       .then(res => {
         if (res.status === 200) {
+          console.log(res.data)
           setIsAuthenticated(true)
-          setUserContext(res.data.usuario)
         }
       })
       .catch(error => {
