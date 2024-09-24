@@ -1,3 +1,4 @@
+import { useAuth } from '../../auth/AuthProvider'
 import { LOGIN_URL } from '../../utils/contanst'
 import { User } from '../../types/user'
 import { LogoutIcon } from '../icons'
@@ -6,15 +7,18 @@ import axios from 'axios'
 
 interface Props {
   user: User
-  stateAuth: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-function UserInfo ({ user, stateAuth }: Props) {
+function UserInfo({ user }: Props) {
+  const { setUser, setIsAuthenticated } = useAuth()
+
   const handleLogout = () => {
     const token = document.cookie
     axios.post(`${LOGIN_URL}/logout`, { token })
-      .then((res) => {
-        if (res.status === 200) stateAuth(false)
+      .then(res => {
+        console.log(res.data)
+        setUser({ username: '', email: '', names: '', lastnames: '', company: '', process: '', sub_process: '', id: '', app: '' })
+        setIsAuthenticated(false)
       })
       .catch(err => console.log(err))
   }

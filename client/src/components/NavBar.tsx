@@ -18,7 +18,7 @@ const LinkComponent = ({ link, name }: { link: string, name: string }) => {
 }
 
 export function NavBar () {
-  const { setIsAuthenticated, user } = useAuth()
+  const { user } = useAuth()
   const [visible, setVisible] = useState(false)
   const buttonRef = useRef<HTMLButtonElement>(null)
   const menuRef = useRef<HTMLDivElement>(null)
@@ -64,7 +64,7 @@ export function NavBar () {
         <div
           ref={menuRef}
           className='absolute z-20 bg-punch-300 right-2 top-16 px-5 py-2 mt-1 rounded-md flex flex-col items-center gap-1'>
-          <UserInfo key={user.id} user={user} stateAuth={setIsAuthenticated} />
+          <UserInfo key={user.id} user={user} />
         </div>
       )}
     </nav>

@@ -5,9 +5,9 @@ import LoginPage from '../pages/Login'
 import { Toaster } from 'sonner'
 
 const Root = () => {
-  const { isAuthenticated } = useAuth()
+  const { user, isAuthenticated } = useAuth()
 
-  if (!isAuthenticated) {
+  if (!user.id || !isAuthenticated) {
     return <LoginPage />
   }
 
