@@ -1,5 +1,5 @@
 import { DataTypes, Model } from "sequelize";
-import { conection } from '../connections/POWERBI'
+import { conection } from '../connections'
 
 class Aud_Bases extends Model { }
 
