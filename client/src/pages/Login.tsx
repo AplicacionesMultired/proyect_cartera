@@ -25,12 +25,15 @@ function LoginPage (): JSX.Element {
         }
       })
       .catch(error => {
-        console.log(error)
         if (error.message === 'Network Error') {
           setErrorString('Error de conexión, y/o Red, contacte al administrador del sistema')
           return
         }
-        setErrorString(error.response.data)
+        if (error.response.status === 400) {
+          setErrorString('Usuario o contraseña incorrectos')
+          return
+        }
+        console.log(error)
       })
       .finally(() => {
         setTimeout(() => {
